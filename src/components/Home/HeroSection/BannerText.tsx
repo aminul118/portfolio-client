@@ -6,11 +6,11 @@ import { Typewriter } from 'react-simple-typewriter';
 
 const BannerText = () => {
   return (
-    <div className="flex flex-col h-full justify-center pb-12 gap-3 text-white/60">
+    <div className="flex flex-col h-full justify-center pb-12 gap-6 text-white/60">
       <p>I'm</p>
       <h1 className="text-3xl lg:text-4xl font-bold">
         <Typewriter
-          words={['Aminul Islam', 'A Front-end Developer', 'A quicker thinker']}
+          words={['Md. Aminul Islam', 'Full Stack Developer', 'SEO Expert']}
           loop
           cursor
           cursorStyle="_"
@@ -20,8 +20,8 @@ const BannerText = () => {
         />
       </h1>
       <p>
-        Creative front-end developer with Proficient in JavaScript, TypeScript, React, Next js,
-        MongoDB, Node JS. Passionate about programming.
+        Creative front-end & Backend developer with Proficient in JavaScript, TypeScript, React,
+        Next js, MongoDB, Node JS. Passionate about programming and SEO.
       </p>
       <Logo />
       <DownloadResume />

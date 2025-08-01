@@ -1,11 +1,10 @@
 import { staticRoutes } from '@/Seo/staticRoutes';
 import { Routes } from '@/types';
-import type { MetadataRoute } from 'next';
 
 const baseUrl = 'https://www.aminuldev.site';
 const lastModified = new Date();
 
-const generateSitemapEntries = (routes: Routes[]): MetadataRoute.Sitemap => {
+const generateSitemapEntries = (routes: Routes[]) => {
   return routes.map((route) => ({
     url: `${baseUrl}/${route?.url}`.replace(/\/+$/, ''),
     lastModified,
@@ -14,7 +13,7 @@ const generateSitemapEntries = (routes: Routes[]): MetadataRoute.Sitemap => {
   }));
 };
 
-const sitemap = (): MetadataRoute.Sitemap => {
+const sitemap = () => {
   return [...generateSitemapEntries(staticRoutes)];
 };
 

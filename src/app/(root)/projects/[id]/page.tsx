@@ -19,7 +19,7 @@ const page = async ({ params }: TParams) => {
   console.log(data);
 
   return (
-    <div className="container mx-auto py-8 px-2 pt-24">
+    <div className="container mx-auto py-8 px-2 pt-24" data-aos="fade-left">
       {data.length > 0 && (
         <div className="space-y-3">
           <h1 className="text-3xl font-semibold">{data[0].project_name}</h1>

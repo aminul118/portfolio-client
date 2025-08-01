@@ -3,7 +3,7 @@ import experiences from '@/constants/experiences';
 
 const Experience = () => {
   return (
-    <div className="py-16 container mx-auto px-2 " id="experience">
+    <div className="py-16 container mx-auto px-2 " id="experience" data-aos="fade-up">
       <SectionHeading
         heading="Experience"
         description="A showcase of my work blending creativity and functionality, featuring interactive designs, seamless development, and innovative solutions."

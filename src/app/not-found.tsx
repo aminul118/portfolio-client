@@ -8,7 +8,7 @@ const NotFound = () => {
     <div className="flex flex-col items-center justify-center min-h-screen text-center px-4">
       <SearchSlash size={80} className="text-muted-foreground mb-6" />
       <SectionHeading
-        title="Oops! Page not found"
+        heading="Oops! Page not found"
         description="We couldn’t find the page you were looking for."
       />
       <Button asChild>

@@ -5,7 +5,7 @@ import SectionHeading from '../ui/SectionHeading';
 
 const Education = () => {
   return (
-    <div className="container mx-auto px-1">
+    <div className="container mx-auto px-1" data-aos="fade-up">
       <SectionHeading heading="Education Journey" />
       <Image
         src="/assets/education/diu2.jpg"

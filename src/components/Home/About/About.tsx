@@ -10,22 +10,19 @@ const About = () => {
       <SectionHeading heading="About Me" />
       <div className="flex flex-col lg:flex-row items-center justify-between gap-12 ">
         <AboutImage />
-        <div className="mt-6 max-w-2xl flex-1 text-white/60">
+        <div className="mt-6 max-w-2xl flex-1 text-white/60" data-aos="fade-right">
           <p>
-            I am Md. Aminul Islam, a professional web developer specializing in
-            frontend and backend development.
+            I am Md. Aminul Islam, a professional web developer specializing in frontend and backend
+            development.
           </p>
           <ul className="list-disc list-inside mt-3">
-            <li>
-              Frontend: HTML, CSS, Tailwind, JavaScript, TypeScript, React JS,
-              Next JS
-            </li>
+            <li>Frontend: HTML, CSS, Tailwind, JavaScript, TypeScript, React JS, Next JS</li>
             <li>Backend: Node JS, Express, Firebase</li>
             <li>Databases: MongoDB</li>
           </ul>
           <p className="mt-3">
-            I focus on creating intuitive user experiences and developing
-            scalable, efficient web applications.
+            I focus on creating intuitive user experiences and developing scalable, efficient web
+            applications.
           </p>
           <div className="mt-4">
             <Link

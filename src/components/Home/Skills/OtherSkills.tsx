@@ -7,6 +7,7 @@ const OtherSkills = () => {
     <div
       className="2xl:flex flex-col justify-center container mx-auto px-4 py-12 lg:py-20 text-white/60"
       id="other-skills"
+      data-aos="fade-up"
     >
       <SectionHeading
         heading="Additional Skills"

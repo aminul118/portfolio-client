@@ -2,10 +2,10 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Shah Mubarak',
-    short_name: 'Shah Mubarak',
+    name: 'Md Aminul Islam',
+    short_name: 'Aminul',
     description:
-      'A1 Lifts and Engineering is a trusted provider of elevators, escalators, and lift maintenance services in Bangladesh.',
+      'Md. Aminul Islam, a professional web developer specializing in frontend and backend development.',
     start_url: '/',
     display: 'standalone',
     background_color: '#021D2E',
