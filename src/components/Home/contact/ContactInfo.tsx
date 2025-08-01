@@ -5,13 +5,12 @@ import Logo from '../../common/Logo';
 
 const ContactInfo = () => {
   return (
-    <div className=" p-6 rounded-lg  mx-auto">
+    <div className=" p-6 rounded-lg  mx-auto text-primary/80">
       <h2 className="text-2xl font-bold mb-4 ">Contact Information</h2>
       <p>
-        Thanks for stopping by! If you have any questions, ideas, or simply want
-        to collaborate, feel free to reach out. Use the contact details below or
-        fill out the quick form to send me a message directly. I'm excited to
-        connect and create something amazing together!
+        Thanks for stopping by! If you have any questions, ideas, or simply want to collaborate,
+        feel free to reach out. Use the contact details below or fill out the quick form to send me
+        a message directly. I'm excited to connect and create something amazing together!
       </p>
       <div className="space-y-2 mt-4">
         <p className="text-2xl font-bold">Contact</p>

@@ -1,10 +1,12 @@
-import React from 'react';
 import AboutImage from '@/components/Home/About/AboutImage';
 import { aboutMe, hobbies } from '@/constants/aboutMe';
 
-const AboutPage: React.FC = () => {
+const AboutPage = () => {
   return (
-    <div className="min-h-[calc(100vh-332px)] flex flex-col justify-center container mx-auto px-4 py-8 text-white/60 pt-24">
+    <div
+      className="min-h-[calc(100vh-332px)] flex flex-col justify-center container mx-auto px-4 py-8 text-white/60 pt-24"
+      data-aos="fade-left"
+    >
       <div className="flex flex-col lg:flex-row justify-between gap-12">
         <div className="ml-6 mt-6">
           <AboutImage />

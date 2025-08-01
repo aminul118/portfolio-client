@@ -3,7 +3,7 @@ import React from 'react';
 
 const AboutImage = () => {
   return (
-    <div className="relative w-48 h-48" data-aos="fade-left">
+    <div className="relative w-48 h-48">
       <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 rounded-[20%] transform rotate-45"></div>
       <div className="relative w-full h-full flex justify-center items-center overflow-hidden rounded-[20%] transform rotate-45 bg-black">
         <div className="w-full h-full transform -rotate-45">
