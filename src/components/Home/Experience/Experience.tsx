@@ -14,6 +14,7 @@ const Experience = () => {
           <div
             key={i}
             className="bg-slate-950 shadow-lg rounded-lg p-8 hover:shadow-xl transition-shadow duration-300"
+            data-aos="fade-up"
           >
             <h3 className="text-xl font-semibold text-white">{exp.title}</h3>
             <p className="text-md text-white/90">{exp.company}</p>

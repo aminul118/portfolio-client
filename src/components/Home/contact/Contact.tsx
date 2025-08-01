@@ -5,7 +5,7 @@ import SectionHeading from '@/components/ui/SectionHeading';
 
 const Contact = () => {
   return (
-    <div className="container mx-auto py-12 lg:py-20" id="contact" data-aos="fade-up">
+    <div className="container mx-auto py-12 lg:py-20" id="contact">
       <SectionHeading heading="Contact Me" />
       <div className="grid lg:grid-cols-2">
         <ContactInfo />

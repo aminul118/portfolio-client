@@ -51,7 +51,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className=" p-6 rounded-lg w-full mx-auto mt-6">
+    <div className=" p-6 rounded-lg w-full mx-auto mt-6" data-aos="fade-left">
       <h2 className="text-2xl font-bold mb-4 text-center">Contact Me</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-lg mx-auto">
         {/* Name Field */}

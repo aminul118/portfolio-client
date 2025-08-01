@@ -5,7 +5,7 @@ import Logo from '../../common/Logo';
 
 const ContactInfo = () => {
   return (
-    <div className=" p-6 rounded-lg  mx-auto text-primary/80">
+    <div className=" p-6 rounded-lg  mx-auto text-primary/80" data-aos="fade-right">
       <h2 className="text-2xl font-bold mb-4 ">Contact Information</h2>
       <p>
         Thanks for stopping by! If you have any questions, ideas, or simply want to collaborate,
