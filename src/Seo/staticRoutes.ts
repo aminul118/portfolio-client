@@ -1,8 +1,13 @@
 import { Routes } from '@/types';
 
-export const staticRoutes: Routes[] = [
+const staticRoutes: Routes[] = [
   {
     url: '',
+    changeFrequency: 'monthly',
+    priority: 1.0,
+  },
+  {
+    url: 'about',
     changeFrequency: 'monthly',
     priority: 1.0,
   },
@@ -12,3 +17,5 @@ export const staticRoutes: Routes[] = [
     priority: 1.0,
   },
 ];
+
+export { staticRoutes };

@@ -1,41 +1,44 @@
 import { MetaProps } from '@/types';
 import { Metadata } from 'next';
 
-const baseUrl = 'https://www.shahmubaruk.com';
+const baseUrl = 'https://www.aminuldev.site';
 
-export const generateMetaTags = ({
+const generateMetaTags = ({
   title,
   description,
   keywords,
-  image = './ss/hero-bg.png',
+  image = '/assets/banner/aminul.png',
   path = '',
 }: MetaProps): Metadata => {
+  const normalizedPath = path ? `${baseUrl}/${path}` : baseUrl;
+  const imageUrl = image.startsWith('http') ? image : `${baseUrl}${image}`;
+
   return {
     metadataBase: new URL(baseUrl),
     title,
     description,
     keywords,
-    category: 'Investor',
+    category: 'Portfolio',
     openGraph: {
       type: 'website',
-      url: `${baseUrl}/${path}`,
-      title: title,
-      description: description,
-      siteName: 'Shah Mubarak',
-      images: [{ url: image, alt: title }],
+      url: normalizedPath,
+      title,
+      description,
+      siteName: 'Aminul Islam',
+      images: [{ url: imageUrl, alt: title }],
     },
     robots: { index: true, follow: true },
     twitter: {
       card: 'summary_large_image',
-      site: '@shahmubarak',
-      creator: '@shahmubarak',
+      site: '@aminuldev',
+      creator: '@aminuldev',
       title,
       description,
-      images: image,
+      images: [imageUrl],
     },
-    applicationName: 'Shah Mubarak',
+    applicationName: 'Aminul Islam',
     alternates: {
-      canonical: `${baseUrl}/${path}`,
+      canonical: normalizedPath,
       languages: {
         'en-US': `${baseUrl}/en-US`,
       },
@@ -44,9 +47,10 @@ export const generateMetaTags = ({
     manifest: '/manifest.webmanifest',
     authors: [
       {
-        name: 'Shah Mubarak',
-        // url: "http://www.shrlbd.com/team/675663806e9379ed3c2a6f99",
+        name: 'Aminul Islam',
       },
     ],
   };
 };
+
+export { generateMetaTags };

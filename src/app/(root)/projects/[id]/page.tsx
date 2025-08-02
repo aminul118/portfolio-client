@@ -1,4 +1,5 @@
 import AllProjects from '@/constants/AllProjects';
+import { generateMetaTags } from '@/Seo/genarateMetaTags';
 import { IProjects, TParams } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,16 +10,36 @@ export async function generateMetadata({ params }: TParams) {
   const { id } = await params;
   const numericId = Number(id);
   const project = AllProjects.find((p: IProjects) => p.id === numericId);
+
+  if (!project) {
+    return generateMetaTags({
+      title: 'Project Not Found - Aminul Portfolio',
+      description: 'This project could not be found.',
+      keywords: 'projects, portfolio, aminul',
+      path: `projects/${id}`,
+      image: '/ss/hero-bg.png',
+    });
+  }
+
+  return generateMetaTags({
+    title: `${project.project_name} - Aminul Portfolio`,
+    description:
+      project.about?.slice(0, 150) || 'Project details about Aminul portfolio.',
+    keywords: project.tech?.join(', ') || '',
+    path: `projects/${id}`,
+    image: project.project_img
+      ? `https://aminuldev.site${project.project_img}`
+      : '/assets/banner/aminul.png',
+  });
 }
 
-const page = async ({ params }: TParams) => {
+const ProjectDetailsPage = async ({ params }: TParams) => {
   const { id } = await params;
   const numericId = Number(id);
 
   const data = AllProjects.filter(
     (project: IProjects) => project.id === numericId,
   );
-  console.log(data);
 
   return (
     <div className="container mx-auto py-8 px-2 pt-24" data-aos="fade-left">
@@ -31,7 +52,7 @@ const page = async ({ params }: TParams) => {
             height={400}
             alt={data[0].project_name}
             className="mx-auto container lg:h-[600px] object-cover rounded-md"
-            priority={true}
+            priority
           />
           <p>{data[0].about}</p>
 
@@ -69,4 +90,4 @@ const page = async ({ params }: TParams) => {
   );
 };
 
-export default page;
+export default ProjectDetailsPage;
