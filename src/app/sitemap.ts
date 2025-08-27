@@ -1,5 +1,5 @@
 import metaConfig from '@/config/seo.config';
-import { staticRoutes } from '@/seo/staticRoutes';
+import { staticRoutes } from '@/Seo/staticRoutes';
 import { Routes } from '@/types';
 import { MetadataRoute } from 'next';
 

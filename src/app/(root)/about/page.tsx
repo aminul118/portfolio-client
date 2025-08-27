@@ -1,6 +1,6 @@
 import AboutImage from '@/components/modules/About/AboutImage';
 import { aboutMe, hobbies } from '@/constants/aboutMe';
-import generateMetaTags from '@/seo/generateMetaTags';
+import generateMetaTags from '@/Seo/generateMetaTags';
 
 import { Metadata } from 'next';
 

@@ -5,7 +5,7 @@ import AosProvider from '@/providers/AosProvider';
 import { Toaster } from 'sonner';
 import { Metadata } from 'next';
 import { IChildren } from '@/types';
-import generateMetaTags from '@/seo/generateMetaTags';
+import generateMetaTags from '@/Seo/generateMetaTags';
 
 // >> SEO Start
 export const metadata: Metadata = generateMetaTags({

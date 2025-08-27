@@ -6,7 +6,7 @@ import HeroBanner from '@/components/modules/HeroSection/HeroBanner';
 import Projects from '@/components/modules/Projects/Projects';
 import OtherSkills from '@/components/modules/Skills/OtherSkills';
 import Skills from '@/components/modules/Skills/Skills';
-import generateMetaTags from '@/seo/generateMetaTags';
+import generateMetaTags from '@/Seo/generateMetaTags';
 import { Metadata } from 'next';
 
 // >> SEO Start
