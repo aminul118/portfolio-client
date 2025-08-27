@@ -1,7 +1,6 @@
-import { Children } from '@/types';
-import React from 'react';
+import { IChildren } from '@/types';
 
-type classNameProps = Children & {
+type classNameProps = IChildren & {
   className?: string;
   id?: string;
   backgroundColor?: string;

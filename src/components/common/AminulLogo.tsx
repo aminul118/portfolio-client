@@ -1,3 +1,4 @@
+import icons from '@/constants/icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -11,7 +12,7 @@ const AminulLogo = () => {
         className="text-2xl font-semibold flex items-center"
       >
         <Image
-          src="/logo.svg"
+          src={icons.logo}
           height={40}
           width={40}
           alt="Md Aminul Islam Developer logo"

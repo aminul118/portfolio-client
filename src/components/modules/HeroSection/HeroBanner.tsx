@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import BannerText from './BannerText';
+import images from '@/constants/images';
 
 const HeroBanner = () => {
   return (
@@ -9,7 +10,7 @@ const HeroBanner = () => {
           <BannerText />
         </div>
         <Image
-          src="/assets/banner/aminul.png"
+          src={images.banner.hero}
           width={500}
           height={300}
           alt="aminul islam web developer image"

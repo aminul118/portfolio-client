@@ -1,5 +1,3 @@
-import React from 'react';
-
 type SectionBannerProps = {
   heading?: string;
   description?: string;

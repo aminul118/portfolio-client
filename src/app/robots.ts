@@ -1,3 +1,4 @@
+import metaConfig from '@/config/seo.config';
 import type { MetadataRoute } from 'next';
 
 const robots = (): MetadataRoute.Robots => {
@@ -7,7 +8,7 @@ const robots = (): MetadataRoute.Robots => {
       allow: '*',
       disallow: '/private/',
     },
-    sitemap: 'https://www.aminuldev.site/sitemap.xml',
+    sitemap: `${metaConfig.baseUrl}/sitemap.xml`,
   };
 };
 

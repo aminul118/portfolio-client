@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Link from 'next/link';
 import AboutImage from './AboutImage';
 import SectionHeading from '@/components/ui/SectionHeading';

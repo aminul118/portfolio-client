@@ -1,11 +1,12 @@
 import Image from 'next/image';
-import Logo from '../common/Logo';
+import Logo from '../../common/Logo';
+import icons from '@/constants/icons';
 
 const Footer = () => {
   return (
     <footer className=" bg-slate-900 flex flex-col items-center gap-3 p-10 text-primary/80">
       <Image
-        src="/logo.svg"
+        src={icons.logo}
         width={60}
         height={60}
         alt="Aminul Islam Developer Logo footer"

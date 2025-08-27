@@ -1,5 +1,3 @@
-import React from 'react';
-
 type HeadingType = {
   heading: string;
   description?: string;

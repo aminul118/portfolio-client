@@ -1,14 +1,12 @@
-import { staticRoutes } from '@/SEO/staticRoutes';
+import metaConfig from '@/config/seo.config';
+import { staticRoutes } from '@/seo/staticRoutes';
 import { Routes } from '@/types';
-import type { MetadataRoute } from 'next';
-
-const baseUrl = 'https://www.aminuldev.site';
-const lastModified = new Date();
+import { MetadataRoute } from 'next';
 
 const generateSitemapEntries = (routes: Routes[]): MetadataRoute.Sitemap => {
   return routes.map((route) => ({
-    url: `${baseUrl}/${route?.url}`.replace(/\/+$/, ''),
-    lastModified,
+    url: `${metaConfig.baseUrl}/${route?.url}`.replace(/\/+$/, ''),
+    lastModified: new Date(),
     changeFrequency: route?.changeFrequency,
     priority: route?.priority,
   }));

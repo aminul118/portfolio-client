@@ -1,5 +1,5 @@
+import images from '@/constants/images';
 import Image from 'next/image';
-import React from 'react';
 
 const AboutImage = () => {
   return (
@@ -8,7 +8,7 @@ const AboutImage = () => {
       <div className="relative w-full h-full flex justify-center items-center overflow-hidden rounded-[20%] transform rotate-45 bg-black">
         <div className="w-full h-full transform -rotate-45">
           <Image
-            src="/assets/about/aminul.jpg"
+            src={images.aminul2}
             alt="Profile Picture"
             width={400}
             height={400}

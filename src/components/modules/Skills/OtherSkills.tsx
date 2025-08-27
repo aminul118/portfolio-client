@@ -1,4 +1,3 @@
-import React from 'react';
 import othersSkillsData from './OtherSkillsData';
 import SectionHeading from '@/components/ui/SectionHeading';
 

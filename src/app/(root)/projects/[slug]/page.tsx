@@ -1,14 +1,14 @@
 import AllProjects from '@/constants/AllProjects';
-import { generateMetaTags } from '@/SEO/genarateMetaTags';
-import { IProjects, TParams } from '@/types';
+import generateMetaTags from '@/seo/generateMetaTags';
+import { IParams, IProjects } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { FaLink } from 'react-icons/fa';
 
-export async function generateMetadata({ params }: TParams) {
-  const { id } = await params;
-  const numericId = Number(id);
+export async function generateMetadata({ params }: IParams) {
+  const { slug } = await params;
+  const numericId = Number(slug);
   const project = AllProjects.find((p: IProjects) => p.id === numericId);
 
   if (!project) {
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: TParams) {
       title: 'Project Not Found - Aminul Portfolio',
       description: 'This project could not be found.',
       keywords: 'projects, portfolio, aminul',
-      path: `projects/${id}`,
+      websitePath: `projects/${slug}`,
       image: '/ss/hero-bg.png',
     });
   }
@@ -26,16 +26,16 @@ export async function generateMetadata({ params }: TParams) {
     description:
       project.about?.slice(0, 150) || 'Project details about Aminul portfolio.',
     keywords: project.tech?.join(', ') || '',
-    path: `projects/${id}`,
+    websitePath: `projects/${slug}`,
     image: project.project_img
       ? `https://aminuldev.site${project.project_img}`
       : '/assets/banner/aminul.png',
   });
 }
 
-const ProjectDetailsPage = async ({ params }: TParams) => {
-  const { id } = await params;
-  const numericId = Number(id);
+const ProjectDetailsPage = async ({ params }: IParams) => {
+  const { slug } = await params;
+  const numericId = Number(slug);
 
   const data = AllProjects.filter(
     (project: IProjects) => project.id === numericId,

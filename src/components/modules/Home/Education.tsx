@@ -1,14 +1,13 @@
-import React from 'react';
-
 import Image from 'next/image';
-import SectionHeading from '../ui/SectionHeading';
+import images from '@/constants/images';
+import SectionHeading from '@/components/ui/SectionHeading';
 
 const Education = () => {
   return (
     <div className="container mx-auto px-1" data-aos="fade-up">
       <SectionHeading heading="Education Journey" />
       <Image
-        src="/assets/education/diu2.jpg"
+        src={images.daffodil}
         width={1900}
         height={400}
         alt="Daffodil International University"
