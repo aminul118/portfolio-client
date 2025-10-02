@@ -1,6 +1,6 @@
-import ContactInfo from './ContactInfo';
-import ContactForm from './ContactForm';
 import SectionHeading from '@/components/ui/SectionHeading';
+import ContactForm from './ContactForm';
+import ContactInfo from './ContactInfo';
 
 const Contact = () => {
   return (

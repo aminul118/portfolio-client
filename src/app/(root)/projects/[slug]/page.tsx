@@ -3,7 +3,6 @@ import generateMetaTags from '@/Seo/generateMetaTags';
 import { IParams, IProjects } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 import { FaLink } from 'react-icons/fa';
 
 export async function generateMetadata({ params }: IParams) {
@@ -42,7 +41,7 @@ const ProjectDetailsPage = async ({ params }: IParams) => {
   );
 
   return (
-    <div className="container mx-auto py-8 px-2 pt-24" data-aos="fade-left">
+    <div className="container mx-auto px-2 py-8 pt-24" data-aos="fade-left">
       {data.length > 0 && (
         <div className="space-y-3">
           <h1 className="text-3xl font-semibold">{data[0].project_name}</h1>
@@ -51,7 +50,7 @@ const ProjectDetailsPage = async ({ params }: IParams) => {
             width={1900}
             height={400}
             alt={data[0].project_name}
-            className="mx-auto container lg:h-[600px] object-cover rounded-md"
+            className="container mx-auto rounded-md object-cover lg:h-[600px]"
             priority
           />
           <p>{data[0].about}</p>
@@ -59,7 +58,7 @@ const ProjectDetailsPage = async ({ params }: IParams) => {
           <p className="text-2xl font-semibold">Features</p>
           <ul className="space-y-2">
             {data[0].features.map((feature, i: number) => (
-              <li className="lg:list-disc lg:list-inside" key={i}>
+              <li className="lg:list-inside lg:list-disc" key={i}>
                 {feature}
               </li>
             ))}
@@ -68,17 +67,17 @@ const ProjectDetailsPage = async ({ params }: IParams) => {
           <Link
             href={data[0].liveLink}
             target="_blank"
-            className="flex gap-2 items-center px-4 rounded-full py-1 border justify-center btn-outline w-32"
+            className="btn-outline flex w-32 items-center justify-center gap-2 rounded-full border px-4 py-1"
           >
             Preview <FaLink />
           </Link>
 
           <p className="text-2xl font-semibold">Technology</p>
-          <div className="flex gap-3 flex-wrap">
+          <div className="flex flex-wrap gap-3">
             {data[0].tech.map((singleTech) => (
               <p
                 key={singleTech}
-                className="flex gap-2 items-center px-4 rounded-full py-1 border justify-center btn-outline"
+                className="btn-outline flex items-center justify-center gap-2 rounded-full border px-4 py-1"
               >
                 {singleTech}
               </p>

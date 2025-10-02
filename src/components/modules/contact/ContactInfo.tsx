@@ -6,17 +6,17 @@ import { FaPhone, FaWhatsapp } from 'react-icons/fa6';
 const ContactInfo = () => {
   return (
     <div
-      className="p-6 rounded-lg mx-auto text-primary/80"
+      className="text-primary/80 mx-auto rounded-lg p-6"
       data-aos="fade-right"
     >
-      <h2 className="text-2xl font-bold mb-4">Contact Information</h2>
+      <h2 className="mb-4 text-2xl font-bold">Contact Information</h2>
       <p>
         Thanks for stopping by! If you have any questions, ideas, or simply want
         to collaborate, feel free to reach out. Use the contact details below or
         fill out the quick form to send me a message directly. I'm excited to
         connect and create something amazing together!
       </p>
-      <div className="space-y-2 mt-4">
+      <div className="mt-4 space-y-2">
         <p className="text-2xl font-bold">Contact</p>
 
         {/* Phone link */}
@@ -55,7 +55,7 @@ const ContactInfo = () => {
       </div>
 
       <div>
-        <p className="text-2xl font-bold my-4">Social</p>
+        <p className="my-4 text-2xl font-bold">Social</p>
         <Logo />
       </div>
     </div>

@@ -1,11 +1,11 @@
 'use client';
 
-import { useForm, SubmitHandler } from 'react-hook-form';
-import emailjs from '@emailjs/browser';
-import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
+import emailjs from '@emailjs/browser';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 type Inputs = {
   name: string;
@@ -51,13 +51,13 @@ const ContactForm = () => {
   };
 
   return (
-    <div className=" p-6 rounded-lg w-full mx-auto mt-6" data-aos="fade-left">
-      <h2 className="text-2xl font-bold mb-4 text-center text-primary/80">
+    <div className="mx-auto mt-6 w-full rounded-lg p-6" data-aos="fade-left">
+      <h2 className="text-primary/80 mb-4 text-center text-2xl font-bold">
         Contact Me
       </h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4 max-w-lg mx-auto"
+        className="mx-auto max-w-lg space-y-4"
       >
         {/* Name Field */}
         <div>
@@ -65,10 +65,10 @@ const ContactForm = () => {
             {...register('name', { required: 'Name is required' })}
             type="text"
             placeholder="Your Name"
-            className="w-full p-2 px-4 border rounded bg-slate-800 border-none"
+            className="w-full rounded border border-none bg-slate-800 p-2 px-4"
           />
           {errors.name && (
-            <p className="text-red-500 text-sm">{errors.name.message}</p>
+            <p className="text-sm text-red-500">{errors.name.message}</p>
           )}
         </div>
 
@@ -84,10 +84,10 @@ const ContactForm = () => {
             })}
             type="email"
             placeholder="Your Email"
-            className="w-full p-2 px-4 border rounded bg-slate-800 border-none"
+            className="w-full rounded border border-none bg-slate-800 p-2 px-4"
           />
           {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email.message}</p>
+            <p className="text-sm text-red-500">{errors.email.message}</p>
           )}
         </div>
 
@@ -96,10 +96,10 @@ const ContactForm = () => {
           <Textarea
             {...register('message', { required: 'Message is required' })}
             placeholder="Your Message"
-            className="w-full p-2 px-4 border rounded h-24 bg-slate-800 border-none resize-none"
+            className="h-24 w-full resize-none rounded border border-none bg-slate-800 p-2 px-4"
           ></Textarea>
           {errors.message && (
-            <p className="text-red-500 text-sm">{errors.message.message}</p>
+            <p className="text-sm text-red-500">{errors.message.message}</p>
           )}
         </div>
 

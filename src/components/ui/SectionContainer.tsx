@@ -15,7 +15,7 @@ const SectionContainer = ({
   return (
     <section id={id} className={backgroundColor}>
       <div
-        className={`py-8 lg:py-14 xl:py-16 2xl:py-24 px-2 mx-auto  ${className}`}
+        className={`mx-auto px-2 py-8 lg:py-14 xl:py-16 2xl:py-24 ${className}`}
       >
         {children}
       </div>

@@ -1,7 +1,6 @@
 import icons from '@/constants/icons';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 
 const AminulLogo = () => {
   return (
@@ -9,7 +8,7 @@ const AminulLogo = () => {
       <Link
         aria-label="Navigate to home page"
         href="/"
-        className="text-2xl font-semibold flex items-center"
+        className="flex items-center text-2xl font-semibold"
       >
         <Image
           src={icons.logo}

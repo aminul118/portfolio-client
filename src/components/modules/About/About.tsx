@@ -1,12 +1,12 @@
+import SectionHeading from '@/components/ui/SectionHeading';
 import Link from 'next/link';
 import AboutImage from './AboutImage';
-import SectionHeading from '@/components/ui/SectionHeading';
 
 const About = () => {
   return (
-    <section className="max-w-4xl px-4 mx-auto py-12 lg:py-20 " id="about">
+    <section className="mx-auto max-w-4xl px-4 py-12 lg:py-20" id="about">
       <SectionHeading heading="About Me" />
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-12 ">
+      <div className="flex flex-col items-center justify-between gap-12 lg:flex-row">
         <AboutImage />
         <div
           className="mt-6 max-w-2xl flex-1 text-white/60"
@@ -16,7 +16,7 @@ const About = () => {
             I am Md. Aminul Islam, a professional web developer specializing in
             frontend and backend development.
           </p>
-          <ul className="list-disc list-inside mt-3">
+          <ul className="mt-3 list-inside list-disc">
             <li>
               Frontend: JavaScript, TypeScript, React JS, Next JS, Redux,
               Tailwind, Shadcn
@@ -32,7 +32,7 @@ const About = () => {
           <div className="mt-4">
             <Link
               href="/about"
-              className="border  px-4 py-1 rounded-full btn-outline "
+              className="btn-outline rounded-full border px-4 py-1"
               aria-label="Learn more about me"
             >
               See More

@@ -5,7 +5,7 @@ const DownloadResume = () => {
   return (
     <Link
       href="/Aminul-Resume.pdf"
-      className="flex items-center justify-center gap-2 border rounded-full px-4 py-1 w-52 btn-outline"
+      className="btn-outline flex w-52 items-center justify-center gap-2 rounded-full border px-4 py-1"
       aria-label="Download my resume"
     >
       Download Resume <IoCloudDownloadOutline />

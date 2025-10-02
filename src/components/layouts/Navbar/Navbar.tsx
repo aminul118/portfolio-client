@@ -35,13 +35,13 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="bg-slate-900 fixed top-0 left-0 w-full z-50 shadow-md">
-      <nav className="w-full px-2 md:px-0 py-4 container mx-auto flex items-center justify-between">
+    <header className="fixed top-0 left-0 z-50 w-full bg-slate-900 shadow-md">
+      <nav className="container mx-auto flex w-full items-center justify-between px-2 py-4 md:px-0">
         {/* Left: Logo */}
         <AminulLogo />
 
         {/* Middle: Nav Links (Desktop) */}
-        <ul className="hidden md:flex space-x-6 text-sm font-medium text-gray-300">
+        <ul className="hidden space-x-6 text-sm font-medium text-gray-300 md:flex">
           {navItems.map(({ title, href }) => (
             <li key={title}>
               <Link href={href} className="hover:primary/80 transition-colors">
@@ -63,12 +63,12 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div className="absolute top-16 left-0 w-full bg-slate-950 text-primary/80 flex flex-col items-center space-y-4 py-6 md:hidden z-40 shadow-md">
+          <div className="text-primary/80 absolute top-16 left-0 z-40 flex w-full flex-col items-center space-y-4 bg-slate-950 py-6 shadow-md md:hidden">
             {navItems.map(({ title, href }) => (
               <Link
                 key={title}
                 href={href}
-                className="hover:text-green-400 transition-colors"
+                className="transition-colors hover:text-green-400"
                 onClick={() => setMenuOpen(false)}
               >
                 {title}

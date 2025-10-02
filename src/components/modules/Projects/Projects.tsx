@@ -1,17 +1,17 @@
+import { Card } from '@/components/ui/card';
+import SectionHeading from '@/components/ui/SectionHeading';
+import AllProjects from '@/constants/AllProjects';
+import { IProjects } from '@/types';
 import Image from 'next/image';
-import { FaLink } from 'react-icons/fa';
 import Link from 'next/link';
+import { FaLink } from 'react-icons/fa';
 import { FaGithub } from 'react-icons/fa6';
 import { FiArrowUpRight } from 'react-icons/fi';
-import AllProjects from '@/constants/AllProjects';
-import SectionHeading from '@/components/ui/SectionHeading';
-import { IProjects } from '@/types';
-import { Card } from '@/components/ui/card';
 
 const Projects = () => {
   return (
     <div
-      className="2xl:flex flex-col justify-center container mx-auto px-4 py-12 lg:py-20 text-white/60"
+      className="container mx-auto flex-col justify-center px-4 py-12 text-white/60 lg:py-20 2xl:flex"
       id="projects"
       data-aos="fade-up"
     >
@@ -20,27 +20,27 @@ const Projects = () => {
         description="A showcase of my work blending creativity and functionality, featuring interactive designs, seamless development, and innovative solutions."
       />
 
-      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="container mx-auto grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
         {AllProjects.map((project: IProjects) => {
           const { id, project_name, project_img, liveLink, github } = project;
           return (
             <Card
               key={id}
-              className="rounded-lg  shadow-md group bg-slate-900"
+              className="group rounded-lg bg-slate-900 shadow-md"
               data-aos="fade-up"
             >
-              <p className="text-xl font-semibold py-2 text-center">
+              <p className="py-2 text-center text-xl font-semibold">
                 {project_name}
               </p>
 
               {/* Image Wrapper */}
-              <div className="w-full h-[150px] 2xl:h-[350px] overflow-hidden ">
+              <div className="h-[150px] w-full overflow-hidden 2xl:h-[350px]">
                 <Image
                   src={project_img}
                   width={600}
                   height={0}
                   alt={project_name}
-                  className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+                  className="h-full w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
                   priority={true}
                 />
               </div>
@@ -49,7 +49,7 @@ const Projects = () => {
               <div className="grid grid-cols-3 gap-2 p-4">
                 <Link
                   href={`/projects/${id}`}
-                  className="flex gap-2 items-center px-4 rounded-full py-1 border justify-center btn-outline"
+                  className="btn-outline flex items-center justify-center gap-2 rounded-full border px-4 py-1"
                 >
                   Details
                   <FiArrowUpRight />
@@ -58,7 +58,7 @@ const Projects = () => {
                 <Link
                   href={liveLink}
                   target="_blank"
-                  className="flex gap-2 items-center px-4 rounded-full py-1 border justify-center btn-outline"
+                  className="btn-outline flex items-center justify-center gap-2 rounded-full border px-4 py-1"
                 >
                   Preview
                   <FaLink />
@@ -68,7 +68,7 @@ const Projects = () => {
                   <Link
                     href={github}
                     target="_blank"
-                    className="flex gap-2 items-center px-4 rounded-full py-1 border justify-center btn-outline"
+                    className="btn-outline flex items-center justify-center gap-2 rounded-full border px-4 py-1"
                   >
                     Github
                     <FaGithub />

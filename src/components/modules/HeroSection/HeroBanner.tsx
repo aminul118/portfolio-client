@@ -1,19 +1,19 @@
 /* eslint-disable react/no-unescaped-entities */
-import Image from 'next/image';
-import images from '@/constants/images';
-import WriterEffect from '@/components/ui/writer-effect';
-import Logo from '@/components/common/Logo';
 import DownloadResume from '@/components/common/DownloadResume';
+import Logo from '@/components/common/Logo';
+import WriterEffect from '@/components/ui/writer-effect';
+import images from '@/constants/images';
+import Image from 'next/image';
 
 const HeroBanner = () => {
   return (
-    <section className=" pt-12 lg:pt-32 bg-slate-900">
-      <div className="flex flex-col lg:flex-row justify-between container mx-auto px-2">
+    <section className="bg-slate-900 pt-12 lg:pt-32">
+      <div className="container mx-auto flex flex-col justify-between px-2 lg:flex-row">
         <div className="max-w-2xl">
-          <div className="flex flex-col h-full justify-center pb-12 gap-6 text-white/60">
+          <div className="flex h-full flex-col justify-center gap-6 pb-12 text-white/60">
             <div>
               <p>I'm</p>
-              <h1 className="text-3xl lg:text-4xl font-bold mt-1">
+              <h1 className="mt-1 text-3xl font-bold lg:text-4xl">
                 <WriterEffect
                   words={[
                     'Md. Aminul Islam',

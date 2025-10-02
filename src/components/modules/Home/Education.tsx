@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import images from '@/constants/images';
 import SectionHeading from '@/components/ui/SectionHeading';
+import images from '@/constants/images';
+import Image from 'next/image';
 
 const Education = () => {
   return (
@@ -11,10 +11,10 @@ const Education = () => {
         width={1900}
         height={400}
         alt="Daffodil International University"
-        className="mx-auto container lg:h-[600px] object-cover rounded-md"
+        className="container mx-auto rounded-md object-cover lg:h-[600px]"
         priority={true}
       />
-      <div className="py-6 mb-20 text-white/60 px-2">
+      <div className="mb-20 px-2 py-6 text-white/60">
         <h2 className="text-3xl font-medium">
           B.sc. in computer science & Engineering
         </h2>

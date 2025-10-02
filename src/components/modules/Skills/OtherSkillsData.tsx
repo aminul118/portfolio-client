@@ -1,8 +1,7 @@
-import { MdOutlineSearch } from 'react-icons/md';
-import { MdAnalytics } from 'react-icons/md';
+import { MdAnalytics, MdOutlineSearch } from 'react-icons/md';
 import {
-  SiAdobephotoshop,
   SiAdobeillustrator,
+  SiAdobephotoshop,
   SiAdobepremierepro,
   SiGoogletagmanager,
 } from 'react-icons/si';

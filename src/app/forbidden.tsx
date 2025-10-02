@@ -9,7 +9,7 @@ const Forbidden = () => {
       <Card className="w-full max-w-lg p-16">
         <CardContent className="text-center">
           <Ban size={80} className="text-destructive mx-auto" />
-          <h1 className="text-2xl mt-4">Access Denied</h1>
+          <h1 className="mt-4 text-2xl">Access Denied</h1>
           <p className="mb-4">You do not have permission to view this page.</p>
           <Button asChild>
             <Link href="/">Go back home</Link>

@@ -42,4 +42,4 @@ const aboutMe: TAbout[] = [
   },
 ];
 
-export { hobbies, aboutMe };
+export { aboutMe, hobbies };

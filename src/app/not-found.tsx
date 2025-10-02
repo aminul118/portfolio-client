@@ -11,7 +11,7 @@ const NotFound = () => {
   const path = usePathname();
   console.log(path);
   return (
-    <div className="min-h-screen grid place-items-center text-center">
+    <div className="grid min-h-screen place-items-center text-center">
       <Card className="w-full max-w-lg rounded-lg border p-10 shadow-2xl">
         {/* Next.js 15 Image Fix */}
         <Image

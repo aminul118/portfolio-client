@@ -18,16 +18,16 @@ export const metadata: Metadata = generateMetaTags({
 const AboutPage = () => {
   return (
     <div className="container mx-auto mt-24 px-3" data-aos="fade-left">
-      <div className="flex flex-col lg:flex-row justify-between gap-12">
-        <div className="ml-6 mt-6">
+      <div className="flex flex-col justify-between gap-12 lg:flex-row">
+        <div className="mt-6 ml-6">
           <AboutImage />
         </div>
 
-        <div className="lg:mt-6 flex-1 text-justify">
+        <div className="flex-1 text-justify lg:mt-6">
           {/* About me section */}
           {aboutMe.map((about, index: number) => (
             <div key={index} className="mb-8">
-              <h2 className="text-2xl lg:text-4xl pb-4 font-bold text-white/80">
+              <h2 className="pb-4 text-2xl font-bold text-white/80 lg:text-4xl">
                 {about.title}
               </h2>
               {about.paragraphs.map((para, index: number) => (
@@ -36,7 +36,7 @@ const AboutPage = () => {
                 </p>
               ))}
               {about.list && (
-                <ul className="list-disc list-inside mt-2">
+                <ul className="mt-2 list-inside list-disc">
                   {about.list.map((item, i) => (
                     <li key={i}>{item}</li>
                   ))}
@@ -45,15 +45,15 @@ const AboutPage = () => {
 
               {/* Show hobbies only for "My Hobbies and Interests" */}
               {about.title === 'My Hobbies and Interests' && (
-                <div className="flex flex-wrap justify-center gap-8 bg-gray-700/30 p-6 rounded-2xl shadow-lg mt-6">
+                <div className="mt-6 flex flex-wrap justify-center gap-8 rounded-2xl bg-gray-700/30 p-6 shadow-lg">
                   {hobbies.map((hobby, index: number) => {
                     const Icon = hobby.icon;
                     return (
                       <div key={index} className="flex flex-col items-center">
-                        <div className="bg-gray-900 p-4 rounded-full text-4xl text-white shadow-md">
+                        <div className="rounded-full bg-gray-900 p-4 text-4xl text-white shadow-md">
                           <Icon />
                         </div>
-                        <span className="text-white/80 text-lg font-medium mt-2">
+                        <span className="mt-2 text-lg font-medium text-white/80">
                           {hobby.label}
                         </span>
                       </div>

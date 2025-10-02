@@ -1,11 +1,11 @@
-import './globals.css';
-import ThemeProvider from '@/providers/ThemeProvider';
-import AosProvider from '@/providers/AosProvider';
-import { Toaster } from 'sonner';
-import { Metadata } from 'next';
-import { IChildren } from '@/types';
 import generateMetaTags from '@/Seo/generateMetaTags';
 import fonts from '@/config/fonts.config';
+import AosProvider from '@/providers/AosProvider';
+import ThemeProvider from '@/providers/ThemeProvider';
+import '@/styles/globals.css';
+import { IChildren } from '@/types';
+import { Metadata } from 'next';
+import { Toaster } from 'sonner';
 
 // >> SEO Start
 export const metadata: Metadata = generateMetaTags({

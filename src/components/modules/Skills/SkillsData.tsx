@@ -1,10 +1,17 @@
 import {
-  FaReact,
-  FaGithub,
-  FaNodeJs,
+  BiLogoJavascript,
+  BiLogoPostgresql,
+  BiLogoTypescript,
+} from 'react-icons/bi';
+import {
   FaCss3Alt,
+  FaGithub,
   FaHtml5,
+  FaNodeJs,
+  FaReact,
 } from 'react-icons/fa';
+import { LiaGit } from 'react-icons/lia';
+import { RiFirebaseFill } from 'react-icons/ri';
 import {
   SiExpress,
   SiMongodb,
@@ -13,14 +20,7 @@ import {
   SiRedis,
   SiTailwindcss,
 } from 'react-icons/si';
-import {
-  BiLogoJavascript,
-  BiLogoPostgresql,
-  BiLogoTypescript,
-} from 'react-icons/bi';
-import { RiFirebaseFill } from 'react-icons/ri';
 import { TbBrandNextjs, TbBrandRedux } from 'react-icons/tb';
-import { LiaGit } from 'react-icons/lia';
 
 const skillsData = [
   {
@@ -60,7 +60,7 @@ const skillsData = [
     gradient: 'from-gray-800 via-gray-700 to-gray-600',
   },
   {
-    icon: <TbBrandRedux className=" text-purple-400" />,
+    icon: <TbBrandRedux className="text-purple-400" />,
     name: 'Redux',
     gradient: 'from-purple-800 via-purple-700 to-purple-400',
   },

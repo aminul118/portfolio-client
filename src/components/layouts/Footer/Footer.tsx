@@ -1,10 +1,10 @@
+import icons from '@/constants/icons';
 import Image from 'next/image';
 import Logo from '../../common/Logo';
-import icons from '@/constants/icons';
 
 const Footer = () => {
   return (
-    <footer className=" bg-slate-900 flex flex-col items-center gap-3 p-10 text-primary/80">
+    <footer className="text-primary/80 flex flex-col items-center gap-3 bg-slate-900 p-10">
       <Image
         src={icons.logo}
         width={60}
@@ -13,11 +13,11 @@ const Footer = () => {
         priority={true}
       />
 
-      <div className="text-center space-y-4">
+      <div className="space-y-4 text-center">
         <p className="text-3xl font-semibold">Aminul</p>
         <Logo flexAlign="justify-center" />
 
-        <p className="text-sm mt-8">
+        <p className="mt-8 text-sm">
           Copyright © {new Date().getFullYear()} - All right reserved by Md.
           Aminul Islam
         </p>

@@ -13,7 +13,7 @@ const SectionBanner: React.FC<SectionBannerProps> = ({
 }) => {
   return (
     <div
-      className={`${className} relative w-full h-64 bg-cover bg-center  flex items-center justify-center `}
+      className={`${className} relative flex h-64 w-full items-center justify-center bg-cover bg-center`}
       style={{
         backgroundImage: backgroundImagePath
           ? `url('${backgroundImagePath}')`
@@ -23,8 +23,8 @@ const SectionBanner: React.FC<SectionBannerProps> = ({
       {backgroundImagePath && (
         <div className="absolute inset-0 bg-black opacity-50"></div>
       )}
-      <div className="relative z-10 text-center max-w-2xl px-4">
-        <h2 className="text-2xl lg:text-4xl font-bold mb-4">{heading}</h2>
+      <div className="relative z-10 max-w-2xl px-4 text-center">
+        <h2 className="mb-4 text-2xl font-bold lg:text-4xl">{heading}</h2>
         {description && <p className="text-lg">{description}</p>}
       </div>
     </div>
