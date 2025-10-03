@@ -1,7 +1,7 @@
-import generateMetaTags from '@/Seo/generateMetaTags';
 import fonts from '@/config/fonts.config';
 import AosProvider from '@/providers/AosProvider';
 import ThemeProvider from '@/providers/ThemeProvider';
+import generateMetaTags from '@/seo/generateMetaTags';
 import '@/styles/globals.css';
 import { IChildren } from '@/types';
 import { Metadata } from 'next';

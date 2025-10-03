@@ -1,113 +1,126 @@
 'use client';
 
+import { contact } from '@/actions/contact';
+import ButtonSpinner from '@/components/common/loader/ButtonSpinner';
 import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import emailjs from '@emailjs/browser';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { contactValidation } from '@/validations/contactValidation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-
-type Inputs = {
-  name: string;
-  email: string;
-  message: string;
-};
+import { z } from 'zod';
 
 const ContactForm = () => {
-  const serviceId = process.env.NEXT_PUBLIC_SERVICE_ID as string;
-  const templateId = process.env.NEXT_PUBLIC_TEMPLATE_ID as string;
+  const [loading, setLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<Inputs>();
+  type FormType = z.infer<typeof contactValidation>;
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    emailjs
-      .send(
-        serviceId,
-        templateId,
-        {
-          name: data.name,
-          email: data.email,
-          message: data.message,
-        },
-        'RvKwnqQ10ee8aGF6d', // Replace with your EmailJS Public Key
-      )
-      .then(
-        () => {
-          // console.log(res);
-          toast.success('Email successfully sent!');
-          reset();
-        },
-        () => {
-          // console.log(err);
-          console.log(process.env.Service_ID);
-          toast.error('Failed to send message, please try again');
-        },
-      );
+  const form = useForm<FormType>({
+    resolver: zodResolver(contactValidation),
+    defaultValues: {
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
+    },
+  });
+
+  const onSubmit = async (payload: FormType) => {
+    try {
+      setLoading(true);
+      const res = await contact(payload);
+      if (res.statusCode === 200 && res.success) {
+        toast.success(res.message);
+        setLoading(false);
+        form.reset();
+      }
+    } catch {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="mx-auto mt-6 w-full rounded-lg p-6" data-aos="fade-left">
+    <div
+      className="mt-6 ml-auto w-full max-w-xl rounded-lg p-6"
+      data-aos="fade-left"
+    >
       <h2 className="text-primary/80 mb-4 text-center text-2xl font-bold">
         Contact Me
       </h2>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="mx-auto max-w-lg space-y-4"
-      >
-        {/* Name Field */}
-        <div>
-          <Input
-            {...register('name', { required: 'Name is required' })}
-            type="text"
-            placeholder="Your Name"
-            className="w-full rounded border border-none bg-slate-800 p-2 px-4"
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="Your Name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-          {errors.name && (
-            <p className="text-sm text-red-500">{errors.name.message}</p>
-          )}
-        </div>
-
-        {/* Email Field */}
-        <div>
-          <Input
-            {...register('email', {
-              required: 'Email is required',
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: 'Please enter a valid email address',
-              },
-            })}
-            type="email"
-            placeholder="Your Email"
-            className="w-full rounded border border-none bg-slate-800 p-2 px-4"
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="Email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-          {errors.email && (
-            <p className="text-sm text-red-500">{errors.email.message}</p>
-          )}
-        </div>
-
-        {/* Message Field */}
-        <div>
-          <Textarea
-            {...register('message', { required: 'Message is required' })}
-            placeholder="Your Message"
-            className="h-24 w-full resize-none rounded border border-none bg-slate-800 p-2 px-4"
-          ></Textarea>
-          {errors.message && (
-            <p className="text-sm text-red-500">{errors.message.message}</p>
-          )}
-        </div>
-
-        {/* Submit Button */}
-        <Button type="submit" className="w-full">
-          Send Message
-        </Button>
-      </form>
+          <FormField
+            control={form.control}
+            name="subject"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="Subject" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="message"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Textarea
+                    className="min-h-36"
+                    placeholder="Message"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button className="w-full" type="submit">
+            {loading ? (
+              <>
+                <ButtonSpinner /> Submit
+              </>
+            ) : (
+              'Submit'
+            )}
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 };

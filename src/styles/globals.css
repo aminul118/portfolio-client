@@ -124,3 +124,18 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* Custom Tailwind Classes */
+.scrollbar-thin {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #888 transparent; /* Firefox */
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px; /* Chrome, Edge, Safari */
+}
+
+/* Content Center */
+.center {
+  @apply bg-muted flex min-h-screen flex-col items-center justify-center overflow-x-hidden p-2 md:p-10 lg:p-6;
+}
