@@ -21,7 +21,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import TagInputExample from '@/components/ui/tag-input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Check, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -98,23 +97,6 @@ const AddProjectModal = () => {
                     <FormLabel>Live Link</FormLabel>
                     <FormControl>
                       <Input placeholder="https://example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="technology"
-                render={({ field }) => (
-                  <FormItem className="col-span-2">
-                    <FormLabel>Technologies</FormLabel>
-                    <FormControl>
-                      <TagInputExample
-                        value={field.value}
-                        onChange={field.onChange}
-                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
