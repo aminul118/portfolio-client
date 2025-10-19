@@ -1,15 +1,18 @@
+import envVars from '@/config/env.config';
 import fonts from '@/config/fonts.config';
 import AosProvider from '@/providers/AosProvider';
 import ThemeProvider from '@/providers/ThemeProvider';
 import generateMetaTags from '@/seo/generateMetaTags';
 import '@/styles/globals.css';
 import { IChildren } from '@/types';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { Metadata } from 'next';
 import { Toaster } from 'sonner';
 
 const MainLayout = ({ children }: IChildren) => {
   return (
     <html lang="en" suppressHydrationWarning>
+      <GoogleAnalytics gaId={envVars.GA_ID} />
       <body className={fonts.spaceGrotesk.className} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
