@@ -12,7 +12,7 @@ import { Toaster } from 'sonner';
 const MainLayout = ({ children }: IChildren) => {
   return (
     <html lang="en" suppressHydrationWarning>
-      <GoogleAnalytics gaId={envVars.GA_ID} />
+      <GoogleAnalytics gaId={envVars.GA_ID as string} />
       <body className={fonts.spaceGrotesk.className} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"

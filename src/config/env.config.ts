@@ -1,9 +1,9 @@
-import getEnv from '@/helpers/getEnv';
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const googleAnalytics = process.env.Google_Analytics_ID;
 
 const envVars = {
-  baseUrl: getEnv('NEXT_PUBLIC_BASE_URL'),
-  GA_ID: getEnv('Google_Analytics_ID'),
-  GTM_ID: getEnv('Google_Tag_Manager_ID'),
+  baseUrl,
+  GA_ID: googleAnalytics,
 };
 
 export default envVars;

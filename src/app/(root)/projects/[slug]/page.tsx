@@ -5,33 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaLink } from 'react-icons/fa';
 
-export async function generateMetadata({ params }: IParams) {
-  const { slug } = await params;
-  const numericId = Number(slug);
-  const project = AllProjects.find((p: IProjects) => p.id === numericId);
-
-  if (!project) {
-    return generateMetaTags({
-      title: 'Project Not Found - Aminul Portfolio',
-      description: 'This project could not be found.',
-      keywords: 'projects, portfolio, aminul',
-      websitePath: `projects/${slug}`,
-      image: '/ss/hero-bg.png',
-    });
-  }
-
-  return generateMetaTags({
-    title: `${project.project_name} - Aminul Portfolio`,
-    description:
-      project.about?.slice(0, 150) || 'Project details about Aminul portfolio.',
-    keywords: project.tech?.join(', ') || '',
-    websitePath: `projects/${slug}`,
-    image: project.project_img
-      ? `https://aminuldev.site${project.project_img}`
-      : '/assets/banner/aminul.png',
-  });
-}
-
 const ProjectDetailsPage = async ({ params }: IParams) => {
   const { slug } = await params;
   const numericId = Number(slug);
@@ -90,3 +63,34 @@ const ProjectDetailsPage = async ({ params }: IParams) => {
 };
 
 export default ProjectDetailsPage;
+
+// >> SEO Start
+
+export async function generateMetadata({ params }: IParams) {
+  const { slug } = await params;
+  const numericId = Number(slug);
+  const project = AllProjects.find((p: IProjects) => p.id === numericId);
+
+  if (!project) {
+    return generateMetaTags({
+      title: 'Project Not Found - Aminul Portfolio',
+      description: 'This project could not be found.',
+      keywords: 'projects, portfolio, aminul',
+      websitePath: `projects/${slug}`,
+      image: '/ss/hero-bg.png',
+    });
+  }
+
+  return generateMetaTags({
+    title: `${project.project_name} - Aminul Portfolio`,
+    description:
+      project.about?.slice(0, 150) || 'Project details about Aminul portfolio.',
+    keywords: project.tech?.join(', ') || '',
+    websitePath: `projects/${slug}`,
+    image: project.project_img
+      ? `https://aminuldev.site${project.project_img}`
+      : '/assets/banner/aminul.png',
+  });
+}
+
+// >> SEO End
