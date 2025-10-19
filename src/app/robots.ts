@@ -3,12 +3,19 @@ import type { MetadataRoute } from 'next';
 
 const robots = (): MetadataRoute.Robots => {
   return {
-    rules: {
-      userAgent: '*',
-      allow: '*',
-      disallow: '/private/',
-    },
-    sitemap: `${metaConfig.baseUrl}/sitemap.xml`,
+    rules: [
+      {
+        userAgent: 'Googlebot',
+        allow: ['/'],
+        disallow: ['/user', '/admin'],
+      },
+      {
+        userAgent: ['Applebot', 'Bingbot'],
+        allow: ['/'],
+        disallow: ['/admin'],
+      },
+    ],
+    sitemap: [`${metaConfig.baseUrl}/sitemap.xml`],
   };
 };
 
