@@ -1,37 +1,35 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import images from '@/constants/images';
-import Image from 'next/image';
+import { Undo } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const NotFound = () => {
-  const path = usePathname();
-  console.log(path);
-  return (
-    <div className="grid min-h-screen place-items-center text-center">
-      <Card className="w-full max-w-lg rounded-lg border p-10 shadow-2xl">
-        {/* Next.js 15 Image Fix */}
-        <Image
-          src={images.notFound}
-          alt="Error 404"
-          height={100}
-          width={100}
-          className="mx-auto"
-        />
-        <div className="space-y-2">
-          <p>{path} </p>
-          <h2 className="text-4xl font-semibold">Page Not Found</h2>
-          <p>Sorry, we couldn’t find the page you’re looking for.</p>
-        </div>
+  const router = useRouter();
 
-        <Link href="/">
-          <Button variant="destructive">Return to Home</Button>
-        </Link>
-      </Card>
-    </div>
+  const handleBack = () => {
+    router.back();
+  };
+
+  return (
+    <section className="height-adjust grid place-items-center text-center">
+      <div className="space-y-6 rounded-lg border bg-none p-24 shadow-2xl">
+        <h1 className="text-9xl font-extrabold text-red-500">404</h1>
+        <div>
+          <h2 className="mb-3 text-4xl font-semibold">oops!</h2>
+          <p>The page you requested cannot be found.</p>
+        </div>
+        <div className="mt-12 grid grid-cols-2 items-center justify-center gap-3">
+          <Button variant="outline" onClick={handleBack}>
+            <Undo /> previous page
+          </Button>
+          <Button asChild>
+            <Link href="/"> Go to Homepage</Link>
+          </Button>
+        </div>
+      </div>
+    </section>
   );
 };
 

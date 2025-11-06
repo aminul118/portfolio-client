@@ -1,4 +1,4 @@
-import metaConfig from '@/config/seo.config';
+import metaConfig from '@/config/meta.config';
 import { MetaProps } from '@/types';
 import { Metadata } from 'next';
 
@@ -9,47 +9,70 @@ const generateMetaTags = ({
   image = metaConfig.baseImage,
   websitePath = '',
 }: MetaProps): Metadata => {
+  const cleanPath = websitePath.replace(/^\/+/, '').replace(/\/+$/, '');
+
+  const {
+    applicationName,
+    twitter_site,
+    baseUrl,
+    siteName,
+    facebook_app_id,
+    authors_name,
+    authorPortfolio,
+    category,
+    publisher,
+    bookmarks,
+  } = metaConfig;
+
   return {
-    metadataBase: new URL(metaConfig.baseUrl),
+    metadataBase: new URL(baseUrl),
     title,
     description,
     keywords,
-    category: metaConfig.website_category,
+    category,
     openGraph: {
       type: 'website',
-      url: `${metaConfig.baseUrl}/${websitePath}`.replace(/\/+$/, ''),
-      title: title,
-      description: description,
-      siteName: metaConfig.site_name,
+      url: `${baseUrl}/${cleanPath}`,
+      title,
+      description,
+      siteName,
       images: [{ url: image, alt: title }],
     },
-    robots: {
-      index: true,
-      follow: true,
-    },
+    robots: { index: true, follow: true },
     twitter: {
       card: 'summary_large_image',
-      site: metaConfig.twitter_site,
-      creator: metaConfig.twitter_site,
+      site: twitter_site,
+      creator: twitter_site,
       title,
       description,
       images: image,
     },
-    applicationName: metaConfig.applicationName,
+    applicationName,
     alternates: {
-      canonical: `${metaConfig.baseUrl}/${websitePath}`.replace(/\/+$/, ''),
+      canonical: `${baseUrl}/${cleanPath}`,
       languages: {
-        'en-US': `${metaConfig.baseUrl}/en-US`,
+        'en-US': `${baseUrl}/en-US`,
       },
     },
     facebook: {
-      appId: metaConfig.facebook_app_id,
+      appId: facebook_app_id,
+    },
+    verification: {
+      google: metaConfig.verification.google,
+      other: {
+        'msvalidate.01': metaConfig.verification.microsoft_bing,
+      },
     },
     manifest: '/manifest.webmanifest',
+    publisher,
+    creator: authors_name,
+    referrer: 'no-referrer',
+    bookmarks,
+    abstract: description,
     authors: [
       {
-        name: metaConfig.authors_name,
-        url: metaConfig.authorPortfolio,
+        name: authors_name,
+        url: authorPortfolio,
       },
     ],
   };

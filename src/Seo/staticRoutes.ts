@@ -7,33 +7,18 @@ export const staticRoutes: Routes[] = [
     priority: 1.0,
   },
   {
-    url: 'services',
-    changeFrequency: 'monthly',
-    priority: 1.0,
-  },
-  {
-    url: 'team',
-    changeFrequency: 'monthly',
-    priority: 1.0,
-  },
-  {
-    url: 'upcoming-events',
-    changeFrequency: 'monthly',
-    priority: 1.0,
-  },
-  {
-    url: 'events',
-    changeFrequency: 'monthly',
-    priority: 1.0,
-  },
-  {
-    url: 'ai',
+    url: 'projects',
     changeFrequency: 'monthly',
     priority: 1.0,
   },
   {
     url: 'contact',
     changeFrequency: 'monthly',
-    priority: 1.0,
+    priority: 0.8,
+  },
+  {
+    url: 'blogs',
+    changeFrequency: 'monthly',
+    priority: 0.8,
   },
 ];

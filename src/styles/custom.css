@@ -1,0 +1,13 @@
+.height-adjust {
+  height: calc(100vh - 453px);
+}
+
+/* Custom Tailwind Classes */
+.scrollbar-thin {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #888 transparent; /* Firefox */
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px; /* Chrome, Edge, Safari */
+}

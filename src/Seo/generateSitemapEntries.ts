@@ -1,4 +1,4 @@
-import metaConfig from '@/config/seo.config';
+import metaConfig from '@/config/meta.config';
 import { Routes } from '@/types';
 import { MetadataRoute } from 'next';
 
