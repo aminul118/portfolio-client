@@ -15,7 +15,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full bg-slate-900 shadow-md">
+    <header className="sticky top-0 left-0 z-50 w-full bg-slate-900 shadow-md">
       <nav className="container mx-auto flex w-full items-center justify-between px-4 py-4">
         {/* Logo */}
         <AminulLogo />

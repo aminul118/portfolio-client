@@ -1,6 +1,5 @@
 import About from '@/components/modules/About/About';
 import Contact from '@/components/modules/contact/Contact';
-import Experience from '@/components/modules/Experience/Experience';
 import Education from '@/components/modules/Home/Education';
 import HeroBanner from '@/components/modules/Home/HeroBanner';
 import Projects from '@/components/modules/Projects/Projects';
@@ -17,7 +16,7 @@ const HomePage = () => {
       <Skills />
       <OtherSkills />
       <Education />
-      <Experience />
+      {/* <Experience /> */}
       <Projects />
       <Contact />
     </>
