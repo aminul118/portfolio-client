@@ -1,9 +1,7 @@
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-const googleAnalytics = process.env.Google_Analytics_ID;
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:5000';
 
 const envVars = {
   baseUrl,
-  GA_ID: googleAnalytics,
 };
 
 export default envVars;

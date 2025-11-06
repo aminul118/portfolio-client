@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { ButtonGroup } from '@/components/ui/button-group';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { Search, X } from 'lucide-react';
@@ -19,53 +20,52 @@ const AppSearching = ({
   const router = useRouter();
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('search') || '';
-
   const [query, setQuery] = useState(searchQuery);
 
-  // 🔑 sync input value with query params
+  // Keep input synced with URL param
   useEffect(() => {
     setQuery(searchQuery);
   }, [searchQuery]);
 
-  const handleSearch = () => {
+  const updateSearch = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (query) {
-      params.set('search', query);
-    } else {
-      params.delete('search');
-    }
-    router.push(`?${params.toString()}`);
+    if (value) params.set('search', value);
+    else params.delete('search');
+    router.replace(`?${params.toString()}`);
+    setQuery(value);
   };
 
-  const handleClearSearch = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete('search');
-    setQuery('');
-    router.push(`?${params.toString()}`);
-  };
+  const handleSearch = () => updateSearch(query);
+  const handleClearSearch = () => updateSearch('');
 
   return (
     <div className="flex items-center justify-center gap-2">
-      <Input
-        type="text"
-        placeholder={placeholder}
-        className={cn('lg:w-xs', className)}
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <div className="flex space-x-2">
+      <ButtonGroup>
+        <div className="relative">
+          <Input
+            type="text"
+            placeholder={placeholder}
+            className={cn('h-9 w-sm rounded-r-none pr-10', className)}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          {/* Search clear button */}
+          {query && (
+            <Button
+              type="button"
+              variant="outline"
+              className="absolute top-0 right-0 rounded-none border-0"
+              onClick={handleClearSearch}
+            >
+              <X size={16} />
+            </Button>
+          )}
+        </div>
+        {/* Search Button */}
         <Button onClick={handleSearch}>
-          <Search size={16} /> <span className="hidden lg:block">Search</span>
+          <Search size={16} />
         </Button>
-        {searchQuery && (
-          <Button
-            className="bg-red-500 text-white hover:bg-red-500"
-            onClick={handleClearSearch}
-          >
-            <X size={16} />
-          </Button>
-        )}
-      </div>
+      </ButtonGroup>
     </div>
   );
 };

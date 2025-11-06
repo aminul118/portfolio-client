@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'; // prevent prerendering errors
+
 import ClearAllFilter from '@/components/common/filtering/ClearAllFilter';
 import FilteredViews from '@/components/common/filtering/FilteredViews';
 import PageLimit from '@/components/common/pagination/PageLimit';
@@ -15,50 +17,61 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { getAllExperience } from '@/services/experience';
+import { IExperience } from '@/types/apiData.types';
+
 const ExperienceTable = async () => {
   const res = await getAllExperience();
-  const data = res?.data;
+  const data = res?.data ?? [];
 
   return (
-    <div>
-      <Container>
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <AppSearching />
-          <div className="flex gap-4">
-            <PageLimit />
-            <Sorting />
-            <FilteredViews defaultColumns={{ position: true, Company: true }} />
-            <ClearAllFilter />
-            <AddExperienceModal />
-          </div>
-        </div>
-        <Table>
-          <TableHeader className="bg-muted">
-            <TableRow>
-              <TableHead>SI</TableHead>
-              <TableHead>Position </TableHead>
-              <TableHead>Company</TableHead>
-              <TableHead>Timeline</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data?.map((user, index: number) => (
-              <TableRow key={user._id} className="hover:bg-primary/10">
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>{user.position}</TableCell>
-                <TableCell>{user.companyName}</TableCell>
-                <TableCell className="font-medium">{user.timeline}</TableCell>
-                <TableCell className="font-medium">
-                  <ExperienceActions experience={user} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Container>
-    </div>
+    <Container>
+      <ExperienceFilter />
+      <TableCreate data={data} />
+    </Container>
   );
 };
 
+const TableCreate = ({ data }: { data: IExperience[] }) => {
+  return (
+    <Table>
+      <TableHeader className="bg-muted">
+        <TableRow>
+          <TableHead>SI</TableHead>
+          <TableHead>Position</TableHead>
+          <TableHead>Company</TableHead>
+          <TableHead>Timeline</TableHead>
+          <TableHead>Actions</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {data.map((user, index) => (
+          <TableRow key={user._id} className="hover:bg-primary/10">
+            <TableCell>{index + 1}</TableCell>
+            <TableCell>{user.position}</TableCell>
+            <TableCell>{user.companyName}</TableCell>
+            <TableCell className="font-medium">{user.timeline}</TableCell>
+            <TableCell className="font-medium">
+              <ExperienceActions experience={user} />
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+};
+
+const ExperienceFilter = () => {
+  return (
+    <div className="mb-4 flex items-center justify-between gap-4">
+      <AppSearching />
+      <div className="flex gap-4">
+        <PageLimit />
+        <Sorting />
+        <FilteredViews defaultColumns={{ position: true, Company: true }} />
+        <ClearAllFilter />
+        <AddExperienceModal />
+      </div>
+    </div>
+  );
+};
 export default ExperienceTable;

@@ -1,4 +1,3 @@
-import envVars from '@/config/env.config';
 import fonts from '@/config/fonts.config';
 import AosProvider from '@/providers/AosProvider';
 import { AppDataProvider } from '@/providers/AppData';
@@ -8,30 +7,30 @@ import generateMetaTags from '@/seo/generateMetaTags';
 import '@/styles/custom.css';
 import '@/styles/globals.css';
 import { IChildren } from '@/types';
-import { GoogleAnalytics } from '@next/third-parties/google';
 import { Metadata } from 'next';
 import { Toaster } from 'sonner';
 
 const MainLayout = ({ children }: IChildren) => {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <GoogleAnalytics gaId={envVars.GA_ID as string} />
-      <body className={fonts.spaceGrotesk.className} suppressHydrationWarning>
-        <ReduxProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <AppDataProvider>
-              <AosProvider>{children}</AosProvider>
-            </AppDataProvider>
-            <Toaster position="top-right" richColors theme="dark" />
-          </ThemeProvider>
-        </ReduxProvider>
-      </body>
-    </html>
+    <>
+      <html lang="en" suppressHydrationWarning>
+        <body className={fonts.spaceGrotesk.className} suppressHydrationWarning>
+          <ReduxProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <AppDataProvider>
+                <AosProvider>{children}</AosProvider>
+              </AppDataProvider>
+              <Toaster position="top-right" richColors theme="dark" />
+            </ThemeProvider>
+          </ReduxProvider>
+        </body>
+      </html>
+    </>
   );
 };
 
