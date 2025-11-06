@@ -1,6 +1,7 @@
 import envVars from '@/config/env.config';
 import fonts from '@/config/fonts.config';
 import AosProvider from '@/providers/AosProvider';
+import { AppDataProvider } from '@/providers/AppData';
 import ReduxProvider from '@/providers/ReduxProvider';
 import ThemeProvider from '@/providers/ThemeProvider';
 import generateMetaTags from '@/seo/generateMetaTags';
@@ -23,7 +24,9 @@ const MainLayout = ({ children }: IChildren) => {
             enableSystem
             disableTransitionOnChange
           >
-            <AosProvider>{children}</AosProvider>
+            <AppDataProvider>
+              <AosProvider>{children}</AosProvider>
+            </AppDataProvider>
             <Toaster position="top-right" richColors theme="dark" />
           </ThemeProvider>
         </ReduxProvider>

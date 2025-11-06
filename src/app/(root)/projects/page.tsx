@@ -1,8 +1,13 @@
+import Projects from '@/components/modules/Projects/Projects';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 
 const ProjectPage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <Projects />
+    </div>
+  );
 };
 
 export default ProjectPage;

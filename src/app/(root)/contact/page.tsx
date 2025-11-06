@@ -1,37 +1,24 @@
-import About from '@/components/modules/About/About';
 import Contact from '@/components/modules/contact/Contact';
-import Experience from '@/components/modules/Experience/Experience';
-import Education from '@/components/modules/Home/Education';
-import HeroBanner from '@/components/modules/Home/HeroBanner';
-import Projects from '@/components/modules/Projects/Projects';
-import OtherSkills from '@/components/modules/Skills/OtherSkills';
-import Skills from '@/components/modules/Skills/Skills';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 
-const HomePage = () => {
+const ContactPage = () => {
   return (
-    <>
-      <HeroBanner />
-      <About />
-      <Skills />
-      <OtherSkills />
-      <Education />
-      <Experience />
-      <Projects />
+    <div>
       <Contact />
-    </>
+    </div>
   );
 };
 
-export default HomePage;
+export default ContactPage;
 
 // >> SEO Start
 export const metadata: Metadata = generateMetaTags({
-  title: 'Aminul Islam',
+  title: 'Contact | Aminul Islam',
   description:
     'Aminul Islam is a skilled Software Developer specializing in MERN stack, Next.js, TypeScript and scalable web applications. Currently working at TabEdge, delivering high-performance solutions.',
   keywords:
     'Software Developer, MERN Stack Developer, Next.js Developer, React Developer, TypeScript Developer, Full-Stack Developer, Web Development, API Development, Payment Solutions, E-commerce Development,SEO Specialist, Scalable Web Apps, DevOps, Software Engineer, Aminul118, Hyper118',
+  websitePath: '/contact',
 });
 // >> SEO End
