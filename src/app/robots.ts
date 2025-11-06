@@ -1,4 +1,4 @@
-import metaConfig from '@/config/seo.config';
+import metaConfig from '@/config/meta.config';
 import type { MetadataRoute } from 'next';
 
 const robots = (): MetadataRoute.Robots => {

@@ -10,7 +10,7 @@ const authRoutes = [
   '/verify',
 ];
 
-export const middleware = async (req: NextRequest) => {
+export const proxy = async (req: NextRequest) => {
   const { pathname, origin } = req.nextUrl;
   const user = await getUserFromCookie();
 
@@ -25,10 +25,9 @@ export const middleware = async (req: NextRequest) => {
   }
 
   // 2️⃣ If not logged in → protect /admin and /user routes
-  if (
-    !user &&
-    (pathname.startsWith('/admin') || pathname.startsWith('/user'))
-  ) {
+
+  const routes = ['/admin', '/dashboard', '/profile'];
+  if (!user && routes.some((route) => pathname.startsWith(route))) {
     const loginUrl = new URL('/login', origin);
     loginUrl.searchParams.set('callbackUrl', pathname);
     return NextResponse.redirect(loginUrl);
@@ -62,5 +61,6 @@ export const config = {
     '/forgot-password',
     '/reset-password',
     '/verify',
+    '/profile',
   ],
 };

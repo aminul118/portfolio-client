@@ -3,14 +3,22 @@
 import { IChildren } from '@/types';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const AosProvider = ({ children }: IChildren) => {
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
+    setIsClient(true);
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
   }, []);
 
-  return <div className="overflow-x-hidden">{children}</div>;
+  if (!isClient) return null;
+
+  return <>{children}</>;
 };
 
 export default AosProvider;

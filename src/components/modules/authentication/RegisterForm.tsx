@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import Logo from '@/components/layouts/Logo';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -13,32 +12,24 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+
+import ButtonSpinner from '@/components/common/loader/ButtonSpinner';
+import Logo from '@/components/layouts/Logo';
 import Password from '@/components/ui/password';
 import images from '@/config/images';
 import { cn } from '@/lib/utils';
-
-import { registerUser } from '@/actions/auth';
-import ButtonSpinner from '@/components/common/loader/ButtonSpinner';
+import { useRegisterMutation } from '@/redux/features/auth/auth.api';
 import { registrationFormValidation } from '@/validations/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-export interface RegisterPayload {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  password: string;
-}
-
 const RegisterForm = ({ className }: { className?: string }) => {
-  const [loading, setLoading] = useState(false);
+  const [register, { isLoading }] = useRegisterMutation();
   const router = useRouter();
   const form = useForm<z.infer<typeof registrationFormValidation>>({
     resolver: zodResolver(registrationFormValidation),
@@ -61,34 +52,42 @@ const RegisterForm = ({ className }: { className?: string }) => {
       phone,
       password,
     };
-    setLoading(true);
-    const res = await registerUser(payload);
-    console.log(res);
-    if (res?.success) {
-      if (res?.statusCode === 201) {
-        router.push(`/verify?email${data.email}`);
+
+    try {
+      const res = await register(payload).unwrap();
+      console.log('RES==>', res);
+      if (res.success) {
+        toast.success(res.message);
       }
-      toast.success(res?.message);
-      setLoading(false);
-    }
-    if (!res.success) {
-      toast.error(res?.message);
-      setLoading(false);
+
+      if (res.statusCode === 201) {
+        router.push(`/verify?email=${email}`);
+      }
+    } catch (error: any) {
+      if (error?.status === 400) {
+        toast.error(error.data?.message || 'User already exists');
+      } else {
+        toast.error('Failed to create user');
+      }
     }
   };
 
   return (
-    <div className={cn('flex flex-col gap-6', className)} data-aos="fade-left">
+    <div
+      className={cn('flex flex-col gap-6 rounded-lg shadow-lg', className)}
+      data-aos="fade-left"
+    >
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
-          {/* Left side image */}
+          {/* Lottie */}
+          {/* Image Section */}
           <div className="bg-muted relative hidden md:block">
             <Image
+              className="absolute inset-0 h-full w-full object-cover brightness-[0.5] grayscale dark:brightness-[0.2]"
               src={images.auth}
               height={400}
               width={400}
-              alt=""
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+              alt="Login Image"
             />
           </div>
 
@@ -99,7 +98,7 @@ const RegisterForm = ({ className }: { className?: string }) => {
                 <Logo />
               </Link>
               <p className="text-muted-foreground text-balance">
-                Register to Tab Startup portal
+                Register to Smart Healthcare & Research Ltd.
               </p>
             </div>
             <Form {...form}>
@@ -214,14 +213,14 @@ const RegisterForm = ({ className }: { className?: string }) => {
                 <Button
                   type="submit"
                   className="w-full"
-                  disabled={!form.formState.isValid}
+                  disabled={isLoading || !form.formState.isValid}
                 >
-                  {loading ? (
+                  {isLoading ? (
                     <>
-                      <ButtonSpinner /> Login
+                      Register <ButtonSpinner />
                     </>
                   ) : (
-                    'Login'
+                    ' Register'
                   )}
                 </Button>
               </form>

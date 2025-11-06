@@ -1,6 +1,7 @@
 import envVars from '@/config/env.config';
 import fonts from '@/config/fonts.config';
 import AosProvider from '@/providers/AosProvider';
+import ReduxProvider from '@/providers/ReduxProvider';
 import ThemeProvider from '@/providers/ThemeProvider';
 import generateMetaTags from '@/seo/generateMetaTags';
 import '@/styles/custom.css';
@@ -15,15 +16,17 @@ const MainLayout = ({ children }: IChildren) => {
     <html lang="en" suppressHydrationWarning>
       <GoogleAnalytics gaId={envVars.GA_ID as string} />
       <body className={fonts.spaceGrotesk.className} suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AosProvider>{children}</AosProvider>
-          <Toaster position="top-right" richColors theme="dark" />
-        </ThemeProvider>
+        <ReduxProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <AosProvider>{children}</AosProvider>
+            <Toaster position="top-right" richColors theme="dark" />
+          </ThemeProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

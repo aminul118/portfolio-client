@@ -52,3 +52,24 @@ export const resetPasswordValidation = z
     message: "Passwords don't match",
     path: ['confirmPassword'],
   });
+
+export const passwordChangeValidation = z
+  .object({
+    oldPassword: z.string().min(6, {
+      message: 'Old password must be at least 6 characters.',
+    }),
+    newPassword: z.string().min(6, {
+      message: 'New password must be at least 6 characters.',
+    }),
+    confirmNewPassword: z.string().min(6, {
+      message: 'Confirm password must be at least 6 characters.',
+    }),
+  })
+  .refine((data) => data.newPassword === data.confirmNewPassword, {
+    message: "Passwords don't match.",
+    path: ['confirmNewPassword'],
+  })
+  .refine((data) => data.oldPassword !== data.newPassword, {
+    message: 'New password cannot be the same as old password.',
+    path: ['newPassword'],
+  });

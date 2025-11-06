@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { contactValidation } from '@/validations/contactValidation';
+import { contactFormValidation } from '@/validations/contact';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -22,10 +22,10 @@ import { z } from 'zod';
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
 
-  type FormType = z.infer<typeof contactValidation>;
+  type FormType = z.infer<typeof contactFormValidation>;
 
   const form = useForm<FormType>({
-    resolver: zodResolver(contactValidation),
+    resolver: zodResolver(contactFormValidation),
     defaultValues: {
       name: '',
       email: '',

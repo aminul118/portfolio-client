@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { loginUser } from '@/actions/auth';
 import ButtonSpinner from '@/components/common/loader/ButtonSpinner';
 import Logo from '@/components/layouts/Logo';
 import { Button } from '@/components/ui/button';
@@ -18,28 +16,26 @@ import { Input } from '@/components/ui/input';
 import Password from '@/components/ui/password';
 import images from '@/config/images';
 import { cn } from '@/lib/utils';
+import { useLoginMutation } from '@/redux/features/auth/auth.api';
 import { Role } from '@/types';
 import { loginFormValidation } from '@/validations/auth';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
+type FormValues = z.infer<typeof loginFormValidation>;
+
 const LoginForm = ({ className }: { className?: string }) => {
-  const [isLoading, setLoading] = useState(false);
+  const [login, { isLoading }] = useLoginMutation();
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams(); // ✅ read query params
   const callbackUrl = searchParams.get('callbackUrl');
-  console.log(callbackUrl);
 
-  type FormType = z.infer<typeof loginFormValidation>;
-
-  const form = useForm<FormType>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(loginFormValidation),
     defaultValues: {
       email: '',
@@ -47,29 +43,20 @@ const LoginForm = ({ className }: { className?: string }) => {
     },
   });
 
-  const onSubmit = async (data: FormType) => {
-    setLoading(true);
+  const onSubmit = async (data: FormValues) => {
     try {
-      const res = await loginUser(data);
-      // console.log(res);
-      if (res.success && res.statusCode === 200) {
-        toast.success(res.message);
-        setLoading(false);
-
-        if (res?.data?.user?.role === Role.ADMIN) {
-          router.push(callbackUrl || '/admin');
-        } else if (res?.data?.user?.role === Role.USER) {
-          router.push(callbackUrl || '/user');
-        } else {
-          router.push('/');
-        }
+      const res = await login(data).unwrap();
+      toast.success(res.message || 'User login successfully');
+      if (res?.data?.user?.role === Role.ADMIN) {
+        router.push(callbackUrl || '/admin');
+      } else if (res?.data?.user?.role === Role.USER) {
+        router.push(callbackUrl || '/dashboard');
+      } else {
+        router.push('/');
       }
-      if (!res.success) {
-        toast.error(res.message);
-      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      // console.log(error);
-      setLoading(false);
+      console.log('ERR=>', error);
       if (error.status === 401) {
         toast.error('Email or password Incorrect');
       }
@@ -85,7 +72,10 @@ const LoginForm = ({ className }: { className?: string }) => {
 
   return (
     <div
-      className={cn('flex items-center justify-center', className)}
+      className={cn(
+        'flex items-center justify-center rounded-lg shadow-lg',
+        className,
+      )}
       data-aos="fade-right"
     >
       <Card className="w-full max-w-5xl overflow-hidden p-0">
@@ -101,8 +91,8 @@ const LoginForm = ({ className }: { className?: string }) => {
                   <Link href={'/'}>
                     <Logo />
                   </Link>
-                  <p className="text-muted-foreground mt-4">
-                    Login to your Tab Startup portal
+                  <p className="text-muted-foreground mt-4 text-center">
+                    Login to your Smart Healthcare & Research Ltd. portal
                   </p>
                 </div>
 
@@ -147,13 +137,13 @@ const LoginForm = ({ className }: { className?: string }) => {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? (
                     <>
-                      <ButtonSpinner /> Login
+                      Login <ButtonSpinner />
                     </>
                   ) : (
-                    'Login'
+                    <>Login</>
                   )}
                 </Button>
               </form>
@@ -170,13 +160,13 @@ const LoginForm = ({ className }: { className?: string }) => {
           </div>
 
           {/* Image Section */}
-          <div className="relative hidden h-full w-full md:block">
+          <div className="bg-muted relative hidden md:block">
             <Image
+              className="absolute inset-0 h-full w-full object-cover brightness-[0.5] grayscale dark:brightness-[0.2]"
               src={images.auth}
               height={400}
               width={400}
-              alt=""
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+              alt="Login Image"
             />
           </div>
         </CardContent>
