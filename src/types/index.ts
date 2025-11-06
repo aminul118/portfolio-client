@@ -11,6 +11,8 @@ export type {
   SectionProps,
 } from './react.types';
 
+export type { Auth, IBlog, IUser } from './apiData.types';
+
 export interface IMeta {
   page: number;
   limit: number;
