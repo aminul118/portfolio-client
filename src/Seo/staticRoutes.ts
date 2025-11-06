@@ -22,6 +22,16 @@ export const staticRoutes: Routes[] = [
     priority: 0.8,
   },
   {
+    url: 'skills',
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  },
+  {
+    url: 'experience',
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  },
+  {
     url: 'blogs',
     changeFrequency: 'monthly',
     priority: 0.8,

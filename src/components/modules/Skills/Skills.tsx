@@ -5,11 +5,10 @@ const Skills = () => {
   return (
     <div
       className="container mx-auto flex-col justify-center px-4 py-12 text-white/60 lg:py-20 2xl:flex"
-      id="skills"
       data-aos="fade-up"
     >
       <SectionHeading
-        heading="Skills"
+        heading="Tech Skills"
         description="A showcase of my expertise and tools of the trade, reflecting my journey in mastering technology and design. These skills drive my creativity and innovation in every project."
       />
 

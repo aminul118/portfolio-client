@@ -1,20 +1,15 @@
-import Projects from '@/components/modules/Projects/Projects';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 
-const ProjectPage = () => {
-  return (
-    <div>
-      <Projects />
-    </div>
-  );
+const ExperiencePage = () => {
+  return <div></div>;
 };
 
-export default ProjectPage;
+export default ExperiencePage;
 
 // >> SEO Start
 export const metadata: Metadata = generateMetaTags({
-  title: 'Projects | Aminul Islam',
+  title: 'Experience | Aminul Islam',
   description:
     'Aminul Islam is a skilled Software Developer specializing in MERN stack, Next.js, TypeScript and scalable web applications. Currently working at TabEdge, delivering high-performance solutions.',
   keywords:

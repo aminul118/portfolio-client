@@ -1,24 +1,27 @@
-import Projects from '@/components/modules/Projects/Projects';
+import OtherSkills from '@/components/modules/Skills/OtherSkills';
+import Skills from '@/components/modules/Skills/Skills';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 
-const ProjectPage = () => {
+const SkillsPage = () => {
   return (
-    <div>
-      <Projects />
-    </div>
+    <>
+      <Skills />
+      <OtherSkills />
+    </>
   );
 };
 
-export default ProjectPage;
+export default SkillsPage;
 
 // >> SEO Start
 export const metadata: Metadata = generateMetaTags({
-  title: 'Projects | Aminul Islam',
+  title: 'Skills | Aminul Islam',
+
   description:
     'Aminul Islam is a skilled Software Developer specializing in MERN stack, Next.js, TypeScript and scalable web applications. Currently working at TabEdge, delivering high-performance solutions.',
   keywords:
     'Software Developer, MERN Stack Developer, Next.js Developer, React Developer, TypeScript Developer, Full-Stack Developer, Web Development, API Development, Payment Solutions, E-commerce Development,SEO Specialist, Scalable Web Apps, DevOps, Software Engineer, Aminul118, Hyper118',
-  websitePath: '/projects',
+  websitePath: '/skills',
 });
 // >> SEO End

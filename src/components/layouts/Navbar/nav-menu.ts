@@ -6,8 +6,8 @@ export interface NavMenu {
 const navItems: NavMenu[] = [
   { title: 'Home', href: '/' },
   { title: 'About', href: '/about' },
-  { title: 'Skills', href: '/#skills' },
-  { title: 'Experience', href: '/#experience' },
+  { title: 'Skills', href: '/skills' },
+  { title: 'Experience', href: '/experience' },
   { title: 'Projects', href: '/projects' },
   { title: 'Contact', href: '/contact' },
 ];
