@@ -12,7 +12,7 @@ const metaConfig: MetaConfig = {
   twitter_site: '@aminul118',
   bookmarks: 'https://www.aminul.dev/logo.png',
   verification: {
-    google: 'CXHQt0k3k1w8s7-XJeEvKbzn1oqM7iMWE7nglQl_6k4',
+    google: 'xUHURPD29At_D9F66UvFk6hYJXWC6i0lmpjcVL4c_LA',
     microsoft_bing: 'EE37CB89A12B6DB168EE052A7D138295',
   },
   publisher: 'https://www.aminuldev.site',
