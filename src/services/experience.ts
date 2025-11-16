@@ -1,4 +1,4 @@
-import { IExperience } from '@/types/apiData.types';
+import { IExperience } from '@/types/api.types';
 import { ApiResponse } from './../types/index';
 
 export const getAllExperience = async (): Promise<

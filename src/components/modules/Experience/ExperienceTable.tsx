@@ -17,7 +17,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { getAllExperience } from '@/services/experience';
-import { IExperience } from '@/types/apiData.types';
+import { IExperience } from '@/types/api.types';
 
 const ExperienceTable = async () => {
   const res = await getAllExperience();

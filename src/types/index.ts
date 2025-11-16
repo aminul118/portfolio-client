@@ -11,21 +11,15 @@ export type {
   SectionProps,
 } from './react.types';
 
-export type { Auth, IBlog, IUser } from './apiData.types';
+export type {
+  ApiResponse,
+  Auth,
+  IBlog,
+  IMeta,
+  IProject,
+  IUser,
+} from './api.types';
 
-export interface IMeta {
-  page: number;
-  limit: number;
-  total: number;
-  totalPage: number;
-}
-export interface ApiResponse<T> {
-  message: string;
-  statusCode: number;
-  success: boolean;
-  data: T;
-  meta?: IMeta;
-}
 export type TAbout = {
   title: string;
   paragraphs: string[];

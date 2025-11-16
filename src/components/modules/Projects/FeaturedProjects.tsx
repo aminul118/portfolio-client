@@ -1,41 +1,26 @@
 'use client';
-
 import { Card } from '@/components/ui/card';
 import SectionHeading from '@/components/ui/SectionHeading';
 import { useGetAllProjectsQuery } from '@/redux/features/project/project.api';
 import { IProject } from '@/types';
-import getSearchParams from '@/utils/getSearchParams';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaLink } from 'react-icons/fa';
 import { FaGithub } from 'react-icons/fa6';
 import { FiArrowUpRight } from 'react-icons/fi';
 
-const Projects = () => {
-  const { page, limit } = getSearchParams(['page', 'limit']);
+const FeaturedProjects = () => {
   const params = {
-    sort: 'createdAt',
-    page,
-    limit,
+    isFeatured: true,
   };
   const { data, isLoading } = useGetAllProjectsQuery(params);
 
   const projects = data?.data;
 
-  if (isLoading) {
-    return <p>Loading..</p>;
-  }
-
-  console.log(projects);
-
   return (
-    <div
-      className="container mx-auto flex-col justify-center px-4 py-12 text-white/60 lg:py-20 2xl:flex"
-      id="projects"
-      data-aos="fade-up"
-    >
+    <div className="text-center">
       <SectionHeading
-        heading="Projects"
+        heading="Featured Projects"
         description="A showcase of my work blending creativity and functionality, featuring interactive designs, seamless development, and innovative solutions."
       />
 
@@ -101,4 +86,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default FeaturedProjects;

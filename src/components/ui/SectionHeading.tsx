@@ -9,7 +9,7 @@ const SectionHeading = ({ heading, description, className }: HeadingType) => {
     <div
       className={`mx-auto max-w-2xl space-y-3 px-2 py-12 text-center text-white/60 ${className}`}
     >
-      <h1 className="text-center text-4xl font-bold">{heading}</h1>
+      <p className="text-center text-4xl font-bold">{heading}</p>
       <p>{description}</p>
     </div>
   );

@@ -1,4 +1,4 @@
-import { IUser } from '@/types/apiData.types';
+import { IUser } from '@/types/api.types';
 import { createContext } from 'react';
 
 interface AppDataContextProps {

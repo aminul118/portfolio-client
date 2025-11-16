@@ -2,7 +2,7 @@ import About from '@/components/modules/About/About';
 import Contact from '@/components/modules/contact/Contact';
 import Education from '@/components/modules/Home/Education';
 import HeroBanner from '@/components/modules/Home/HeroBanner';
-import Projects from '@/components/modules/Projects/Projects';
+import FeaturedProjects from '@/components/modules/Projects/FeaturedProjects';
 import OtherSkills from '@/components/modules/Skills/OtherSkills';
 import Skills from '@/components/modules/Skills/Skills';
 import generateMetaTags from '@/seo/generateMetaTags';
@@ -17,7 +17,7 @@ const HomePage = () => {
       <OtherSkills />
       <Education />
       {/* <Experience /> */}
-      <Projects />
+      <FeaturedProjects />
       <Contact />
     </>
   );

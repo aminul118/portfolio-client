@@ -1,3 +1,17 @@
+export interface IMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPage: number;
+}
+export interface ApiResponse<T> {
+  message: string;
+  statusCode: number;
+  success: boolean;
+  data: T;
+  meta?: IMeta;
+}
+
 export interface IUser {
   _id: string;
   firstName: string;
@@ -37,4 +51,19 @@ export interface IBlog {
   slug: string;
   content: string;
   thumbnail: string;
+}
+
+export interface IProject {
+  _id: string;
+  title: string;
+  slug: string;
+  liveLink: string;
+  github?: string;
+  content: string;
+  technology: string[];
+  thumbnail: string;
+  photos?: string[];
+  createdAt: Date;
+  updatedAt: Date;
+  isFeatured?: boolean;
 }
