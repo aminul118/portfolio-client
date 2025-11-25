@@ -34,7 +34,7 @@ const ProjectDetailsPage = async ({ params }: IParams) => {
         height={400}
       />
 
-      <HtmlContent content={project.content} />
+      <HtmlContent content={project.content} className="mt-5 text-justify" />
       <div className="mt-4 flex gap-2">
         {project?.technology?.map((tech, i) => {
           return (
