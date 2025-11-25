@@ -36,6 +36,7 @@ const FeaturedProjectsSlider = () => {
         autoplay={{
           delay: 3000,
           disableOnInteraction: false,
+          pauseOnMouseEnter: true,
         }}
         navigation={true}
         modules={[Autoplay, Navigation]}
