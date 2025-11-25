@@ -1,11 +1,13 @@
 import Projects from '@/components/modules/Projects/Projects';
 import generateMetaTags from '@/seo/generateMetaTags';
+import { ISearchParams } from '@/types';
 import { Metadata } from 'next';
 
-const ProjectPage = () => {
+const ProjectPage = async ({ searchParams }: ISearchParams) => {
+  const resolvedSearchparams = await searchParams;
   return (
     <div>
-      <Projects />
+      <Projects props={resolvedSearchparams} />
     </div>
   );
 };

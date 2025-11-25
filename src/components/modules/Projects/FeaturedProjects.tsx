@@ -6,7 +6,6 @@ import { IProject } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaLink } from 'react-icons/fa';
-import { FaGithub } from 'react-icons/fa6';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 const FeaturedProjects = () => {
@@ -26,8 +25,7 @@ const FeaturedProjects = () => {
 
       <div className="container mx-auto grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
         {projects?.map((project: IProject) => {
-          const { _id, title, liveLink, thumbnail, createdAt, slug, github } =
-            project;
+          const { _id, title, liveLink, thumbnail, createdAt, slug } = project;
           return (
             <Card
               key={_id}
@@ -66,17 +64,6 @@ const FeaturedProjects = () => {
                   Preview
                   <FaLink />
                 </Link>
-
-                {github && (
-                  <Link
-                    href={github}
-                    target="_blank"
-                    className="btn-outline flex items-center justify-center gap-2 rounded-full border px-4 py-1"
-                  >
-                    Github
-                    <FaGithub />
-                  </Link>
-                )}
               </div>
             </Card>
           );

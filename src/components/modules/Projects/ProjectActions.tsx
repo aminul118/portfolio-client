@@ -6,13 +6,23 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Edit, EllipsisIcon, Trash2Icon } from 'lucide-react';
+import { IProject } from '@/types';
+import {
+  Edit,
+  EllipsisIcon,
+  Link as LinkIcon,
+  Rows4,
+  Trash2Icon,
+} from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
-import { IProject } from './ProjectTable';
+import ProjectViewModal from './ProjectViewModal';
 
-const ProjectActions = ({ project }: { project: IProject }) => {
+const ProjectActions = ({ project }: Props) => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [viewDetailsModalOpen, setViewDetailsModalOpen] = useState(false);
+
   return (
     <>
       <DropdownMenu>
@@ -30,14 +40,23 @@ const ProjectActions = ({ project }: { project: IProject }) => {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end" className="min-w-48">
+          <DropdownMenuItem asChild>
+            <Link href={project.liveLink} target="_blank" rel="noreferrer">
+              <LinkIcon className="mr-2 h-4 w-4" />
+              <span>Live Link</span>
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem onClick={() => setViewDetailsModalOpen(true)}>
+            <Rows4 className="mr-2 h-4 w-4" />
+            <span>View Details</span>
+          </DropdownMenuItem>
+
           <DropdownMenuItem onClick={() => setEditModalOpen(true)}>
             <Edit className="mr-2 h-4 w-4" />
             <span>Edit</span>
           </DropdownMenuItem>
-          <DropdownMenuItem
-            className="text-destructive focus:text-destructive"
-            onClick={() => setDeleteModalOpen(true)}
-          >
+          <DropdownMenuItem className="text-destructive focus:text-destructive">
             <Trash2Icon className="mr-2 h-4 w-4" />
             <span>Delete</span>
           </DropdownMenuItem>
@@ -50,8 +69,18 @@ const ProjectActions = ({ project }: { project: IProject }) => {
         open={editModalOpen}
         setOpen={setEditModalOpen}
       /> */}
+
+      <ProjectViewModal
+        project={project}
+        open={viewDetailsModalOpen}
+        setOpen={setViewDetailsModalOpen}
+      />
     </>
   );
 };
 
 export default ProjectActions;
+
+interface Props {
+  project: IProject;
+}

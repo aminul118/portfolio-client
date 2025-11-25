@@ -1,39 +1,21 @@
-'use client';
-
 import { Card } from '@/components/ui/card';
 import SectionHeading from '@/components/ui/SectionHeading';
-import { useGetAllProjectsQuery } from '@/redux/features/project/project.api';
+import { getProjects } from '@/services/projects';
 import { IProject } from '@/types';
-import getSearchParams from '@/utils/getSearchParams';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaLink } from 'react-icons/fa';
-import { FaGithub } from 'react-icons/fa6';
 import { FiArrowUpRight } from 'react-icons/fi';
 
-const Projects = () => {
-  const { page, limit } = getSearchParams(['page', 'limit']);
+const Projects = async ({ props }: { props: Record<string, any> }) => {
   const params = {
+    ...props,
     sort: 'createdAt',
-    page,
-    limit,
   };
-  const { data, isLoading } = useGetAllProjectsQuery(params);
-
-  const projects = data?.data;
-
-  if (isLoading) {
-    return <p>Loading..</p>;
-  }
-
-  console.log(projects);
+  const { data: projects } = await getProjects(params);
 
   return (
-    <div
-      className="container mx-auto flex-col justify-center px-4 py-12 text-white/60 lg:py-20 2xl:flex"
-      id="projects"
-      data-aos="fade-up"
-    >
+    <div id="projects" data-aos="fade-up">
       <SectionHeading
         heading="Projects"
         description="A showcase of my work blending creativity and functionality, featuring interactive designs, seamless development, and innovative solutions."
@@ -41,8 +23,7 @@ const Projects = () => {
 
       <div className="container mx-auto grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
         {projects?.map((project: IProject) => {
-          const { _id, title, liveLink, thumbnail, createdAt, slug, github } =
-            project;
+          const { _id, title, liveLink, thumbnail, createdAt, slug } = project;
           return (
             <Card
               key={_id}
@@ -81,17 +62,6 @@ const Projects = () => {
                   Preview
                   <FaLink />
                 </Link>
-
-                {github && (
-                  <Link
-                    href={github}
-                    target="_blank"
-                    className="btn-outline flex items-center justify-center gap-2 rounded-full border px-4 py-1"
-                  >
-                    Github
-                    <FaGithub />
-                  </Link>
-                )}
               </div>
             </Card>
           );

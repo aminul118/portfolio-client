@@ -1,10 +1,51 @@
+import { Button } from '@/components/ui/button';
+import Container from '@/components/ui/Container';
+import HtmlContent from '@/components/ui/HtmlContent';
+import { getProjectById } from '@/services/projects';
 import { IParams } from '@/types';
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 const ProjectDetailsPage = async ({ params }: IParams) => {
   const { slug } = await params;
-  console.log(slug);
+  const data = await getProjectById(slug);
+  const project = data?.data;
 
-  return <div></div>;
+  if (!project) {
+    notFound();
+  }
+
+  return (
+    <Container>
+      <div className="flex items-center justify-between">
+        <h1 className="my-4 text-3xl font-bold">{project?.title}</h1>
+        <Button asChild className="w-32">
+          <Link href={project?.liveLink} target="_blank">
+            Live Demo
+          </Link>
+        </Button>
+      </div>
+
+      <Image
+        src={project?.thumbnail}
+        alt={project.title}
+        width={800}
+        height={400}
+      />
+
+      <HtmlContent content={project.content} />
+      <div className="mt-4 flex gap-2">
+        {project?.technology?.map((tech, i) => {
+          return (
+            <Button variant="outline" key={i} className="">
+              {tech}
+            </Button>
+          );
+        })}
+      </div>
+    </Container>
+  );
 };
 
 export default ProjectDetailsPage;

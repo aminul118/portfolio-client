@@ -2,31 +2,6 @@ import { IProjects } from '@/types';
 
 const AllProjects: IProjects[] = [
   {
-    id: 2,
-    project_name: 'Percel Point',
-    project_img: '/assets/projects/percel.png',
-    liveLink: 'https://percel-point-client.vercel.app',
-    github: 'https://github.com/aminul118/percel-point-client',
-    about:
-      'Parcel Point is a robust parcel booking and delivery management platform designed to streamline logistics operations. Built using the MERN stack, this web application supports three user roles—Admin, Delivery Men, and Users—providing a seamless experience for parcel booking, delivery tracking, and management. With real-time status updates, role-based access, and integrated payment solutions, Parcel Point ensures efficiency and convenience for all users.',
-    features: [
-      'Role-based access control for Admin, Delivery Men, and Users.',
-      'Seamless parcel booking with automatic cost calculation.',
-      'Real-time parcel status updates (Pending, On The Way, Delivered, etc.).',
-      'Admin dashboard with statistical insights using React Apex Charts.',
-      'Delivery Men dashboard for managing assigned deliveries and tracking progress.',
-      'Interactive homepage with animations using AOS and Lottie React.',
-      'Real-time notifications via SweetAlert2 and React Toastify.',
-      'Integrated MapBox for precise delivery location tracking.',
-      'Fully responsive design optimized for mobile, tablet, and desktop.',
-      'Secure Stripe payment integration with visual feedback on transactions.',
-      'Light & Dark mode toggle for better user experience.',
-      'Authentication via Firebase and JWT for secure access control.',
-      'Efficient data fetching and caching with React Query.',
-    ],
-    tech: ['Tailwind', 'React', 'Express', 'MongoDB'],
-  },
-  {
     id: 1,
     project_name: 'Foddie',
     project_img: '/assets/projects/foddie.png',
