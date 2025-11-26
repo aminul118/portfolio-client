@@ -1,8 +1,13 @@
+import Experience from '@/components/modules/Experience/Experience';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 
 const ExperiencePage = () => {
-  return <div></div>;
+  return (
+    <>
+      <Experience />
+    </>
+  );
 };
 
 export default ExperiencePage;

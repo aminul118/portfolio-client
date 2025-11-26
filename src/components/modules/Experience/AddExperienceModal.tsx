@@ -1,5 +1,6 @@
 'use client';
 
+import { addExperience } from '@/actions/experience/addExperience';
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -20,31 +21,19 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import SubmitButton from '@/components/ui/submit-button';
 import { Textarea } from '@/components/ui/textarea';
+import { experienceValidationSchema } from '@/validations/experience';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Check, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import z from 'zod';
 
-// ✅ Validation schema
-const formSchema = z.object({
-  position: z
-    .string()
-    .min(2, { message: 'Position must be at least 2 characters.' }),
-  companyName: z
-    .string()
-    .min(2, { message: 'Company name must be at least 2 characters.' }),
-  timeline: z
-    .string()
-    .min(2, { message: 'Timeline must be at least 2 characters.' }),
-  description: z
-    .string()
-    .min(6, { message: 'Description must be at least 6 characters.' }),
-});
+type FormValues = z.infer<typeof experienceValidationSchema>;
 
 const AddExperienceModal = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<FormValues>({
+    resolver: zodResolver(experienceValidationSchema),
     defaultValues: {
       position: '',
       companyName: '',
@@ -53,8 +42,22 @@ const AddExperienceModal = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log('✅ Form submitted:', values);
+  const onSubmit = async (values: FormValues) => {
+    const fd = new FormData();
+
+    fd.append('position', values.position);
+    fd.append('companyName', values.companyName);
+    fd.append('timeline', values.timeline);
+    fd.append('description', values.description);
+
+    const res = await addExperience(fd);
+
+    if (res?.success) {
+      toast.success('Experience added!');
+      form.reset();
+    } else {
+      toast.error(res?.message || 'Upload failed');
+    }
   };
 
   return (
@@ -66,13 +69,11 @@ const AddExperienceModal = () => {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Add Experience</AlertDialogTitle>
-          {/* ✅ Keep only descriptive text inside */}
           <AlertDialogDescription>
             Please fill in your work experience details below.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        {/* ✅ Move form outside of AlertDialogDescription */}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -139,12 +140,8 @@ const AddExperienceModal = () => {
             />
 
             <AlertDialogFooter className="pt-4">
-              <AlertDialogCancel type="button">
-                <X className="mr-1 h-4 w-4" /> Cancel
-              </AlertDialogCancel>
-              <Button type="submit">
-                <Check className="mr-1 h-4 w-4" /> Save
-              </Button>
+              <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+              <SubmitButton>Save</SubmitButton>
             </AlertDialogFooter>
           </form>
         </Form>

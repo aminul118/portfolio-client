@@ -33,16 +33,6 @@ export interface Auth {
   providerId: string;
 }
 
-export interface IExperience {
-  _id?: string;
-  position: string;
-  companyName: string;
-  timeline: string;
-  description: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
 export interface IBlog {
   _id?: string;
   createdAt: string;
@@ -65,4 +55,14 @@ export interface IProject {
   createdAt: Date;
   updatedAt: Date;
   isFeatured: boolean;
+}
+
+export interface IExperience {
+  _id: string;
+  position: string;
+  companyName: string;
+  timeline: string;
+  description: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

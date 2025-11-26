@@ -17,6 +17,7 @@ import ImageDrop from '@/components/ui/image-drop';
 import { Input } from '@/components/ui/input';
 import MultipleImageDrop from '@/components/ui/multiple-image-drop';
 import SubmitButton from '@/components/ui/submit-button';
+import { projectValidationSchema } from '@/validations/project';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -24,25 +25,11 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import z from 'zod';
 
-const formSchema = z.object({
-  title: z.string().min(2, { message: 'Title must be at least 2 characters.' }),
-  slug: z.string().min(2, { message: 'Slug is required.' }),
-  liveLink: z.string().url({ message: 'Enter a valid URL.' }),
-  github: z.string().url().optional(),
-  content: z
-    .string()
-    .min(10, { message: 'Content must be at least 10 characters.' }),
-  technology: z
-    .array(z.string().min(1))
-    .min(1, { message: 'Add at least one technology.' }),
-  thumbnail: z.instanceof(File, { message: 'Thumbnail is required.' }),
-  photos: z.array(z.instanceof(File)).optional(),
-  isFeatured: z.boolean().optional(),
-});
+type FormValues = z.infer<typeof projectValidationSchema>;
 
 const AddProject = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<FormValues>({
+    resolver: zodResolver(projectValidationSchema),
     defaultValues: {
       title: '',
       slug: '',
@@ -54,7 +41,7 @@ const AddProject = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: FormValues) => {
     const res = await addProjectAction(values);
     console.log(res);
     if (res.success) {

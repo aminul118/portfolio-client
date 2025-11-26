@@ -1,5 +1,6 @@
 import About from '@/components/modules/About/About';
 import Contact from '@/components/modules/contact/Contact';
+import Experience from '@/components/modules/Experience/Experience';
 import Education from '@/components/modules/Home/Education';
 import HeroBanner from '@/components/modules/Home/HeroBanner';
 import FeaturedProjects from '@/components/modules/Projects/FeaturedProjects';
@@ -18,7 +19,7 @@ const HomePage = () => {
       <OtherSkills />
       <Education />
       <ProjectSlider />
-      {/* <Experience /> */}
+      <Experience />
       <FeaturedProjects />
       <Contact />
     </>

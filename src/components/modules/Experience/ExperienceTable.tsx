@@ -16,12 +16,16 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { getAllExperience } from '@/services/experience';
+import { getExperience } from '@/services/experience';
+
 import { IExperience } from '@/types/api.types';
 
-const ExperienceTable = async () => {
-  const res = await getAllExperience();
-  const data = res?.data ?? [];
+const ExperienceTable = async ({ props }: { props: Record<string, any> }) => {
+  const params = {
+    ...props,
+  };
+  const { data, meta } = await getExperience(params);
+  console.log(meta);
 
   return (
     <Container>
@@ -44,7 +48,7 @@ const TableCreate = ({ data }: { data: IExperience[] }) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((user, index) => (
+        {data?.map((user, index) => (
           <TableRow key={user._id} className="hover:bg-primary/10">
             <TableCell>{index + 1}</TableCell>
             <TableCell>{user.position}</TableCell>

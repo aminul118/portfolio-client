@@ -1,9 +1,8 @@
 import SectionHeading from '@/components/ui/SectionHeading';
-import { getAllExperience } from '@/services/experience';
+import { getExperience } from '@/services/experience';
 
 const Experience = async () => {
-  const res = await getAllExperience();
-  const data = res?.data;
+  const { data } = await getExperience();
 
   return (
     <div

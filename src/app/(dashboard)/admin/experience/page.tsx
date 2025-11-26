@@ -1,7 +1,15 @@
+import ExperienceTable from '@/components/modules/Experience/ExperienceTable';
+import { ISearchParams } from '@/types';
 import { Metadata } from 'next';
 
-const ExperiencePage = () => {
-  return <div></div>;
+const ExperiencePage = async ({ searchParams }: ISearchParams) => {
+  const resolvedSearchparams = await searchParams;
+
+  return (
+    <div>
+      <ExperienceTable props={resolvedSearchparams} />
+    </div>
+  );
 };
 
 export default ExperiencePage;
