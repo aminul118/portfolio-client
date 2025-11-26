@@ -4,7 +4,6 @@ import Experience from '@/components/modules/Experience/Experience';
 import Education from '@/components/modules/Home/Education';
 import HeroBanner from '@/components/modules/Home/HeroBanner';
 import FeaturedProjects from '@/components/modules/Projects/FeaturedProjects';
-import ProjectSlider from '@/components/modules/Projects/ProjectSlider';
 import OtherSkills from '@/components/modules/Skills/OtherSkills';
 import Skills from '@/components/modules/Skills/Skills';
 import generateMetaTags from '@/seo/generateMetaTags';
@@ -18,7 +17,6 @@ const HomePage = () => {
       <Skills />
       <OtherSkills />
       <Education />
-      <ProjectSlider />
       <Experience />
       <FeaturedProjects />
       <Contact />
