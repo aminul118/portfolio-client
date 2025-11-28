@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import Logo from '../Logo';
+import LogOut from './LogOut';
 import Menu from './Menu';
 
 const AdminSidebar = () => {
@@ -29,6 +30,7 @@ const AdminSidebar = () => {
       <SidebarFooter className="py-6">
         <Separator className="mb-2" />
         {/* <FooterUser /> */}
+        <LogOut />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

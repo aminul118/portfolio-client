@@ -21,10 +21,17 @@ export const registrationFormValidation = z
 
 // Login
 export const loginValidationZodSchema = z.object({
-  email: z.string().email({ message: 'Invalid email address' }),
+  email: z.email({
+    message: 'Email is required',
+  }),
   password: z
-    .string()
-    .min(6, { message: 'Password must be at least 6 characters' }),
+    .string('Password is required')
+    .min(6, {
+      error: 'Password is required and must be at least 6 characters long',
+    })
+    .max(100, {
+      error: 'Password must be at most 100 characters long',
+    }),
 });
 
 export const forgotPasswordValidation = z.object({

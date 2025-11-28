@@ -1,30 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 
+import envVars from '@/config/env.config';
 import {
   getDefaultDashboardRoute,
   isValidRedirectForRole,
   UserRole,
 } from '@/utils/auth';
 import { verifyToken } from '@/utils/jwt';
+import { loginValidationZodSchema } from '@/validations/auth';
 import { parse } from 'cookie';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import z from 'zod';
-
-const loginValidationZodSchema = z.object({
-  email: z.email({
-    message: 'Email is required',
-  }),
-  password: z
-    .string('Password is required')
-    .min(6, {
-      error: 'Password is required and must be at least 6 characters long',
-    })
-    .max(100, {
-      error: 'Password must be at most 100 characters long',
-    }),
-});
 
 export const loginUser = async (
   _currentState: any,
@@ -53,7 +40,7 @@ export const loginUser = async (
       };
     }
 
-    const res = await fetch('http://localhost:5000/api/v1/auth/login', {
+    const res = await fetch(`${envVars.baseUrl}/auth/login`, {
       method: 'POST',
       body: JSON.stringify(loginData),
       headers: {

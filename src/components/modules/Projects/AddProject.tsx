@@ -230,7 +230,7 @@ const AddProject = () => {
 
           {/* Submit */}
           <div className="flex justify-end">
-            <SubmitButton>Submit</SubmitButton>
+            <SubmitButton />
           </div>
         </form>
       </Form>

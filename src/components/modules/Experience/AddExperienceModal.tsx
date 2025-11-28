@@ -141,7 +141,7 @@ const AddExperienceModal = () => {
 
             <AlertDialogFooter className="pt-4">
               <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
-              <SubmitButton>Save</SubmitButton>
+              <SubmitButton />
             </AlertDialogFooter>
           </form>
         </Form>
