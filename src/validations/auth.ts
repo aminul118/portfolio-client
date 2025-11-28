@@ -20,7 +20,7 @@ export const registrationFormValidation = z
   });
 
 // Login
-export const loginFormValidation = z.object({
+export const loginValidationZodSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
   password: z
     .string()

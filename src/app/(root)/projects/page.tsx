@@ -6,9 +6,9 @@ import { Metadata } from 'next';
 const ProjectPage = async ({ searchParams }: ISearchParams) => {
   const resolvedSearchparams = await searchParams;
   return (
-    <div>
+    <>
       <Projects props={resolvedSearchparams} />
-    </div>
+    </>
   );
 };
 

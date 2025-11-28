@@ -1,6 +1,5 @@
 'use client';
 
-import { addProjectAction } from '@/actions/project/addProjects';
 import ReactQuil from '@/components/common/rich-text/ReactQuil';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -17,6 +16,7 @@ import ImageDrop from '@/components/ui/image-drop';
 import { Input } from '@/components/ui/input';
 import MultipleImageDrop from '@/components/ui/multiple-image-drop';
 import SubmitButton from '@/components/ui/submit-button';
+import { addProjectAction } from '@/services/project/addProjects';
 import { projectValidationSchema } from '@/validations/project';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';

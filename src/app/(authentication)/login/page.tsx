@@ -1,11 +1,59 @@
+import Logo from '@/components/layouts/Logo';
 import LoginForm from '@/components/modules/Authentication/LoginForm';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import images from '@/config/images';
+import { cn } from '@/lib/utils';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const LoginPage = () => {
   return (
     <section className="center">
-      <LoginForm className="w-full max-w-sm md:max-w-4xl" />
+      <div
+        className={cn('flex items-center justify-center rounded-lg shadow-lg')}
+      >
+        <Card className="w-full max-w-5xl overflow-hidden p-0">
+          <CardContent className="grid p-0 md:grid-cols-2">
+            {/* Form Section */}
+            <div className="flex flex-col justify-center gap-6 p-6 md:p-12">
+              <div className="flex flex-col gap-6">
+                <div className="grid place-items-center">
+                  <Link href={'/'}>
+                    <Logo />
+                  </Link>
+                  <p className="text-muted-foreground mt-4 text-center">
+                    Login to your Smart Healthcare & Research Ltd. portal
+                  </p>
+                </div>
+                <LoginForm />
+              </div>
+
+              <div className="mt-4 text-center text-sm">
+                {"Don't have an account?"}
+                <Link href="/register">
+                  <Button variant="link" className="p-0 pl-1">
+                    Sign up
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* Image Section */}
+            <div className="bg-muted relative hidden md:block">
+              <Image
+                className="absolute inset-0 h-full w-full object-cover brightness-[0.5] grayscale dark:brightness-[0.2]"
+                src={images.auth}
+                height={400}
+                width={400}
+                alt="Login Image"
+              />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </section>
   );
 };

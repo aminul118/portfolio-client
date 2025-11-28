@@ -1,6 +1,5 @@
 'use client';
 
-import { addExperience } from '@/actions/experience/addExperience';
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -23,6 +22,7 @@ import {
 import { Input } from '@/components/ui/input';
 import SubmitButton from '@/components/ui/submit-button';
 import { Textarea } from '@/components/ui/textarea';
+import { addExperience } from '@/services/experience/addExperience';
 import { experienceValidationSchema } from '@/validations/experience';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';

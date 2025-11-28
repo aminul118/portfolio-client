@@ -1,5 +1,5 @@
 import SectionHeading from '@/components/ui/SectionHeading';
-import { getExperience } from '@/services/experience';
+import { getExperience } from '@/services/experience/experience';
 
 const Experience = async () => {
   const { data } = await getExperience();

@@ -1,66 +1,91 @@
-import { NextResponse, type NextRequest } from 'next/server';
-import { getUserFromCookie } from './lib/auth';
-import { Role } from './types';
+import { cookies } from 'next/headers';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
+import {
+  UserRole,
+  getDefaultDashboardRoute,
+  getRouteOwner,
+  isAuthRoute,
+} from './utils/auth';
+import { verifyToken } from './utils/jwt';
 
-const authRoutes = [
-  '/login',
-  '/register',
-  '/forgot-password',
-  '/reset-password',
-  '/verify',
-];
+export const proxy = async (request: NextRequest) => {
+  const cookieStore = await cookies();
+  const pathname = request.nextUrl.pathname;
 
-export const proxy = async (req: NextRequest) => {
-  const { pathname, origin } = req.nextUrl;
-  const user = await getUserFromCookie();
+  const accessToken = request.cookies.get('accessToken')?.value || null;
 
-  // 1️⃣ If logged in → block access to auth pages
-  if (user && authRoutes.includes(pathname)) {
-    if (user.role === Role.ADMIN || user.role === Role.SUPER_ADMIN) {
-      return NextResponse.redirect(new URL('/admin', origin));
+  let userRole: UserRole | null = null;
+
+  if (accessToken) {
+    const verifiedToken = verifyToken(accessToken);
+
+    if (typeof verifiedToken === 'string') {
+      cookieStore.delete('accessToken');
+      cookieStore.delete('refreshToken');
+      return NextResponse.redirect(new URL('/login', request.url));
     }
-    if (user.role === Role.USER) {
-      return NextResponse.redirect(new URL('/user', origin));
-    }
+
+    userRole = verifiedToken.role;
   }
 
-  // 2️⃣ If not logged in → protect /admin and /user routes
+  const routerOwner = getRouteOwner(pathname);
+  //path = /doctor/appointments => "DOCTOR"
+  //path = /my-profile => "COMMON"
+  //path = /login => null
 
-  const routes = ['/admin', '/dashboard', '/profile'];
-  if (!user && routes.some((route) => pathname.startsWith(route))) {
-    const loginUrl = new URL('/login', origin);
-    loginUrl.searchParams.set('callbackUrl', pathname);
+  const isAuth = isAuthRoute(pathname);
+
+  // Rule 1 : User is logged in and trying to access auth route. Redirect to default dashboard
+  if (accessToken && isAuth) {
+    return NextResponse.redirect(
+      new URL(getDefaultDashboardRoute(userRole as UserRole), request.url),
+    );
+  }
+
+  // Rule 2 : User is trying to access open public route
+  if (routerOwner === null) {
+    return NextResponse.next();
+  }
+
+  // Rule 1 & 2 for open public routes and auth routes
+
+  if (!accessToken) {
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('redirect', pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  // 3️⃣ Role-based protection
-  // Allow ADMIN and SUPER_ADMIN to access /admin
+  // Rule 3 : User is trying to access common protected route
+  if (routerOwner === 'COMMON') {
+    return NextResponse.next();
+  }
+
+  // Rule 4 : User is trying to access role based protected route
   if (
-    pathname.startsWith('/admin') &&
-    user?.role !== Role.ADMIN &&
-    user?.role !== Role.SUPER_ADMIN
+    routerOwner === 'ADMIN' ||
+    routerOwner === 'SUPER_ADMIN' ||
+    routerOwner === 'USER'
   ) {
-    return NextResponse.redirect(new URL('/dashboard', origin));
+    if (userRole !== routerOwner) {
+      return NextResponse.redirect(
+        new URL(getDefaultDashboardRoute(userRole as UserRole), request.url),
+      );
+    }
   }
 
-  // Only USER can access /user
-  if (pathname.startsWith('/user') && user?.role !== Role.USER) {
-    return NextResponse.redirect(new URL('/admin', origin));
-  }
-
-  // 4️⃣ Otherwise → allow
   return NextResponse.next();
 };
 
 export const config = {
   matcher: [
-    '/admin/:path*',
-    '/user/:path*',
-    '/login',
-    '/register',
-    '/forgot-password',
-    '/reset-password',
-    '/verify',
-    '/profile',
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.well-known).*)',
   ],
 };

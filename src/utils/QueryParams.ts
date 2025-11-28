@@ -2,6 +2,14 @@ import envVars from '@/config/env.config';
 
 export type Query = Record<string, any>;
 
+// const url = QueryParams('users', {
+//   page: 1,
+//   role: 'admin',
+//   search: 'aminul',
+// });
+
+// fetch(url);
+
 export const QueryParams = (path: string, query: Query = {}) => {
   const url = new URL(`${envVars.baseUrl}/${path}`);
 

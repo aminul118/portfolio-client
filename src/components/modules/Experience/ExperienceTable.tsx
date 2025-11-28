@@ -16,7 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { getExperience } from '@/services/experience';
+import { getExperience } from '@/services/experience/experience';
 
 import { IExperience } from '@/types/api.types';
 

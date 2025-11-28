@@ -1,29 +1,34 @@
 import Container from '@/components/ui/Container';
+import { Skeleton } from '@/components/ui/skeleton';
 
-const loading = () => {
+const Loading = () => {
   return (
-    <Container>
-      {/* Title skeleton */}{' '}
-      <div className="my-4 h-10 w-3/4 animate-pulse rounded-md"></div>
-      {/* Button skeleton */}
-      <div className="mb-4 h-10 w-32 animate-pulse rounded-md"></div>
-      {/* Image skeleton */}
-      <div className="mb-5 h-96 w-full animate-pulse rounded-md"></div>
-      {/* Content skeleton */}
+    <Container className="space-y-6 py-6">
+      {/* Title Skeleton */}
+      <Skeleton className="h-10 w-3/4" />
+
+      {/* Button Skeleton */}
+      <Skeleton className="h-10 w-32" />
+
+      {/* Image Skeleton */}
+      <Skeleton className="h-96 w-full rounded-md" />
+
+      {/* Content Skeleton */}
       <div className="space-y-3">
-        <div className="h-4 w-full animate-pulse rounded-md"></div>
-        <div className="h-4 w-5/6 animate-pulse rounded-md"></div>
-        <div className="h-4 w-11/12 animate-pulse rounded-md"></div>
-        <div className="h-4 w-3/4 animate-pulse rounded-md"></div>
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-5/6" />
+        <Skeleton className="h-4 w-11/12" />
+        <Skeleton className="h-4 w-3/4" />
       </div>
-      {/* Tech buttons skeleton */}
-      <div className="mt-4 flex gap-2">
-        <div className="h-8 w-20 animate-pulse rounded-md"></div>
-        <div className="h-8 w-20 animate-pulse rounded-md"></div>
-        <div className="h-8 w-20 animate-pulse rounded-md"></div>
+
+      {/* Technology Tag Skeletons */}
+      <div className="flex gap-2 pt-2">
+        <Skeleton className="h-8 w-20 rounded-md" />
+        <Skeleton className="h-8 w-20 rounded-md" />
+        <Skeleton className="h-8 w-20 rounded-md" />
       </div>
     </Container>
   );
 };
 
-export default loading;
+export default Loading;

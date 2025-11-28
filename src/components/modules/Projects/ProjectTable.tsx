@@ -15,7 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { getProjects } from '@/services/projects';
+import { getProjects } from '@/services/project/projects';
 import { IProject } from '@/types';
 import { Check } from 'lucide-react';
 import Image from 'next/image';
