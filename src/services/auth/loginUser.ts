@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 
-import envVars from '@/config/env.config';
+import serverFetch from '@/lib/server-fetch';
 import {
   getDefaultDashboardRoute,
   isValidRedirectForRole,
@@ -40,8 +40,7 @@ export const loginUser = async (
       };
     }
 
-    const res = await fetch(`${envVars.baseUrl}/auth/login`, {
-      method: 'POST',
+    const res = await serverFetch.post('/auth/login', {
       body: JSON.stringify(loginData),
       headers: {
         'Content-Type': 'application/json',
