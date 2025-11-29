@@ -1,12 +1,11 @@
 'use server';
 
-import { cookies } from 'next/headers';
+import { deleteCookie } from '@/utils/jwt';
 import { redirect } from 'next/navigation';
 
 const logOut = async () => {
-  const cookieStore = await cookies();
-  cookieStore.delete('accessToken');
-  cookieStore.delete('refreshToken');
+  await deleteCookie('accessToken');
+  await deleteCookie('refreshToken');
 
   redirect('/');
 };

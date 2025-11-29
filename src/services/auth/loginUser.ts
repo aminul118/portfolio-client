@@ -7,7 +7,7 @@ import {
   isValidRedirectForRole,
   UserRole,
 } from '@/utils/auth';
-import { verifyToken } from '@/utils/jwt';
+import { setCookie, verifyToken } from '@/utils/jwt';
 import { loginValidationZodSchema } from '@/validations/auth';
 import { parse } from 'cookie';
 import { cookies } from 'next/headers';
@@ -75,7 +75,7 @@ export const loginUser = async (
 
     const cookieStore = await cookies();
 
-    cookieStore.set('accessToken', accessTokenObject.accessToken, {
+    setCookie('accessToken', accessTokenObject.accessToken, {
       secure: true,
       httpOnly: true,
       maxAge: parseInt(accessTokenObject['Max-Age']) || 1000 * 60 * 60,
@@ -83,7 +83,7 @@ export const loginUser = async (
       sameSite: accessTokenObject['SameSite'] || 'none',
     });
 
-    cookieStore.set('refreshToken', refreshTokenObject.refreshToken, {
+    setCookie('refreshToken', refreshTokenObject.refreshToken, {
       secure: true,
       httpOnly: true,
       maxAge:

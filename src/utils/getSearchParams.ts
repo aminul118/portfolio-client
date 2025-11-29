@@ -1,12 +1,5 @@
 import { useSearchParams } from 'next/navigation';
 
-/**
- * -----------------------------------------------------------
- *                         Use Process
- * -----------------------------------------------------------
- *   const { page, limit } = getSearchParams("page", "limit");
- */
-
 const getSearchParams = <T extends string>(
   ...keys: T[]
 ): { [K in T]: string | null } => {
@@ -22,3 +15,10 @@ const getSearchParams = <T extends string>(
 };
 
 export default getSearchParams;
+
+/**
+ * -----------------------------------------------------------
+ *                         Use Process
+ * -----------------------------------------------------------
+ *   const { page, limit } = getSearchParams("page", "limit");
+ */
