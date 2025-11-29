@@ -11,7 +11,7 @@ import { useActionState } from 'react';
 
 const LoginForm = () => {
   const [state, formAction] = useActionState(loginUser, null);
-  const { redirect } = getSearchParams(['redirect']);
+  const { redirect } = getSearchParams('redirect');
 
   return (
     <form action={formAction}>

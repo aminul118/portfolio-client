@@ -1,16 +1,24 @@
 import { useSearchParams } from 'next/navigation';
 
+/**
+ * -----------------------------------------------------------
+ *                         Use Process
+ * -----------------------------------------------------------
+ *   const { page, limit } = getSearchParams("page", "limit");
+ */
+
 const getSearchParams = <T extends string>(
-  keys: T[],
-): Record<T, string | null> => {
+  ...keys: T[]
+): { [K in T]: string | null } => {
   const searchParams = useSearchParams();
-  const values = {} as Record<T, string | null>;
+
+  const result = {} as { [K in T]: string | null };
 
   keys.forEach((key) => {
-    values[key] = searchParams.get(key);
+    result[key] = searchParams.get(key);
   });
 
-  return values;
+  return result;
 };
 
 export default getSearchParams;
