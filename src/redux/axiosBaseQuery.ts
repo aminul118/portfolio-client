@@ -1,4 +1,4 @@
-import { axiosInstance } from '@/lib/api/axios';
+import { axiosInstance } from '@/lib/axios';
 import type { BaseQueryFn } from '@reduxjs/toolkit/query';
 import type { AxiosError, AxiosRequestConfig } from 'axios';
 

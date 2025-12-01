@@ -40,12 +40,12 @@ export const loginUser = async (
       };
     }
 
-    const res = await serverFetch.post('/auth/login', {
+    const res = (await serverFetch.post('/auth/login', {
       body: JSON.stringify(loginData),
       headers: {
         'Content-Type': 'application/json',
       },
-    });
+    })) as Response;
 
     const setCookieHeaders = res.headers.getSetCookie();
 

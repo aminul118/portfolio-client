@@ -1,59 +1,46 @@
-import envVars from '@/config/env.config';
+import buildUrl from '@/utils/buildUrl';
 
-// /auth/login
-const serverFetchHelper = async (
+type FetchOptions = RequestInit & {
+  query?: Record<string, any>;
+};
+
+const serverFetchHelper = async <T>(
   endpoint: string,
-  options: RequestInit,
-): Promise<Response> => {
-  const { headers, ...restOptions } = options;
+  options: FetchOptions,
+): Promise<T> => {
+  const { headers, query, ...rest } = options;
+  const url = buildUrl(endpoint, query);
 
-  console.log({ body: options.body });
-
-  // const accessToken = await getCookie("accessToken");
-
-  const response = await fetch(`${envVars.baseUrl}${endpoint}`, {
+  const res = await fetch(url, {
     headers: {
+      'Content-Type': 'application/json',
       ...headers,
-      // ...(accessToken ? { "Authorization": `Bearer ${accessToken}` } : {}),
-      // ...(accessToken ? { "Authorization": accessToken } : {}),
-      // Cookie: accessToken ? `accessToken=${accessToken}` : "",
     },
-    ...restOptions,
+    ...rest,
   });
 
-  return response;
+  if (!res.ok) {
+    throw new Error(`Request failed: ${res.status}`);
+  }
+
+  return res.json() as Promise<T>;
 };
 
 const serverFetch = {
-  get: async (endpoint: string, options: RequestInit = {}): Promise<Response> =>
-    serverFetchHelper(endpoint, { ...options, method: 'GET' }),
+  get: <T>(endpoint: string, options: FetchOptions = {}) =>
+    serverFetchHelper<T>(endpoint, { ...options, method: 'GET' }),
 
-  post: async (
-    endpoint: string,
-    options: RequestInit = {},
-  ): Promise<Response> =>
-    serverFetchHelper(endpoint, { ...options, method: 'POST' }),
+  post: <T>(endpoint: string, options: FetchOptions = {}) =>
+    serverFetchHelper<T>(endpoint, { ...options, method: 'POST' }),
 
-  put: async (endpoint: string, options: RequestInit = {}): Promise<Response> =>
-    serverFetchHelper(endpoint, { ...options, method: 'PUT' }),
+  put: <T>(endpoint: string, options: FetchOptions = {}) =>
+    serverFetchHelper<T>(endpoint, { ...options, method: 'PUT' }),
 
-  patch: async (
-    endpoint: string,
-    options: RequestInit = {},
-  ): Promise<Response> =>
-    serverFetchHelper(endpoint, { ...options, method: 'PATCH' }),
+  patch: <T>(endpoint: string, options: FetchOptions = {}) =>
+    serverFetchHelper<T>(endpoint, { ...options, method: 'PATCH' }),
 
-  delete: async (
-    endpoint: string,
-    options: RequestInit = {},
-  ): Promise<Response> =>
-    serverFetchHelper(endpoint, { ...options, method: 'DELETE' }),
+  delete: <T>(endpoint: string, options: FetchOptions = {}) =>
+    serverFetchHelper<T>(endpoint, { ...options, method: 'DELETE' }),
 };
-
-/**
- *
- * serverFetch.get("/auth/me")
- * serverFetch.post("/auth/login", { body: JSON.stringify({}) })
- */
 
 export default serverFetch;
