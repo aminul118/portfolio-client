@@ -1,11 +1,20 @@
 'use server';
 import serverFetch from '@/lib/server-fetch';
 import { ApiResponse, IProject } from '@/types';
+import { revalidateTag } from 'next/cache';
 
 const getProjectById = async (id: string) => {
   return await serverFetch.get<ApiResponse<IProject>>(`/projects/${id}`, {
     cache: 'no-store',
   });
+};
+
+const deleteSingleProject = async (id: string) => {
+  const res = await serverFetch.delete<ApiResponse<IProject>>(
+    `/projects/${id}`,
+  );
+  revalidateTag('PROJECTS', 'max');
+  return res;
 };
 
 const getProjects = async (query?: Record<string, any>) => {
@@ -18,4 +27,4 @@ const getProjects = async (query?: Record<string, any>) => {
   });
 };
 
-export { getProjectById, getProjects };
+export { deleteSingleProject, getProjectById, getProjects };

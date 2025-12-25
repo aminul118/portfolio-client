@@ -1,4 +1,5 @@
-// lib/getVerifiedUser.ts
+'use server';
+
 import { verifyToken } from '@/lib/jwt';
 import type { NextRequest } from 'next/server';
 

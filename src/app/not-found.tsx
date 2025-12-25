@@ -1,17 +1,10 @@
 'use client';
 
+import BackButton from '@/components/common/button/back-button';
 import { Button } from '@/components/ui/button';
-import { Undo } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 const NotFound = () => {
-  const router = useRouter();
-
-  const handleBack = () => {
-    router.back();
-  };
-
   return (
     <section className="height-adjust grid place-items-center text-center">
       <div className="space-y-6 rounded-lg border bg-none p-24 shadow-2xl">
@@ -21,9 +14,7 @@ const NotFound = () => {
           <p>The page you requested cannot be found.</p>
         </div>
         <div className="mt-12 grid grid-cols-2 items-center justify-center gap-3">
-          <Button variant="outline" onClick={handleBack}>
-            <Undo /> previous page
-          </Button>
+          <BackButton />
           <Button asChild>
             <Link href="/"> Go to Homepage</Link>
           </Button>

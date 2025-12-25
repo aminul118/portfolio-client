@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 
 import baseCookieOption from '@/config/cookie.config';
@@ -23,7 +22,7 @@ type LoginResult =
   | { success: true; message: string }
   | { success: false; message: string; details?: unknown };
 
-const loginUser = async (
+const login = async (
   _currentState: unknown,
   formData: FormData,
 ): Promise<LoginResult> => {
@@ -104,4 +103,4 @@ const loginUser = async (
   }
 };
 
-export { loginUser };
+export default login;

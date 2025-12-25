@@ -21,4 +21,4 @@ const logOut = async () => {
   return { success: true };
 };
 
-export { logOut };
+export default logOut;

@@ -1,3 +1,5 @@
+'use server';
+
 export type UserRole = 'ADMIN' | 'USER' | 'SUPER_ADMIN';
 
 export type RouteConfig = {
