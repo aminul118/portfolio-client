@@ -1,9 +1,9 @@
-import CardLoading from '@/components/common/loader/CardLoading';
+import CardSkeleton from '@/components/common/loader/CardSkeleton';
 
 const ProjectsLoading = () => {
   return (
     <>
-      <CardLoading size={6} />
+      <CardSkeleton count={6} />
     </>
   );
 };
