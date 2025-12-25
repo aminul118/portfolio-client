@@ -1,4 +1,3 @@
-import { getLinks } from '@/services/social-links/links';
 import Link from 'next/link';
 import { FaFacebook, FaGithub, FaLinkedinIn, FaTelegram } from 'react-icons/fa';
 
@@ -7,45 +6,39 @@ type FlexAlignType = {
 };
 
 const SocialLinks = async ({ flexAlign }: FlexAlignType) => {
-  const { data } = await getLinks();
-
   return (
     <div className={`flex gap-3 text-xl ${flexAlign}`}>
-      {data?.github && (
-        <Link href={data.github} target="_blank" aria-label="My Github Link">
-          <FaGithub />
-        </Link>
-      )}
+      <Link
+        href="https://github.com/aminul118"
+        target="_blank"
+        aria-label="My Github Link"
+      >
+        <FaGithub />
+      </Link>
 
-      {data?.linkedIn && (
-        <Link
-          href={data.linkedIn}
-          target="_blank"
-          aria-label="My Linkedin link"
-        >
-          <FaLinkedinIn />
-        </Link>
-      )}
+      <Link
+        href="https://www.linkedin.com/in/aminul118"
+        target="_blank"
+        aria-label="My Linkedin link"
+      >
+        <FaLinkedinIn />
+      </Link>
 
-      {data?.facebook && (
-        <Link
-          href={data.facebook}
-          target="_blank"
-          aria-label="My facebook link"
-        >
-          <FaFacebook />
-        </Link>
-      )}
+      <Link
+        href="https://www.facebook.com/aminul118"
+        target="_blank"
+        aria-label="My facebook link"
+      >
+        <FaFacebook />
+      </Link>
 
-      {data?.telegram && (
-        <Link
-          href={data.telegram}
-          target="_blank"
-          aria-label="Contact with telegram"
-        >
-          <FaTelegram />
-        </Link>
-      )}
+      <Link
+        href="https://t.me/aminul118"
+        target="_blank"
+        aria-label="Contact with telegram"
+      >
+        <FaTelegram />
+      </Link>
     </div>
   );
 };

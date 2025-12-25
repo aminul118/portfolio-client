@@ -1,29 +1,45 @@
 'use server';
 
-import envVars from '@/config/env.config';
-import axios from 'axios';
+import serverFetch from '@/lib/server-fetch';
+import { ApiResponse } from '@/types';
+import { IExperience } from '@/types/api.types';
 import { revalidateTag } from 'next/cache';
 
 const addExperience = async (formdata: FormData) => {
-  try {
-    const payload = {
-      position: formdata.get('position'),
-      companyName: formdata.get('companyName'),
-      timeline: formdata.get('timeline'),
-      description: formdata.get('description'),
-    };
+  const payload = {
+    position: String(formdata.get('position') || ''),
+    companyName: String(formdata.get('companyName') || ''),
+    timeline: String(formdata.get('timeline') || ''),
+    description: String(formdata.get('description') || ''),
+  };
 
-    const res = await axios.post(`${envVars.baseUrl}/experience`, payload);
+  const res = await serverFetch.post<ApiResponse<IExperience>>('/experience', {
+    body: JSON.stringify(payload),
+  });
 
-    revalidateTag('EXPERIENCE', 'max');
+  revalidateTag('EXPERIENCE', 'max');
 
-    return res.data;
-  } catch (error: any) {
-    return {
-      success: false,
-      message: error.response?.data?.message || 'Upload failed',
-    };
-  }
+  return res;
 };
 
-export { addExperience };
+const UpdateExperience = async (formdata: FormData, id: string) => {
+  const payload = {
+    position: String(formdata.get('position') || ''),
+    companyName: String(formdata.get('companyName') || ''),
+    timeline: String(formdata.get('timeline') || ''),
+    description: String(formdata.get('description') || ''),
+  };
+
+  const res = await serverFetch.put<ApiResponse<IExperience>>(
+    `/experience/${id}`,
+    {
+      body: JSON.stringify(payload),
+    },
+  );
+
+  revalidateTag('EXPERIENCE', 'max');
+
+  return res;
+};
+
+export { addExperience, UpdateExperience };
