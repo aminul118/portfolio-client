@@ -1,4 +1,4 @@
-import ExperienceTable from '@/components/modules/Experience/ExperienceTable';
+import ExperienceTable from '@/components/modules/Admin/Experience/ExperienceTable';
 import { ISearchParams } from '@/types';
 import { Metadata } from 'next';
 

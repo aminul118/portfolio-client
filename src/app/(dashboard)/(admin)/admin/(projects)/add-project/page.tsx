@@ -1,4 +1,4 @@
-import AddProject from '@/components/modules/Projects/AddProject';
+import AddProject from '@/components/modules/Admin/Projects/AddProject';
 import Container from '@/components/ui/Container';
 
 const AddProjectPage = () => {

@@ -1,4 +1,4 @@
-import Projects from '@/components/modules/Projects/Projects';
+import Projects from '@/components/modules/Public/Projects/Projects';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { ISearchParams } from '@/types';
 import { Metadata } from 'next';

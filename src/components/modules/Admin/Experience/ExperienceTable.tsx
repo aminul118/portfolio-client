@@ -5,8 +5,8 @@ import FilteredViews from '@/components/common/filtering/FilteredViews';
 import PageLimit from '@/components/common/pagination/PageLimit';
 import AppSearching from '@/components/common/searching/AppSearching';
 import Sorting from '@/components/common/sorting/Sorting';
-import AddExperienceModal from '@/components/modules/Experience/AddExperienceModal';
-import ExperienceActions from '@/components/modules/Experience/ExperienceActions';
+import AddExperienceModal from '@/components/modules/Admin/Experience/AddExperienceModal';
+import ExperienceActions from '@/components/modules/Admin/Experience/ExperienceActions';
 import Container from '@/components/ui/Container';
 import {
   Table,

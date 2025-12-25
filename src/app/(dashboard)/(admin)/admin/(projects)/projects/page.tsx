@@ -1,11 +1,22 @@
-import ProjectTable from '@/components/modules/Projects/ProjectTable';
+import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
+import ProjectFilters from '@/components/modules/Admin/Projects/ProjectFilters';
+import ProjectTable from '@/components/modules/Admin/Projects/ProjectTable';
+import { getProjects } from '@/services/project/projects';
 import { ISearchParams } from '@/types';
 
 const ProjectPage = async ({ searchParams }: ISearchParams) => {
-  const resolvedSearchparams = await searchParams;
+  const params = await searchParams;
+  const { data, meta } = await getProjects(params);
+
   return (
     <>
-      <ProjectTable props={resolvedSearchparams} />
+      <ClientTableWrapper
+        meta={meta}
+        tableTitle="Projects"
+        filters={<ProjectFilters />}
+      >
+        <ProjectTable projects={data} />
+      </ClientTableWrapper>
     </>
   );
 };

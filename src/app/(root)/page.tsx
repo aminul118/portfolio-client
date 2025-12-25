@@ -1,11 +1,11 @@
-import About from '@/components/modules/About/About';
-import Contact from '@/components/modules/contact/Contact';
-import Experience from '@/components/modules/Experience/Experience';
-import Education from '@/components/modules/Home/Education';
-import HeroBanner from '@/components/modules/Home/HeroBanner';
-import FeaturedProjects from '@/components/modules/Projects/FeaturedProjects';
-import OtherSkills from '@/components/modules/Skills/OtherSkills';
-import Skills from '@/components/modules/Skills/Skills';
+import About from '@/components/modules/Public/About/About';
+import Contact from '@/components/modules/Public/contact/Contact';
+import Experience from '@/components/modules/Public/Experience/Experience';
+import Education from '@/components/modules/Public/Home/Education';
+import HeroBanner from '@/components/modules/Public/Home/HeroBanner';
+import FeaturedProjects from '@/components/modules/Public/Projects/FeaturedProjects';
+import OtherSkills from '@/components/modules/Public/Skills/OtherSkills';
+import Skills from '@/components/modules/Public/Skills/Skills';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 

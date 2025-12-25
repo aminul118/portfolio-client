@@ -1,4 +1,4 @@
-import AboutDetails from '@/components/modules/About/AboutDetails';
+import AboutDetails from '@/components/modules/Public/About/AboutDetails';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 

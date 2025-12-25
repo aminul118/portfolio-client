@@ -15,13 +15,14 @@ const ClientTableWrapper = ({
   filters,
   children,
   meta,
+  className,
   loader = <CenterSpinner />,
 }: Props) => {
   const [isPending, startTransition] = useTransition();
 
   return (
     <TransitionContext.Provider value={{ startTransition, isPending }}>
-      <section className="relative">
+      <section className={cn('relative mx-auto w-11/12', className)}>
         <div className="mb-4 flex justify-start">
           <GradientTitle title={tableTitle} />
         </div>
@@ -60,5 +61,6 @@ interface Props {
   filters?: ReactNode;
   children: ReactNode;
   meta?: IMeta;
+  className?: string;
   loader?: ReactNode;
 }

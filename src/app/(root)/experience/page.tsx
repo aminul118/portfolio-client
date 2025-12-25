@@ -1,4 +1,4 @@
-import Experience from '@/components/modules/Experience/Experience';
+import Experience from '@/components/modules/Public/Experience/Experience';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 
