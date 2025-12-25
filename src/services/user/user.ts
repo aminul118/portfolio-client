@@ -7,7 +7,7 @@ const getMe = async () => {
   return await serverFetch.get<ApiResponse<IUser>>('/user/me', {
     cache: 'force-cache',
     next: {
-      tags: ['users'],
+      tags: ['user'],
     },
   });
 };

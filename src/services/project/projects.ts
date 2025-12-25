@@ -1,11 +1,11 @@
 import serverFetch from '@/lib/server-fetch';
 import { ApiResponse, IProject } from '@/types';
 
-export const getProjectById = async (id: string) => {
+const getProjectById = async (id: string) => {
   const { data } = await serverFetch.get<ApiResponse<IProject>>(
     `/projects/${id}`,
     {
-      cache: 'force-cache',
+      cache: 'no-store',
     },
   );
   return {
@@ -13,12 +13,12 @@ export const getProjectById = async (id: string) => {
   };
 };
 
-export const getProjects = async (query?: Record<string, any>) => {
+const getProjects = async (query?: Record<string, any>) => {
   const { data, meta } = await serverFetch.get<ApiResponse<IProject[]>>(
     '/projects',
     {
       query,
-      cache: 'no-store',
+      cache: 'force-cache',
       next: {
         tags: ['PROJECTS'],
       },
@@ -30,3 +30,5 @@ export const getProjects = async (query?: Record<string, any>) => {
     meta,
   };
 };
+
+export { getProjectById, getProjects };
