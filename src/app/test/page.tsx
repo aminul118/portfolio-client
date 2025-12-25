@@ -1,15 +1,10 @@
 import CardSkeleton from '@/components/common/loader/CardSkeleton';
 import { Card } from '@/components/ui/card';
-import Container from '@/components/ui/Container';
 import { Skeleton } from '@/components/ui/skeleton';
 
-const ProjectsLoading = () => {
+const page = () => {
   return (
-    <Container>
-      <Skeleton className="mx-auto mt-6 h-10 w-5/12" />
-      <Skeleton className="mx-auto mt-4 h-4 w-2/4" />
-      <Skeleton className="mx-auto mt-2 h-4 w-1/4" />
-      {/* Card Skeleton */}
+    <>
       <CardSkeleton count={6}>
         <Card className="space-y-2 p-4 shadow-sm">
           <Skeleton className="mx-auto mt-2 h-4 w-3/4" />
@@ -20,8 +15,8 @@ const ProjectsLoading = () => {
           </div>
         </Card>
       </CardSkeleton>
-    </Container>
+    </>
   );
 };
 
-export default ProjectsLoading;
+export default page;
