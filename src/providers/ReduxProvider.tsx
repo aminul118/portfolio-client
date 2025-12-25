@@ -1,10 +1,10 @@
 'use client';
 
 import { store } from '@/redux/store';
-import { IChildren } from '@/types';
+import { Children } from '@/types';
 import { Provider } from 'react-redux';
 
-const ReduxProvider = ({ children }: IChildren) => {
+const ReduxProvider = ({ children }: Children) => {
   return <Provider store={store}>{children}</Provider>;
 };
 

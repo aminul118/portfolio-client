@@ -6,10 +6,10 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { IChildren } from '@/types';
+import { Children } from '@/types';
 import { Metadata } from 'next';
 
-const AdminLayout = async ({ children }: IChildren) => {
+const AdminLayout = async ({ children }: Children) => {
   return (
     <SidebarProvider>
       {/* Sidebar */}

@@ -6,11 +6,11 @@ import ThemeProvider from '@/providers/ThemeProvider';
 import generateMetaTags from '@/seo/generateMetaTags';
 import '@/styles/custom.css';
 import '@/styles/globals.css';
-import { IChildren } from '@/types';
+import { Children } from '@/types';
 import { Metadata } from 'next';
 import { Toaster } from 'sonner';
 
-const MainLayout = ({ children }: IChildren) => {
+const MainLayout = ({ children }: Children) => {
   return (
     <>
       <html lang="en" suppressHydrationWarning>

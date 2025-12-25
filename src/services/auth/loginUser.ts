@@ -9,7 +9,7 @@ import {
   getDefaultDashboardRoute,
   isValidRedirectForRole,
   UserRole,
-} from '@/services/auth/user-access';
+} from '@/services/user/user-access';
 import { ApiResponse, IUser } from '@/types';
 import { redirect } from 'next/navigation';
 

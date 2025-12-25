@@ -1,9 +1,9 @@
 import ResetPassword from '@/components/modules/Authentication/ResetPassword';
 import generateMetaTags from '@/seo/generateMetaTags';
-import { ISearchParams } from '@/types';
+import { SearchParams } from '@/types';
 import { Metadata } from 'next';
 
-const ResetPasswordPage = async ({ searchParams }: ISearchParams) => {
+const ResetPasswordPage = async ({ searchParams }: SearchParams) => {
   const resolvedSearchParams = await searchParams;
   return (
     <div className="center">

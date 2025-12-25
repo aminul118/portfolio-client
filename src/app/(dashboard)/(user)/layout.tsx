@@ -1,6 +1,6 @@
-import { IChildren } from '@/types';
+import { Children } from '@/types';
 
-const UserDashboard = ({ children }: IChildren) => {
+const UserDashboard = ({ children }: Children) => {
   return <div>{children}</div>;
 };
 

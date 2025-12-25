@@ -5,20 +5,14 @@ import { useEffect } from 'react';
 import { useQuill } from 'react-quilljs';
 import './quil.css';
 
-interface IQuil {
-  value: string;
-  onChange: (value: string) => void;
-  height?: number;
-}
-
 const ReactQuil = ({ value, onChange, height = 700 }: IQuil) => {
   const { quill, quillRef } = useQuill();
 
   useEffect(() => {
     if (quill) {
-      quill.clipboard.dangerouslyPasteHTML(value); // Set initial value
+      quill.clipboard.dangerouslyPasteHTML(value);
       quill.on('text-change', () => {
-        onChange(quill.root.innerHTML); // Send changes to parent
+        onChange(quill.root.innerHTML);
       });
     }
   }, [onChange, quill, value]);
@@ -33,3 +27,9 @@ const ReactQuil = ({ value, onChange, height = 700 }: IQuil) => {
 };
 
 export default ReactQuil;
+
+interface IQuil {
+  value: string;
+  onChange: (value: string) => void;
+  height?: number;
+}

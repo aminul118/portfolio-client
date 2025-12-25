@@ -1,12 +1,10 @@
-import AddProject from '@/components/modules/Admin/Projects/AddProject';
-import Container from '@/components/ui/Container';
+import AddProjects from '@/components/modules/Admin/Projects/AddProject';
 
 const AddProjectPage = () => {
   return (
-    <Container>
-      <h2 className="mb-2 text-2xl font-semibold">Projects</h2>
-      <AddProject />
-    </Container>
+    <section className="mx-auto w-11/12">
+      <AddProjects />
+    </section>
   );
 };
 

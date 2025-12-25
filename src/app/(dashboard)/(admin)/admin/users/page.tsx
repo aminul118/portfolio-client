@@ -2,7 +2,7 @@ import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
 import UsersFilters from '@/components/modules/Admin/users/UsersFiltes';
 import UsersTable from '@/components/modules/Admin/users/UsersTable';
 import cleanSearchParams from '@/lib/cleanSearchParams';
-import { getUsers } from '@/services/auth/user';
+import { getUsers } from '@/services/user/user';
 import { SearchParams } from '@/types/react.types';
 
 import { Metadata } from 'next';

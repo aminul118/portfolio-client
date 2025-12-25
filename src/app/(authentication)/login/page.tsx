@@ -3,7 +3,6 @@ import LoginForm from '@/components/modules/Authentication/LoginForm';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import images from '@/config/images';
-import { cn } from '@/lib/utils';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -13,24 +12,22 @@ const LoginPage = () => {
   return (
     <section className="center">
       <div
-        className={cn('flex items-center justify-center rounded-lg shadow-lg')}
+        className="flex w-full max-w-sm items-center justify-center rounded-lg shadow-lg md:max-w-4xl"
+        data-aos="fade-right"
       >
         <Card className="w-full max-w-5xl overflow-hidden p-0">
           <CardContent className="grid p-0 md:grid-cols-2">
-            {/* Form Section */}
-            <div className="flex flex-col justify-center gap-6 p-6 md:p-12">
-              <div className="flex flex-col gap-6">
-                <div className="grid place-items-center">
-                  <Link href={'/'}>
-                    <Logo />
-                  </Link>
-                  <p className="text-muted-foreground mt-4 text-center">
-                    Login to your Smart Healthcare & Research Ltd. portal
-                  </p>
-                </div>
-                <LoginForm />
+            <div className="p-6">
+              <div className="mb-6 grid place-items-center">
+                <Link href={'/'}>
+                  <Logo />
+                </Link>
+                <p className="text-muted-foreground mt-4 text-center">
+                  Login to your portal
+                </p>
               </div>
-
+              {/* Form Section */}
+              <LoginForm />
               <div className="mt-4 text-center text-sm">
                 {"Don't have an account?"}
                 <Link href="/register">

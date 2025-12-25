@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
-import { IChildren, SectionProps } from '@/types';
+import { Children, SectionProps } from '@/types';
 
-type TContainer = IChildren &
+type TContainer = Children &
   SectionProps & {
     className?: string;
     background?: string;

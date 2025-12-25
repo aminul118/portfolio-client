@@ -1,9 +1,9 @@
 import Projects from '@/components/modules/Public/Projects/Projects';
 import generateMetaTags from '@/seo/generateMetaTags';
-import { ISearchParams } from '@/types';
+import { SearchParams } from '@/types';
 import { Metadata } from 'next';
 
-const ProjectPage = async ({ searchParams }: ISearchParams) => {
+const ProjectPage = async ({ searchParams }: SearchParams) => {
   const resolvedSearchparams = await searchParams;
   return (
     <>

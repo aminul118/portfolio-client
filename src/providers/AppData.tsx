@@ -2,9 +2,9 @@
 
 import { AppDataContext } from '@/context/auth-context';
 import { useUserInfoQuery } from '@/redux/features/user/user.api';
-import { IChildren } from '@/types';
+import { Children } from '@/types';
 
-export const AppDataProvider = ({ children }: IChildren) => {
+export const AppDataProvider = ({ children }: Children) => {
   const { data, isLoading: userLoading } = useUserInfoQuery(undefined);
   const userData = data?.data;
 
