@@ -1,13 +1,22 @@
+import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
+import ExperienceFilters from '@/components/modules/Admin/Experience/ExperienceFilters';
 import ExperienceTable from '@/components/modules/Admin/Experience/ExperienceTable';
-import { ISearchParams } from '@/types';
+import { getExperience } from '@/services/experience/experience';
+import { SearchParams } from '@/types';
 import { Metadata } from 'next';
 
-const ExperiencePage = async ({ searchParams }: ISearchParams) => {
-  const resolvedSearchparams = await searchParams;
+const ExperiencePage = async ({ searchParams }: SearchParams) => {
+  const params = await searchParams;
+  const { data } = await getExperience(params);
 
   return (
     <div>
-      <ExperienceTable props={resolvedSearchparams} />
+      <ClientTableWrapper
+        tableTitle="Experiences"
+        filters={<ExperienceFilters />}
+      >
+        <ExperienceTable experiences={data} />
+      </ClientTableWrapper>
     </div>
   );
 };

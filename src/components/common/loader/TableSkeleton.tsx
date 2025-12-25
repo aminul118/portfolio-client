@@ -1,4 +1,3 @@
-import Container from '@/components/ui/Container';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   Table,
@@ -45,7 +44,7 @@ const TableSkeleton = ({
   hasPagination = false,
 }: TableSkeletonProps) => {
   return (
-    <Container className="overflow-x-hidden">
+    <section className="mx-auto w-11/12 overflow-x-hidden">
       {/* Title */}
       <Skeleton className="mb-8 h-10 w-96 rounded-md" />
 
@@ -89,7 +88,7 @@ const TableSkeleton = ({
 
       {/* -------- PAGINATION -------- */}
       {hasPagination && <PaginationSkeleton />}
-    </Container>
+    </section>
   );
 };
 

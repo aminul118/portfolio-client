@@ -2,12 +2,12 @@ import React from 'react';
 export type { MenuGroup } from './admin-menu';
 export type { MetaConfig, MetaProps, Routes } from './meta.types';
 export type {
+  Children,
   DivProps,
   ElementProps,
-  IChildren,
   IGlobalError,
-  IParams,
-  ISearchParams,
+  Params,
+  SearchParams,
   SectionProps,
 } from './react.types';
 
@@ -47,4 +47,9 @@ export enum Role {
   ADMIN = 'ADMIN',
   USER = 'USER',
   SUPER_ADMIN = 'SUPER_ADMIN',
+}
+
+export interface IModal {
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }

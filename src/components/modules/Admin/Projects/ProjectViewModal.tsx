@@ -8,13 +8,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { IProject } from '@/types';
+import { IModal, IProject } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface Props {
-  open: boolean;
-  setOpen: (open: boolean) => void;
+interface Props extends IModal {
   project: IProject;
 }
 

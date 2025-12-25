@@ -1,10 +1,10 @@
 import React from 'react';
 
-export interface IChildren {
+export interface Children {
   children: React.ReactNode;
 }
 
-export interface IParams {
+export interface Params {
   params: Promise<{ slug: string }>;
 }
 
@@ -19,6 +19,6 @@ export type ElementProps<T extends React.ElementType> =
 export type DivProps = ElementProps<'div'>;
 export type SectionProps = ElementProps<'section'>;
 
-export interface ISearchParams {
+export interface SearchParams {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }

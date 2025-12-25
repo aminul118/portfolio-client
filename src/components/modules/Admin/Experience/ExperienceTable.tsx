@@ -1,13 +1,6 @@
 export const dynamic = 'force-dynamic'; // prevent prerendering errors
 
-import ClearAllFilter from '@/components/common/filtering/ClearAllFilter';
-import FilteredViews from '@/components/common/filtering/FilteredViews';
-import PageLimit from '@/components/common/pagination/PageLimit';
-import AppSearching from '@/components/common/searching/AppSearching';
-import Sorting from '@/components/common/sorting/Sorting';
-import AddExperienceModal from '@/components/modules/Admin/Experience/AddExperienceModal';
 import ExperienceActions from '@/components/modules/Admin/Experience/ExperienceActions';
-import Container from '@/components/ui/Container';
 import {
   Table,
   TableBody,
@@ -16,25 +9,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { getExperience } from '@/services/experience/experience';
 
 import { IExperience } from '@/types/api.types';
 
-const ExperienceTable = async ({ props }: { props: Record<string, any> }) => {
-  const params = {
-    ...props,
-  };
-  const { data } = await getExperience(params);
-
-  return (
-    <Container>
-      <ExperienceFilter />
-      <TableCreate data={data} />
-    </Container>
-  );
-};
-
-const TableCreate = ({ data }: { data: IExperience[] }) => {
+const ExperienceTable = async ({
+  experiences,
+}: {
+  experiences: IExperience[];
+}) => {
   return (
     <Table>
       <TableHeader className="bg-muted">
@@ -47,7 +29,7 @@ const TableCreate = ({ data }: { data: IExperience[] }) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data?.map((user, index) => (
+        {experiences?.map((user, index) => (
           <TableRow key={user._id} className="hover:bg-primary/10">
             <TableCell>{index + 1}</TableCell>
             <TableCell>{user.position}</TableCell>
@@ -63,18 +45,4 @@ const TableCreate = ({ data }: { data: IExperience[] }) => {
   );
 };
 
-const ExperienceFilter = () => {
-  return (
-    <div className="mb-4 flex items-center justify-between gap-4">
-      <AppSearching />
-      <div className="flex gap-4">
-        <PageLimit />
-        <Sorting />
-        <FilteredViews defaultColumns={{ position: true, Company: true }} />
-        <ClearAllFilter />
-        <AddExperienceModal />
-      </div>
-    </div>
-  );
-};
 export default ExperienceTable;

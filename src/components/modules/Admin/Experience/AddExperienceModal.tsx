@@ -25,6 +25,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { addExperience } from '@/services/experience/addExperience';
 import { experienceValidationSchema } from '@/zod/experience';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Plus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import z from 'zod';
@@ -63,7 +64,9 @@ const AddExperienceModal = () => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button>Add Experience</Button>
+        <Button>
+          <Plus /> Add Experience
+        </Button>
       </AlertDialogTrigger>
 
       <AlertDialogContent>

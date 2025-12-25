@@ -1,11 +1,11 @@
 import TableSkeleton from '@/components/common/loader/TableSkeleton';
 
-const loading = () => {
+const ProjectsPageLoading = () => {
   return (
     <>
-      <TableSkeleton />
+      <TableSkeleton rows={10} hasFilter hasPagination />;
     </>
   );
 };
 
-export default loading;
+export default ProjectsPageLoading;
