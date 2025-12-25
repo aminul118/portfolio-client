@@ -1,6 +1,4 @@
-// middleware.ts (or where proxy is)
 import { NextResponse, type NextRequest } from 'next/server';
-
 import {
   getDefaultDashboardRoute,
   getRouteOwner,
@@ -12,7 +10,7 @@ import getVerifiedUser from './services/user/verified-user';
 
 export const proxy = async (req: NextRequest) => {
   const { pathname, origin } = req.nextUrl;
-  const user = await getVerifiedUser(req); // <-- pass req here
+  const user = await getVerifiedUser(req);
   const role = user?.role as UserRole | undefined;
 
   const isAuthPage = isAuthRoute(pathname);
@@ -31,10 +29,7 @@ export const proxy = async (req: NextRequest) => {
   if (!user && routeOwner !== null) {
     const loginUrl = new URL('/login', origin);
     loginUrl.searchParams.set('redirect', pathname);
-
-    // If you want to delete cookies when token invalid, build a response and clear cookies:
     const res = NextResponse.redirect(loginUrl);
-    // res.cookies.set({ name: 'accessToken', value: '', expires: new Date(0) }); // example if desired
     return res;
   }
 
@@ -45,4 +40,10 @@ export const proxy = async (req: NextRequest) => {
   }
 
   return NextResponse.next();
+};
+
+export const config = {
+  matcher: [
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.well-known).*)',
+  ],
 };

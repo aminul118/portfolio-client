@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
-import Logo from '@/components/common/Logo';
+import Logo from '@/components/modules/Public/Home/SocialLinks';
 import { FaEnvelope, FaLocationArrow } from 'react-icons/fa';
 import { FaPhone, FaWhatsapp } from 'react-icons/fa6';
 

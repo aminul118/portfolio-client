@@ -1,3 +1,4 @@
+import Grid from '@/components/common/Grid';
 import Container from '@/components/ui/Container';
 import SectionHeading from '@/components/ui/SectionHeading';
 import generateMetaTags from '@/seo/generateMetaTags';
@@ -20,7 +21,7 @@ const ProjectPage = async ({ searchParams }: SearchParams) => {
           heading="Projects"
           description="A showcase of my work blending creativity and functionality, featuring interactive designs, seamless development, and innovative solutions."
         />
-        <div className="grid grid-cols-2 items-center justify-center gap-6 lg:grid-cols-3">
+        <Grid>
           {data?.map((project) => (
             <div key={project._id} className="h-full w-full">
               <div className="group rounded-lg bg-slate-900 shadow-md">
@@ -58,7 +59,7 @@ const ProjectPage = async ({ searchParams }: SearchParams) => {
               </div>
             </div>
           ))}
-        </div>
+        </Grid>
       </Container>
     </>
   );

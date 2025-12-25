@@ -1,6 +1,5 @@
-/* eslint-disable react/no-unescaped-entities */
-import DownloadResume from '@/components/common/DownloadResume';
-import Logo from '@/components/common/Logo';
+import DownloadResume from '@/components/modules/Public/Home/DownloadResume';
+import SocialLinks from '@/components/modules/Public/Home/SocialLinks';
 import WriterEffect from '@/components/ui/writer-effect';
 import images from '@/constants/images';
 import Image from 'next/image';
@@ -28,7 +27,7 @@ const HeroBanner = () => {
               TypeScript, React, Next js, MongoDB, MySQL, Postgresql Node JS,
               Express js and SEO, Passionate about programming.
             </p>
-            <Logo />
+            <SocialLinks />
             <DownloadResume />
           </div>
         </div>

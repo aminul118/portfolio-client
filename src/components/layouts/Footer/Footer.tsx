@@ -1,6 +1,6 @@
 import icons from '@/constants/icons';
 import Image from 'next/image';
-import Logo from '../../common/Logo';
+import Logo from '../../modules/Public/Home/SocialLinks';
 
 const Footer = () => {
   return (

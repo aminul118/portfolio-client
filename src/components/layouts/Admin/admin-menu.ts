@@ -2,9 +2,9 @@ import { MenuGroup } from '@/types';
 import {
   BookOpen,
   Briefcase,
-  FileUser,
   Gauge,
   Globe,
+  Link,
   SquareChartGantt,
   Users,
 } from 'lucide-react';
@@ -14,7 +14,7 @@ const adminSidebarMenu: MenuGroup[] = [
     title: 'Menu',
     menu: [
       { name: 'Dashboard', url: '/admin', icon: Gauge },
-      { name: 'Resume', url: '/admin/resume', icon: FileUser },
+      { name: 'Social Links', url: '/admin/social-links', icon: Link },
       { name: 'Projects', url: '/admin/projects', icon: SquareChartGantt },
       { name: 'Blogs', url: '/admin/blogs', icon: BookOpen },
       { name: 'Experience', url: '/admin/experience', icon: Briefcase },

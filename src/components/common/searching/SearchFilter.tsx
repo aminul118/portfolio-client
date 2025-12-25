@@ -1,12 +1,13 @@
 'use client';
 
 import { Input } from '@/components/ui/input';
+import { useTransition } from '@/context/useTransition';
 import useDebounce from '@/hooks/useDebounce';
-import { Search, X } from 'lucide-react';
+import { CircleXIcon, Search } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
-interface SearchFilterProps {
+interface Props {
   placeholder?: string;
   paramName?: string;
 }
@@ -14,19 +15,22 @@ interface SearchFilterProps {
 const SearchFilter = ({
   placeholder = 'Search...',
   paramName = 'search',
-}: SearchFilterProps) => {
+}: Props) => {
+  const id = useId();
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
   const searchParams = useSearchParams();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { startTransition } = useTransition();
+
   const [value, setValue] = useState(searchParams.get(paramName) || '');
+
   const debouncedValue = useDebounce(value, 500);
 
-  // Update URL with debounced value
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
-    const initialValue = searchParams.get(paramName) || '';
+    const currentValue = searchParams.get(paramName) || '';
 
-    if (debouncedValue === initialValue) return;
+    if (debouncedValue === currentValue) return;
 
     if (debouncedValue) {
       params.set(paramName, debouncedValue);
@@ -41,42 +45,38 @@ const SearchFilter = ({
     });
   }, [debouncedValue, paramName, router, searchParams]);
 
-  // CLEAR BUTTON HANDLER
-  const clearSearch = () => {
+  const handleClearInput = () => {
     setValue('');
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete(paramName);
-    params.delete('page');
-
-    startTransition(() => {
-      router.push(`?${params.toString()}`);
-    });
+    inputRef.current?.focus();
   };
 
   return (
-    <div className="relative">
-      <Search
-        size={20}
-        className="text-muted-foreground absolute top-1/2 left-3 -translate-y-1/2"
-      />
+    <div>
+      <div className="relative">
+        <Search
+          size={20}
+          className="text-muted-foreground absolute top-1/2 left-3 -translate-y-1/2"
+        />
 
-      {value && (
-        <button
-          type="button"
-          onClick={clearSearch}
-          className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-1 text-red-500 hover:cursor-pointer hover:bg-slate-800"
-        >
-          <X size={20} />
-        </button>
-      )}
+        <Input
+          id={id}
+          ref={inputRef}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder={placeholder}
+          className="w-sm pe-9 pl-10"
+        />
 
-      <Input
-        placeholder={placeholder}
-        className="w-sm pr-10 pl-10"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        disabled={isPending}
-      />
+        {value && (
+          <button
+            type="button"
+            onClick={handleClearInput}
+            className="text-muted-foreground absolute inset-y-0 end-0 flex w-9 items-center justify-center hover:text-red-500"
+          >
+            <CircleXIcon size={16} />
+          </button>
+        )}
+      </div>
     </div>
   );
 };
