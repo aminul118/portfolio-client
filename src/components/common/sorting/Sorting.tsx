@@ -9,6 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useTransition } from '@/context/useTransition';
+
 import { cn } from '@/lib/utils';
 import { ArrowDownUp } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -30,18 +32,14 @@ const Sorting = ({
   labelInSelect,
   className,
   sortOptions = [
-    {
-      name: 'Ascending',
-      value: 'asc',
-    },
-    {
-      name: 'Descending',
-      value: 'dsc',
-    },
+    { name: 'Ascending', value: 'asc' },
+    { name: 'Descending', value: 'dsc' },
   ],
 }: SortByProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { isPending, startTransition } = useTransition();
+
   const currentSorting = searchParams.get('sort') || 'default';
 
   const handleSortChange = (newValue: string) => {
@@ -51,20 +49,29 @@ const Sorting = ({
       params.delete('sort');
     } else {
       params.set('sort', newValue);
+      params.set('page', '1'); // reset page on sort
     }
 
-    const queryString = params.toString();
-    router.push(queryString ? `?${queryString}` : '?');
+    startTransition(() => {
+      const queryString = params.toString();
+      router.push(queryString ? `?${queryString}` : '?');
+    });
   };
 
   return (
     <div className={cn('flex items-center gap-2', className)}>
-      {labelInSelect ?? <Label className="whitespace-nowrap">{label}</Label>}
-      <Select onValueChange={handleSortChange} value={currentSorting}>
-        <SelectTrigger className={cn('w-full')}>
+      {!labelInSelect && <Label className="whitespace-nowrap">{label}</Label>}
+
+      <Select
+        onValueChange={handleSortChange}
+        value={currentSorting}
+        disabled={isPending}
+      >
+        <SelectTrigger className="w-full">
           {labelInSelect ? (
             <span className="flex items-center gap-1">
-              <ArrowDownUp /> {label}
+              <ArrowDownUp className="h-4 w-4" />
+              {label}
               <SelectValue placeholder="Default" />
             </span>
           ) : (

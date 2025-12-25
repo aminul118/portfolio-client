@@ -9,6 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useTransition } from '@/context/useTransition';
+
 import { cn } from '@/lib/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -25,23 +27,35 @@ const PageLimit = ({
 }: PageLimitProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { startTransition, isPending } = useTransition();
 
-  // read current limit or default to "10"
+  // current limit or fallback
   const limit = searchParams.get('limit') ?? '10';
 
   const handlePageLimitChange = (newLimit: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set('limit', newLimit); // always set limit
-    router.push(`?${params.toString()}`);
+
+    params.set('limit', newLimit);
+    params.set('page', '1'); // reset page when limit changes
+
+    startTransition(() => {
+      router.push(`?${params.toString()}`);
+    });
   };
 
   return (
     <div className="flex items-center gap-2">
       <Label className="whitespace-nowrap">{label}</Label>
-      <Select onValueChange={handlePageLimitChange} value={limit}>
+
+      <Select
+        onValueChange={handlePageLimitChange}
+        value={limit}
+        disabled={isPending}
+      >
         <SelectTrigger className={cn('w-20', className)}>
           <SelectValue />
         </SelectTrigger>
+
         <SelectContent>
           <SelectGroup>
             {pageNumbers.map((page) => (

@@ -45,7 +45,7 @@ const AppSearching = ({
           <Input
             type="text"
             placeholder={placeholder}
-            className={cn('h-9 w-sm rounded-r-none pr-10', className)}
+            className={cn('w-sm rounded-r-none pr-10', className)}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />

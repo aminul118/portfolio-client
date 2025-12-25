@@ -21,7 +21,7 @@ const ReactQuil = ({ value, onChange, height = 700 }: IQuil) => {
         onChange(quill.root.innerHTML); // Send changes to parent
       });
     }
-  }, [quill]);
+  }, [onChange, quill, value]);
 
   return (
     <div

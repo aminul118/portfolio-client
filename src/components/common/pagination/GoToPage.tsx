@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useTransition } from '@/context/useTransition';
 import { cn } from '@/lib/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -20,12 +21,14 @@ const GoToPage = ({
 }: GoToPageProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { startTransition, isPending } = useTransition();
+
   const currentPage = Number(searchParams.get('page')) || 1;
 
   const [value, setValue] = useState(String(currentPage));
   const [error, setError] = useState('');
 
-  //  Keep input in sync with URL page
+  // keep input synced with URL
   useEffect(() => {
     setValue(String(currentPage));
   }, [currentPage]);
@@ -48,7 +51,11 @@ const GoToPage = ({
 
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', String(pageNumber));
-    router.push(`?${params.toString()}`);
+
+    startTransition(() => {
+      router.push(`?${params.toString()}`);
+    });
+
     setError('');
   };
 
@@ -57,6 +64,7 @@ const GoToPage = ({
   return (
     <div className={cn('hidden items-center gap-3 lg:flex', className)}>
       <Label className="whitespace-nowrap">{label}</Label>
+
       <Input
         type="number"
         min={1}
@@ -64,15 +72,18 @@ const GoToPage = ({
         className="w-20"
         value={value}
         onChange={(e) => handlePageChange(e.target.value)}
+        disabled={isPending}
       />
+
       <Button
         variant="outline"
         size="sm"
         onClick={handleGoToPage}
-        disabled={!value}
+        disabled={!value || isPending}
       >
         Go
       </Button>
+
       {error && (
         <p className="text-xs whitespace-nowrap text-red-500">{error}</p>
       )}

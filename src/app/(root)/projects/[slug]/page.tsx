@@ -1,6 +1,6 @@
+import HtmlContent from '@/components/common/formater/HtmlContent';
 import { Button } from '@/components/ui/button';
 import Container from '@/components/ui/Container';
-import HtmlContent from '@/components/ui/HtmlContent';
 import { getProjectById } from '@/services/project/projects';
 import { IParams } from '@/types';
 import Image from 'next/image';

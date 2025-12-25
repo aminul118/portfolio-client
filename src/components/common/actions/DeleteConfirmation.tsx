@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
+import { ReactNode } from 'react';
 import { toast } from 'sonner';
 import Tooltip from '../Tooltip';
 
@@ -22,7 +23,7 @@ interface IDeleteResponse {
 
 interface IDeleteConfirmation {
   onConfirm: () => Promise<IDeleteResponse>;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const DeleteConfirmation = ({ children, onConfirm }: IDeleteConfirmation) => {

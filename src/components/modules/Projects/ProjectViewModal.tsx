@@ -1,4 +1,5 @@
-import DateFormat from '@/components/common/date-format';
+import DateFormat from '@/components/common/formater/date-format';
+import HtmlContent from '@/components/common/formater/HtmlContent';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -7,7 +8,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import HtmlContent from '@/components/ui/HtmlContent';
 import { IProject } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
