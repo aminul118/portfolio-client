@@ -23,7 +23,7 @@ import {
   useSendOtpMutation,
   useVerifyOtpMutation,
 } from '@/redux/features/otp/otp.api';
-import { otpValidation } from '@/validations/auth';
+import { otpValidation } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { unauthorized, useRouter, useSearchParams } from 'next/navigation';

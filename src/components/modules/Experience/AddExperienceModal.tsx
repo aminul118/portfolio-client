@@ -23,7 +23,7 @@ import { Input } from '@/components/ui/input';
 import SubmitButton from '@/components/ui/submit-button';
 import { Textarea } from '@/components/ui/textarea';
 import { addExperience } from '@/services/experience/addExperience';
-import { experienceValidationSchema } from '@/validations/experience';
+import { experienceValidationSchema } from '@/zod/experience';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';

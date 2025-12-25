@@ -1,6 +1,6 @@
 'use client';
 
-import { FieldDescription } from '../ui/field';
+import { FieldDescription } from '@/components/ui/field';
 
 type Props = {
   state: any;

@@ -13,7 +13,7 @@ import {
 import GradientTitle from '@/components/ui/gradientTitle';
 import Password from '@/components/ui/password';
 import { useChangePasswordMutation } from '@/redux/features/auth/auth.api';
-import { passwordChangeValidation } from '@/validations/auth';
+import { passwordChangeValidation } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';

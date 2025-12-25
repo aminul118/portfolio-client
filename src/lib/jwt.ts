@@ -8,8 +8,12 @@ const getCookie = async (key: string) => {
   return cookieStore.get(key)?.value || null;
 };
 
-const verifyToken = (accessToken: string): JwtPayload | string => {
-  return jwt.verify(accessToken, envVars.jwt.accessSecret as string);
+const verifyToken = async (accessToken: string): Promise<JwtPayload | null> => {
+  try {
+    return jwt.verify(accessToken, envVars.jwt.accessSecret) as JwtPayload;
+  } catch {
+    return null;
+  }
 };
 
 const setCookie = async (

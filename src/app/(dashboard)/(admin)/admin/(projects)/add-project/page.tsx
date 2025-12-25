@@ -1,10 +1,12 @@
 import AddProject from '@/components/modules/Projects/AddProject';
+import Container from '@/components/ui/Container';
 
 const AddProjectPage = () => {
   return (
-    <div>
+    <Container>
+      <h2 className="mb-2 text-2xl font-semibold">Projects</h2>
       <AddProject />
-    </div>
+    </Container>
   );
 };
 

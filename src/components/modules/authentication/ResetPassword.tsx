@@ -16,7 +16,7 @@ import Password from '@/components/ui/password';
 import images from '@/config/images';
 import { cn } from '@/lib/utils';
 import { useResetPasswordMutation } from '@/redux/features/auth/auth.api';
-import { resetPasswordValidation } from '@/validations/auth';
+import { resetPasswordValidation } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import Link from 'next/link';

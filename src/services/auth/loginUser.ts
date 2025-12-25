@@ -1,100 +1,83 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 
+import baseCookieOption from '@/config/cookie.config';
+import { setCookie, verifyToken } from '@/lib/jwt';
+
 import serverFetch from '@/lib/server-fetch';
 import {
   getDefaultDashboardRoute,
   isValidRedirectForRole,
   UserRole,
-} from '@/utils/auth';
-import { setCookie, verifyToken } from '@/utils/jwt';
-import { loginValidationZodSchema } from '@/validations/auth';
-import { parse } from 'cookie';
-import { cookies } from 'next/headers';
+} from '@/services/auth/user-access';
+import { ApiResponse, IUser } from '@/types';
 import { redirect } from 'next/navigation';
 
-export const loginUser = async (
-  _currentState: any,
-  formData: any,
-): Promise<any> => {
+type UserRes = {
+  accessToken: string;
+  refreshToken: string;
+  user: IUser;
+};
+
+type LoginResult =
+  | { success: true; message: string }
+  | { success: false; message: string; details?: unknown };
+
+const loginUser = async (
+  _currentState: unknown,
+  formData: FormData,
+): Promise<LoginResult> => {
   try {
-    const redirectTo = formData.get('redirect') || null;
-    let accessTokenObject: null | any = null;
-    let refreshTokenObject: null | any = null;
-    const loginData = {
-      email: formData.get('email'),
-      password: formData.get('password'),
-    };
+    const redirectTo = formData.get('redirect'); // FormDataEntryValue | null
 
-    const validatedFields = loginValidationZodSchema.safeParse(loginData);
+    const email = formData.get('email')?.toString() ?? '';
+    const password = formData.get('password')?.toString() ?? '';
 
-    if (!validatedFields.success) {
+    if (!email || !password) {
+      return { success: false, message: 'Email and password are required' };
+    }
+
+    const loginData = { email, password };
+
+    // serverFetch should throw if request fails with non-2xx, but guard anyway
+    const res = await serverFetch.post<ApiResponse<UserRes>>('/auth/login', {
+      body: JSON.stringify(loginData),
+    });
+
+    // Adjust this based on your actual ApiResponse shape: some wrappers use res.data.data
+    const payload = (res as any).data ?? null;
+    if (!payload) {
       return {
         success: false,
-        errors: validatedFields.error.issues.map((issue) => {
-          return {
-            field: issue.path[0],
-            message: issue.message,
-          };
-        }),
+        message: 'No response payload from auth server',
       };
     }
 
-    const res = (await serverFetch.post('/auth/login', {
-      body: JSON.stringify(loginData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })) as Response;
+    const { accessToken, refreshToken } = payload as UserRes;
 
-    const setCookieHeaders = res.headers.getSetCookie();
-
-    if (setCookieHeaders && setCookieHeaders.length > 0) {
-      setCookieHeaders.forEach((cookie: string) => {
-        const parsedCookie = parse(cookie);
-
-        if (parsedCookie['accessToken']) {
-          accessTokenObject = parsedCookie;
-        }
-        if (parsedCookie['refreshToken']) {
-          refreshTokenObject = parsedCookie;
-        }
-      });
-    } else {
-      throw new Error('No Set-Cookie header found');
+    if (!accessToken || !refreshToken) {
+      return { success: false, message: 'Tokens missing from server response' };
     }
 
-    if (!accessTokenObject) {
-      throw new Error('Tokens not found in cookies');
+    // set cookies (make sure baseCookieOption has secure/httpOnly etc)
+    await setCookie('accessToken', accessToken, { ...baseCookieOption });
+    await setCookie('refreshToken', refreshToken, { ...baseCookieOption });
+
+    // verify token safely (some implementations may throw)
+    let verifiedToken: any;
+    try {
+      verifiedToken = verifyToken(accessToken);
+    } catch (err) {
+      // token verification failed
+      return {
+        success: false,
+        message: 'Token verification failed',
+        details: err,
+      };
     }
 
-    if (!refreshTokenObject) {
-      throw new Error('Tokens not found in cookies');
-    }
-
-    const cookieStore = await cookies();
-
-    setCookie('accessToken', accessTokenObject.accessToken, {
-      secure: true,
-      httpOnly: true,
-      maxAge: parseInt(accessTokenObject['Max-Age']) || 1000 * 60 * 60,
-      path: accessTokenObject.Path || '/',
-      sameSite: accessTokenObject['SameSite'] || 'none',
-    });
-
-    setCookie('refreshToken', refreshTokenObject.refreshToken, {
-      secure: true,
-      httpOnly: true,
-      maxAge:
-        parseInt(refreshTokenObject['Max-Age']) || 1000 * 60 * 60 * 24 * 90,
-      path: refreshTokenObject.Path || '/',
-      sameSite: refreshTokenObject['SameSite'] || 'none',
-    });
-
-    const verifiedToken = verifyToken(accessTokenObject.accessToken);
-
-    if (typeof verifiedToken === 'string') {
-      throw new Error('Invalid token');
+    if (!verifiedToken || typeof verifiedToken === 'string') {
+      return { success: false, message: 'Invalid token format' };
     }
 
     const userRole: UserRole = verifiedToken.role;
@@ -106,12 +89,19 @@ export const loginUser = async (
       } else {
         redirect(getDefaultDashboardRoute(userRole));
       }
+      // redirect will terminate the response (Next will throw), so no return needed after it.
     }
-  } catch (error: any) {
-    if (error?.digest?.startsWith('NEXT_REDIRECT')) {
-      throw error;
-    }
-    console.log(error);
-    return { error: 'Login failed' };
+
+    return { success: true, message: 'Login successful' };
+  } catch (err) {
+    // include error details to help debug, but be careful not to leak secrets to the client
+    console.error('loginUser error:', err);
+    return {
+      success: false,
+      message: 'Something went wrong during login',
+      details: err,
+    };
   }
 };
+
+export { loginUser };

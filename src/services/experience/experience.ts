@@ -3,7 +3,7 @@ import { ApiResponse } from '@/types';
 import { IExperience } from '@/types/api.types';
 
 export const getExperience = async (query?: Record<string, any>) => {
-  const { data } = await serverFetch.get<ApiResponse<IExperience[]>>(
+  const { data, meta } = await serverFetch.get<ApiResponse<IExperience[]>>(
     '/experience',
     {
       query,
@@ -15,5 +15,6 @@ export const getExperience = async (query?: Record<string, any>) => {
 
   return {
     data,
+    meta,
   };
 };

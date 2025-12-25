@@ -1,87 +1,48 @@
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
+// middleware.ts (or where proxy is)
+import { NextResponse, type NextRequest } from 'next/server';
+
 import {
   getDefaultDashboardRoute,
   getRouteOwner,
   isAuthRoute,
+  isValidRedirectForRole,
   UserRole,
-} from './utils/auth';
-import { deleteCookie, getCookie } from './utils/jwt';
+} from './services/auth/user-access';
+import getVerifiedUser from './services/auth/verified-user';
 
-export const proxy = async (request: NextRequest) => {
-  const pathname = request.nextUrl.pathname;
+export const proxy = async (req: NextRequest) => {
+  const { pathname, origin } = req.nextUrl;
+  const user = await getVerifiedUser(req); // <-- pass req here
+  const role = user?.role as UserRole | undefined;
 
-  const accessToken = (await getCookie('accessToken')) || null;
+  const isAuthPage = isAuthRoute(pathname);
+  const routeOwner = getRouteOwner(pathname);
 
-  let userRole: UserRole | null = null;
-  if (accessToken) {
-    const verifiedToken: JwtPayload | string = jwt.verify(
-      accessToken,
-      process.env.JWT_SECRET as string,
-    );
+  // NOT logged in → allow auth pages
+  if (!user && isAuthPage) return NextResponse.next();
 
-    if (typeof verifiedToken === 'string') {
-      await deleteCookie('accessToken');
-      await deleteCookie('refreshToken');
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
-
-    userRole = verifiedToken.role;
+  // Logged-in user → redirect away from auth pages
+  if (user && isAuthPage) {
+    const defaultRoute = getDefaultDashboardRoute(role!);
+    return NextResponse.redirect(new URL(defaultRoute, origin));
   }
 
-  const routerOwner = getRouteOwner(pathname);
-  //path = /doctor/appointments => "DOCTOR"
-  //path = /my-profile => "COMMON"
-  //path = /login => null
-
-  const isAuth = isAuthRoute(pathname);
-
-  // Rule 1 : User is logged in and trying to access auth route. Redirect to default dashboard
-  if (accessToken && isAuth) {
-    return NextResponse.redirect(
-      new URL(getDefaultDashboardRoute(userRole as UserRole), request.url),
-    );
-  }
-
-  // Rule 2 : User is trying to access open public route
-  if (routerOwner === null) {
-    return NextResponse.next();
-  }
-
-  // Rule 1 & 2 for open public routes and auth routes
-
-  if (!accessToken) {
-    const loginUrl = new URL('/login', request.url);
+  // Not logged-in → protected route → redirect to login
+  if (!user && routeOwner !== null) {
+    const loginUrl = new URL('/login', origin);
     loginUrl.searchParams.set('redirect', pathname);
-    return NextResponse.redirect(loginUrl);
+
+    // If you want to delete cookies when token invalid, build a response and clear cookies:
+    const res = NextResponse.redirect(loginUrl);
+    // res.cookies.set({ name: 'accessToken', value: '', expires: new Date(0) }); // example if desired
+    return res;
   }
 
-  // Rule 3 : User is trying to access common protected route
-  if (routerOwner === 'COMMON') {
-    return NextResponse.next();
+  // Logged-in → check role access
+  if (user && !isValidRedirectForRole(pathname, role!)) {
+    const defaultRoute = getDefaultDashboardRoute(role!);
+    return NextResponse.redirect(new URL(defaultRoute, origin));
   }
-
-  // Rule 4 : User is trying to access role based protected route
-  if (
-    routerOwner === 'ADMIN' ||
-    routerOwner === 'SUPER_ADMIN' ||
-    routerOwner === 'USER'
-  ) {
-    if (userRole !== routerOwner) {
-      return NextResponse.redirect(
-        new URL(getDefaultDashboardRoute(userRole as UserRole), request.url),
-      );
-    }
-  }
-
-  console.log(userRole);
 
   return NextResponse.next();
-};
-
-export const config = {
-  matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.well-known).*)',
-  ],
 };

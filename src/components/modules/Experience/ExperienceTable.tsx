@@ -24,8 +24,7 @@ const ExperienceTable = async ({ props }: { props: Record<string, any> }) => {
   const params = {
     ...props,
   };
-  const { data, meta } = await getExperience(params);
-  console.log(meta);
+  const { data } = await getExperience(params);
 
   return (
     <Container>
