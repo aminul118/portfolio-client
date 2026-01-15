@@ -8,7 +8,7 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
-import Logo from '../Logo';
+import Logo from '../../../assets/Logo';
 import LogOut from './LogOut';
 import Menu from './Menu';
 

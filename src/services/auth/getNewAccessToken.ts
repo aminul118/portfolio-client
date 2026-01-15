@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getCookie, verifyAccessToken } from '@/lib/jwt';
 import serverFetch from '@/lib/server-fetch';
 import { ApiResponse } from '@/types';

@@ -17,7 +17,7 @@ const sendOTP = async (email: string | null) => {
       body: JSON.stringify(payload),
     });
     return res;
-  } catch (error) {
+  } catch {
     return ActionError(false, null, 'Wrong OTP');
   }
 };

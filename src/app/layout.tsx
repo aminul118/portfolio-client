@@ -1,5 +1,4 @@
 import fonts from '@/config/fonts.config';
-import AosProvider from '@/providers/AosProvider';
 import ThemeProvider from '@/providers/ThemeProvider';
 import generateMetaTags from '@/seo/generateMetaTags';
 import '@/styles/custom.css';
@@ -19,7 +18,7 @@ const MainLayout = ({ children }: Children) => {
             enableSystem
             disableTransitionOnChange
           >
-            <AosProvider>{children}</AosProvider>
+            {children}
             <Toaster position="top-right" richColors theme="dark" />
           </ThemeProvider>
         </body>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { verifyAccessToken } from '@/lib/jwt';
 import type { NextRequest } from 'next/server';
 

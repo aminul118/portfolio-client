@@ -1,7 +1,8 @@
 'use client';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import Logo from '@/assets/Logo';
 import SubmitButton from '@/components/common/button/submit-button';
-import Logo from '@/components/layouts/Logo';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -20,7 +21,6 @@ import {
 } from '@/components/ui/input-otp';
 import useSearchParamsValues from '@/hooks/useSearchParamsValues';
 import { sendOTP } from '@/services/auth/otp/sendOTP';
-
 import { verifyOTP } from '@/services/auth/otp/verifyOTP';
 import {
   getDefaultDashboardRoute,
@@ -38,7 +38,7 @@ import { z } from 'zod';
 type FormValues = z.infer<typeof otpValidation>;
 
 const VerifyOTPForm = () => {
-  const [counter, setCounter] = useState(60); // 1 min timer
+  const [counter, setCounter] = useState(6); // 1 min timer
   const { email } = useSearchParamsValues('email');
   const router = useRouter();
 

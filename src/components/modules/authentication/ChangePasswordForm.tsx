@@ -11,8 +11,6 @@ import {
 } from '@/components/ui/form';
 import GradientTitle from '@/components/ui/gradientTitle';
 import Password from '@/components/ui/password';
-import useActionHandler from '@/hooks/useActionHandler';
-import { changePassword } from '@/services/auth/change-password';
 import { passwordChangeValidation } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -21,8 +19,6 @@ import { z } from 'zod';
 type FormValues = z.infer<typeof passwordChangeValidation>;
 
 const ChangePasswordForm = () => {
-  const { executePost } = useActionHandler();
-
   const form = useForm<FormValues>({
     resolver: zodResolver(passwordChangeValidation),
     defaultValues: {
@@ -33,19 +29,10 @@ const ChangePasswordForm = () => {
     mode: 'onTouched',
   });
 
-  const onSubmit = async (data: FormValues) => {
-    const { confirmNewPassword, ...rest } = data;
-    await executePost({
-      action: () => changePassword(rest),
-      success: {
-        onSuccess: () => {
-          form.reset();
-        },
-        message: 'Password changed successfully.',
-        loadingText: 'Password changing...',
-      },
-      errorMessage: 'Failed to change password.',
-    });
+  const onSubmit = async (values: FormValues) => {
+    console.log(values);
+    try {
+    } catch {}
   };
 
   return (
@@ -98,10 +85,7 @@ const ChangePasswordForm = () => {
             )}
           />
 
-          <SubmitButton
-            loading={form.formState.isSubmitting}
-            text="Password Change"
-          />
+          <SubmitButton loading={form.formState.isSubmitting} />
         </form>
       </Form>
     </div>

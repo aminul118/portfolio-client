@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 import { ArrowDownUp } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-interface SortOption {
+export interface SortOption {
   name: string;
   value: string;
 }
@@ -32,8 +32,8 @@ const Sorting = ({
   labelInSelect,
   className,
   sortOptions = [
-    { name: 'Ascending', value: 'asc' },
-    { name: 'Descending', value: 'dsc' },
+    { name: 'Ascending', value: '-createdAt' },
+    { name: 'Descending', value: 'createdAt' },
   ],
 }: SortByProps) => {
   const searchParams = useSearchParams();

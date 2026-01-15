@@ -39,9 +39,9 @@ const LoginForm = () => {
     },
   });
 
-  const onSubmit = async (data: FormValues) => {
+  const onSubmit = async (values: FormValues) => {
     try {
-      const res = await loginAction(data);
+      const res = await loginAction(values);
 
       if (res.success) {
         router.push(
@@ -51,7 +51,7 @@ const LoginForm = () => {
       } else {
         toast.error('Login failed. Please check your credentials.');
       }
-    } catch (error) {
+    } catch {
       toast.error('Login failed. Please check your credentials.');
     }
   };

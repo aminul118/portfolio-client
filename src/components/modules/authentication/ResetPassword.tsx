@@ -1,7 +1,7 @@
 'use client';
 
+import Logo from '@/assets/Logo';
 import SubmitButton from '@/components/common/button/submit-button';
-import Logo from '@/components/layouts/Logo';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
+import Logo from '@/assets/Logo';
 import SubmitButton from '@/components/common/button/submit-button';
-import Logo from '@/components/layouts/Logo';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -14,20 +14,21 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import useActionHandler from '@/hooks/useActionHandler';
 import { cn } from '@/lib/utils';
 import { forgotPassword } from '@/services/auth/forgotPassword';
-
 import { forgotPasswordValidation } from '@/zod/auth';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 type FormValues = z.infer<typeof forgotPasswordValidation>;
 
 const ForgotPasswordForm = ({ className }: { className?: string }) => {
-  const { executePost } = useActionHandler();
+  const router = useRouter();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(forgotPasswordValidation),
@@ -36,19 +37,22 @@ const ForgotPasswordForm = ({ className }: { className?: string }) => {
     },
   });
 
-  const onSubmit = async (data: FormValues) => {
-    await executePost({
-      action: () => forgotPassword(data),
-      success: {
-        onSuccess: () => {
-          form.reset();
-        },
-        redirectPath: '/login',
-        loadingText: 'Password recover link sending to your email....',
-        message: 'Check your email to recover',
-      },
-      errorMessage: 'Failed to send link to your email',
-    });
+  const onSubmit = async (values: FormValues) => {
+    console.log('Forgot password values:', values);
+    const formData = new FormData();
+    formData.append('email', values.email);
+
+    try {
+      const res = await forgotPassword(formData);
+      console.log(res);
+      if (res && res.success) {
+        toast.success(res.message || 'Check Your email');
+      }
+      form.reset();
+      router.push('/login');
+    } catch (error: any) {
+      toast.error(error.message || 'Something went wrong');
+    }
   };
 
   return (
