@@ -14,16 +14,17 @@ import {
 import ImageDrop from '@/components/ui/image-drop';
 import { Input } from '@/components/ui/input';
 import MultipleImageDrop from '@/components/ui/multiple-image-drop';
-import { addProjectAction } from '@/services/project/addProjects';
+import useActionHandler from '@/hooks/useActionHandler';
+import { createProject } from '@/services/project/projects';
 import { projectValidationSchema } from '@/zod/project';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 import * as z from 'zod';
 
 type FormValues = z.infer<typeof projectValidationSchema>;
 
 export default function AddProjects() {
+  const { executePost } = useActionHandler();
   const form = useForm<FormValues>({
     resolver: zodResolver(projectValidationSchema),
     defaultValues: {
@@ -38,19 +39,26 @@ export default function AddProjects() {
   });
 
   const onSubmit = async (data: FormValues) => {
-    console.log(data);
-    try {
-      const res = await addProjectAction(data);
+    const formData = new FormData();
 
-      if (!res?.success) {
-        throw new Error(res?.message || 'Something went wrong');
-      }
+    // Exclude the raw File from the JSON blob
+    const { thumbnail, ...rest } = data;
+    formData.append('data', JSON.stringify(rest));
 
-      toast.success('Project added successfully');
-      form.reset();
-    } catch (err: any) {
-      toast.error(err.message || 'Failed to add project');
+    if (thumbnail instanceof File) {
+      formData.append('file', thumbnail);
     }
+
+    await executePost({
+      action: () => createProject(formData),
+      success: {
+        onSuccess: () => form.reset(),
+        loadingText: 'Project adding...',
+        message: 'Project added successfully',
+        redirectPath: '/admin/projects',
+      },
+      errorMessage: 'Failed to add project.',
+    });
   };
 
   return (

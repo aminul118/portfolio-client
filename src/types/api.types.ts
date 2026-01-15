@@ -1,3 +1,9 @@
+export interface ILogin {
+  accessToken: string;
+  refreshToken: string;
+  user: IUser;
+}
+
 export interface IMeta {
   page: number;
   limit: number;

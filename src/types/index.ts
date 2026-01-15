@@ -15,6 +15,7 @@ export type {
   ApiResponse,
   Auth,
   IBlog,
+  ILogin,
   IMeta,
   IProject,
   IUser,

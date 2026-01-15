@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import Container from '@/components/ui/Container';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,11 +20,11 @@ import { ReactNode } from 'react';
 
 export interface Column<T> {
   header: string;
-  accessor: keyof T | ((row: T) => ReactNode);
+  accessor: keyof T | ((row: T, index: number) => ReactNode);
   className?: string;
 }
 
-interface ManagementTableProps<T> {
+interface TableManageMentProps<T> {
   data: T[];
   columns: Column<T>[];
   onView?: (row: T) => void;
@@ -34,9 +33,10 @@ interface ManagementTableProps<T> {
   getRowKey: (row: T) => string;
   emptyMessage?: string;
   isRefreshing?: boolean;
+  children?: ReactNode;
 }
 
-function ManagementTable<T>({
+function TableManageMent<T>({
   data = [],
   columns = [],
   onView,
@@ -45,12 +45,13 @@ function ManagementTable<T>({
   getRowKey,
   emptyMessage = 'No records found.',
   isRefreshing = false,
-}: ManagementTableProps<T>) {
-  const hasActions = onView || onEdit || onDelete;
+}: TableManageMentProps<T>) {
+  const hasActions = !!(onView || onEdit || onDelete);
+
   return (
-    <Container>
+    <section>
       <div className="relative rounded-lg">
-        {/* Refreshing Overlay */}
+        {/* Refresh overlay */}
         {isRefreshing && (
           <div className="bg-background/50 absolute inset-0 z-10 flex items-center justify-center rounded-lg backdrop-blur-[2px]">
             <div className="flex flex-col items-center gap-2">
@@ -63,8 +64,8 @@ function ManagementTable<T>({
         <Table>
           <TableHeader>
             <TableRow className="bg-muted">
-              {columns?.map((column, colIndex) => (
-                <TableHead key={colIndex} className={column.className}>
+              {columns.map((column, index) => (
+                <TableHead key={index} className={column.className}>
                   {column.header}
                 </TableHead>
               ))}
@@ -86,15 +87,16 @@ function ManagementTable<T>({
                 </TableCell>
               </TableRow>
             ) : (
-              data?.map((item) => (
+              data.map((item, rowIndex) => (
                 <TableRow key={getRowKey(item)}>
-                  {columns.map((col, idx) => (
-                    <TableCell key={idx} className={col.className}>
+                  {columns.map((col, colIndex) => (
+                    <TableCell key={colIndex} className={col.className}>
                       {typeof col.accessor === 'function'
-                        ? col.accessor(item)
+                        ? col.accessor(item, rowIndex)
                         : String(item[col.accessor])}
                     </TableCell>
                   ))}
+
                   {hasActions && (
                     <TableCell>
                       <DropdownMenu>
@@ -103,6 +105,7 @@ function ManagementTable<T>({
                             <MoreHorizontal className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
+
                         <DropdownMenuContent align="end">
                           {onView && (
                             <DropdownMenuItem onClick={() => onView(item)}>
@@ -110,12 +113,14 @@ function ManagementTable<T>({
                               View
                             </DropdownMenuItem>
                           )}
+
                           {onEdit && (
                             <DropdownMenuItem onClick={() => onEdit(item)}>
                               <Edit className="mr-2 h-4 w-4" />
                               Edit
                             </DropdownMenuItem>
                           )}
+
                           {onDelete && (
                             <DropdownMenuItem
                               onClick={() => onDelete(item)}
@@ -135,8 +140,8 @@ function ManagementTable<T>({
           </TableBody>
         </Table>
       </div>
-    </Container>
+    </section>
   );
 }
 
-export default ManagementTable;
+export default TableManageMent;

@@ -1,5 +1,6 @@
+import TableFilters from '@/components/common/table/TableFilters';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
-import ExperienceFilters from '@/components/modules/Admin/Experience/ExperienceFilters';
+import AddExperienceModal from '@/components/modules/Admin/Experience/AddExperienceModal';
 import ExperienceTable from '@/components/modules/Admin/Experience/ExperienceTable';
 import cleanSearchParams from '@/lib/cleanSearchParams';
 import { getExperience } from '@/services/experience/experience';
@@ -8,14 +9,16 @@ import { Metadata } from 'next';
 
 const ExperiencePage = async ({ searchParams }: SearchParams) => {
   const params = await cleanSearchParams(searchParams);
-  const { data } = await getExperience(params);
+  const { data, meta } = await getExperience(params);
 
   return (
     <div>
       <ClientTableWrapper
-        tableTitle="Experiences"
-        filters={<ExperienceFilters />}
+        tableTitle="Projects"
+        meta={meta}
+        action={<AddExperienceModal />}
       >
+        <TableFilters />
         <ExperienceTable experiences={data} />
       </ClientTableWrapper>
     </div>

@@ -1,22 +1,25 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { useFormStatus } from 'react-dom';
 import ButtonSpinner from '../loader/ButtonSpinner';
 
 interface Props {
   text?: string;
   className?: string;
+  loading?: boolean;
 }
 
-const SubmitButton = ({ text = 'Submit', className }: Props) => {
-  const { pending } = useFormStatus();
-
+const SubmitButton = ({
+  text = 'Submit',
+  className,
+  loading = false,
+}: Props) => {
   return (
-    <Button type="submit" className={className} disabled={pending}>
-      {pending ? (
+    <Button type="submit" className={className} disabled={loading}>
+      {loading ? (
         <>
-          {text} <ButtonSpinner />
+          {text}
+          <ButtonSpinner />
         </>
       ) : (
         text

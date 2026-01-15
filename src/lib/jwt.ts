@@ -1,3 +1,5 @@
+'use server';
+
 import envVars from '@/config/env.config';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
@@ -8,9 +10,19 @@ const getCookie = async (key: string) => {
   return cookieStore.get(key)?.value || null;
 };
 
-const verifyToken = async (accessToken: string): Promise<JwtPayload | null> => {
+const verifyAccessToken = async (token: string): Promise<JwtPayload | null> => {
   try {
-    return jwt.verify(accessToken, envVars.jwt.accessSecret) as JwtPayload;
+    return jwt.verify(token, envVars.jwt.accessSecret) as JwtPayload;
+  } catch {
+    return null;
+  }
+};
+
+const verifyRefreshToken = async (
+  token: string,
+): Promise<JwtPayload | null> => {
+  try {
+    return jwt.verify(token, envVars.jwt.refreshSecret) as JwtPayload;
   } catch {
     return null;
   }
@@ -30,4 +42,10 @@ const deleteCookie = async (key: string) => {
   cookieStore.delete(key);
 };
 
-export { deleteCookie, getCookie, setCookie, verifyToken };
+export {
+  deleteCookie,
+  getCookie,
+  setCookie,
+  verifyAccessToken,
+  verifyRefreshToken,
+};

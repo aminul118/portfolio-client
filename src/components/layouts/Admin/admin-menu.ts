@@ -2,6 +2,7 @@ import { MenuGroup } from '@/types';
 import {
   BookOpen,
   Briefcase,
+  FileCheck,
   Gauge,
   Globe,
   Link,
@@ -19,6 +20,7 @@ const adminSidebarMenu: MenuGroup[] = [
       { name: 'Blogs', url: '/admin/blogs', icon: BookOpen },
       { name: 'Experience', url: '/admin/experience', icon: Briefcase },
       { name: 'Users', url: '/admin/users', icon: Users },
+      { name: 'Invoice', url: '/admin/invoice', icon: FileCheck },
       { name: 'Website', url: '/', icon: Globe },
     ],
   },

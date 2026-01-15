@@ -1,24 +1,18 @@
 'use server';
 
-import envVars from '@/config/env.config';
-import { cookies } from 'next/headers';
+import { revalidate } from '@/lib/revalidate';
+import { removeAccessToken, removeRefreshToken } from './cookie-token';
 
 const logOut = async () => {
-  const cookieStore = await cookies();
+  await removeAccessToken();
+  await removeRefreshToken();
 
-  cookieStore.delete({
-    name: 'accessToken',
-    path: '/',
-    domain: envVars.domain,
-  });
+  revalidate('ME');
 
-  cookieStore.delete({
-    name: 'refreshToken',
-    path: '/',
-    domain: envVars.domain,
-  });
-
-  return { success: true };
+  return {
+    success: true,
+    message: 'Logged out successfully',
+  };
 };
 
-export default logOut;
+export { logOut };

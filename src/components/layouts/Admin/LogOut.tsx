@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import logOut from '@/services/auth/logout';
+import { logOut } from '@/services/auth/logout';
 
 import { useState } from 'react';
 

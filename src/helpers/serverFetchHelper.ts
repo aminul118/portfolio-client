@@ -1,5 +1,6 @@
 import generateQueryUrl from '@/lib/generateQueryUrl';
 import { getCookie } from '@/lib/jwt';
+import { getNewAccessToken } from '@/services/auth/getNewAccessToken';
 
 export type FetchOptions = RequestInit & {
   query?: Record<string, string>;
@@ -13,18 +14,18 @@ const serverFetchHelper = async <T>(
   const url = generateQueryUrl(endpoint, query);
   const accessToken = await getCookie('accessToken');
 
+  //to stop recursion loop
+  if (endpoint !== '/auth/refresh-token') {
+    await getNewAccessToken();
+  }
+
   const res = await fetch(url, {
     headers: {
-      'Content-Type': 'application/json',
-      ...headers,
       Cookie: accessToken ? `accessToken=${accessToken}` : '',
+      ...headers,
     },
     ...rest,
   });
-
-  if (!res.ok) {
-    throw new Error(`Request failed: ${res.status}`);
-  }
 
   return res.json() as Promise<T>;
 };
