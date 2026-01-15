@@ -1,7 +1,6 @@
 'use client';
 
-import ButtonSpinner from '@/components/common/loader/ButtonSpinner';
-import { Button } from '@/components/ui/button';
+import SubmitButton from '@/components/common/button/submit-button';
 import {
   Form,
   FormControl,
@@ -12,17 +11,17 @@ import {
 } from '@/components/ui/form';
 import GradientTitle from '@/components/ui/gradientTitle';
 import Password from '@/components/ui/password';
-import { useChangePasswordMutation } from '@/redux/features/auth/auth.api';
+import useActionHandler from '@/hooks/useActionHandler';
+import { changePassword } from '@/services/auth/change-password';
 import { passwordChangeValidation } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 import { z } from 'zod';
 
 type FormValues = z.infer<typeof passwordChangeValidation>;
 
 const ChangePasswordForm = () => {
-  const [changePassword, { isLoading }] = useChangePasswordMutation();
+  const { executePost } = useActionHandler();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(passwordChangeValidation),
@@ -34,21 +33,19 @@ const ChangePasswordForm = () => {
     mode: 'onTouched',
   });
 
-  const onSubmit = async (values: FormValues) => {
-    const { oldPassword, newPassword } = values;
-    const payload = { oldPassword, newPassword };
-
-    try {
-      const res = await changePassword(payload).unwrap();
-      if (res.statusCode === 200) {
-        toast.success('Password changed successfully.');
-        form.reset();
-        return;
-      }
-    } catch {
-      toast.error('Failed to change password. Please try again.');
-      return;
-    }
+  const onSubmit = async (data: FormValues) => {
+    const { confirmNewPassword, ...rest } = data;
+    await executePost({
+      action: () => changePassword(rest),
+      success: {
+        onSuccess: () => {
+          form.reset();
+        },
+        message: 'Password changed successfully.',
+        loadingText: 'Password changing...',
+      },
+      errorMessage: 'Failed to change password.',
+    });
   };
 
   return (
@@ -101,15 +98,10 @@ const ChangePasswordForm = () => {
             )}
           />
 
-          <Button type="submit" className="w-full">
-            {isLoading ? (
-              <>
-                Change Password <ButtonSpinner />
-              </>
-            ) : (
-              'Change Password'
-            )}
-          </Button>
+          <SubmitButton
+            loading={form.formState.isSubmitting}
+            text="Password Change"
+          />
         </form>
       </Form>
     </div>

@@ -23,7 +23,7 @@ const LoginPage = () => {
                   <Logo />
                 </Link>
                 <p className="text-muted-foreground mt-4 text-center">
-                  Login to your portal
+                  Login to your Smart Healthcare & Research Ltd. portal
                 </p>
               </div>
               {/* Form Section */}

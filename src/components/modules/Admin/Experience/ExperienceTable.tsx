@@ -4,11 +4,7 @@ import TableManageMent from '@/components/common/table/TableManageMent';
 import { IExperience } from '@/types/api.types';
 import ExperienceTableColumn from './ExperienceTableColumn';
 
-const ExperienceTable = async ({
-  experiences,
-}: {
-  experiences: IExperience[];
-}) => {
+const ExperienceTable = ({ experiences }: { experiences: IExperience[] }) => {
   return (
     <>
       <TableManageMent

@@ -4,7 +4,7 @@ import TableManageMent from '@/components/common/table/TableManageMent';
 import { IProject } from '@/types';
 import ProjectTableColumn from './ProjectTableColumn';
 
-const ProjectTable = async ({ projects }: { projects: IProject[] }) => {
+const ProjectTable = ({ projects }: { projects: IProject[] }) => {
   return (
     <>
       <TableManageMent

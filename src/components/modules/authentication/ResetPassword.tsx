@@ -1,7 +1,8 @@
 'use client';
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import ButtonSpinner from '@/components/common/loader/ButtonSpinner';
+
+import SubmitButton from '@/components/common/button/submit-button';
 import Logo from '@/components/layouts/Logo';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -15,12 +16,11 @@ import {
 import Password from '@/components/ui/password';
 import images from '@/config/images';
 import { cn } from '@/lib/utils';
-import { useResetPasswordMutation } from '@/redux/features/auth/auth.api';
 import { resetPasswordValidation } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import Link from 'next/link';
-import { forbidden, useRouter } from 'next/navigation';
+import { forbidden } from 'next/navigation';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -29,8 +29,6 @@ import { z } from 'zod';
 type FormValues = z.infer<typeof resetPasswordValidation>;
 
 const ResetPassword = ({ props }: { props: Record<string, any> }) => {
-  const router = useRouter();
-  const [resetPassword, { isLoading }] = useResetPasswordMutation();
   const { id, token } = props;
 
   //  token & id -> Required for visit this page
@@ -54,12 +52,7 @@ const ResetPassword = ({ props }: { props: Record<string, any> }) => {
         token,
       };
 
-      const res = await resetPassword(payload).unwrap();
-
-      if (res.statusCode === 200) {
-        toast.success(res.message || 'Password reset successfully');
-        router.push('/login');
-      }
+      console.log(payload);
     } catch (error: any) {
       toast.error(error?.data?.message || 'Failed to reset password');
     }
@@ -127,15 +120,10 @@ const ResetPassword = ({ props }: { props: Record<string, any> }) => {
                   )}
                 />
 
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? (
-                    <>
-                      Reset Password <ButtonSpinner />
-                    </>
-                  ) : (
-                    <>Reset Password</>
-                  )}
-                </Button>
+                <SubmitButton
+                  text="Reset Password"
+                  loading={form.formState.isSubmitting}
+                />
               </form>
 
               <div className="mt-4 text-center text-sm">

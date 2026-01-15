@@ -72,3 +72,10 @@ export interface IExperience {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IContact {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}

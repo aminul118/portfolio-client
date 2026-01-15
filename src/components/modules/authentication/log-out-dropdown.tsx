@@ -1,7 +1,7 @@
 'use client';
 
 import Spinner from '@/components/common/loader/ButtonSpinner';
-import { Button } from '@/components/ui/button';
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { logOut } from '@/services/auth/logout';
 import { LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -20,7 +20,11 @@ const LogOutDropDown = ({ className }: { className?: string }) => {
   };
 
   return (
-    <Button className={className} onClick={handleLogout} disabled={loading}>
+    <DropdownMenuItem
+      className={className}
+      onClick={handleLogout}
+      disabled={loading}
+    >
       {loading ? (
         <>
           <Spinner /> Logging out...
@@ -30,7 +34,7 @@ const LogOutDropDown = ({ className }: { className?: string }) => {
           <LogOut /> Log out
         </>
       )}
-    </Button>
+    </DropdownMenuItem>
   );
 };
 
