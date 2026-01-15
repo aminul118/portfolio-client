@@ -22,17 +22,18 @@ import {
 import { Input } from '@/components/ui/input';
 import SubmitButton from '@/components/ui/submit-button';
 import { Textarea } from '@/components/ui/textarea';
-import { addExperience } from '@/services/experience/addExperience';
+import useActionHandler from '@/hooks/useActionHandler';
+import { addExperience } from '@/services/experience/experience';
 import { experienceValidationSchema } from '@/zod/experience';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 import z from 'zod';
 
 type FormValues = z.infer<typeof experienceValidationSchema>;
 
 const AddExperienceModal = () => {
+  const { executePost } = useActionHandler();
   const form = useForm<FormValues>({
     resolver: zodResolver(experienceValidationSchema),
     defaultValues: {
@@ -43,22 +44,19 @@ const AddExperienceModal = () => {
     },
   });
 
-  const onSubmit = async (values: FormValues) => {
-    const fd = new FormData();
+  const onSubmit = async (data: FormValues) => {
+    await executePost({
+      action: () => addExperience(data),
+      success: {
+        onSuccess: () => {
+          form.reset();
+        },
 
-    fd.append('position', values.position);
-    fd.append('companyName', values.companyName);
-    fd.append('timeline', values.timeline);
-    fd.append('description', values.description);
-
-    const res = await addExperience(fd);
-
-    if (res?.success) {
-      toast.success('Experience added!');
-      form.reset();
-    } else {
-      toast.error(res?.message || 'Upload failed');
-    }
+        loadingText: 'Experience adding...',
+        message: 'Experience added successfully',
+      },
+      errorMessage: 'Failed to add project.',
+    });
   };
 
   return (

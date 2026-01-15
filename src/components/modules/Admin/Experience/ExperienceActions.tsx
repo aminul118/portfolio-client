@@ -1,4 +1,5 @@
 'use client';
+import DeleteFromTableDropDown from '@/components/common/actions/DeleteFromTableDropDown';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -6,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { deleteSingleExperience } from '@/services/experience/experience';
 import { IExperience } from '@/types/api.types';
 import { Edit, EllipsisIcon, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
@@ -14,6 +16,11 @@ import EditExperienceModal from './EditExperienceModal';
 const ExperienceActions = ({ experience }: { experience: IExperience }) => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
+
+  const handleDelete = async (id: string) => {
+    return await deleteSingleExperience(id);
+  };
+
   return (
     <>
       <DropdownMenu>
@@ -50,6 +57,12 @@ const ExperienceActions = ({ experience }: { experience: IExperience }) => {
         experience={experience}
         open={editModalOpen}
         setOpen={setEditModalOpen}
+      />
+
+      <DeleteFromTableDropDown
+        open={deleteModalOpen}
+        setOpen={setDeleteModalOpen}
+        onConfirm={() => handleDelete(experience._id)}
       />
     </>
   );
