@@ -1,3 +1,5 @@
+'use client';
+
 import DateFormat from '@/components/common/formater/date-format';
 import HtmlContent from '@/components/common/formater/HtmlContent';
 import { Button } from '@/components/ui/button';

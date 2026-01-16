@@ -1,4 +1,5 @@
 'use server';
+
 import serverFetch from '@/lib/server-fetch';
 import { ApiResponse } from '@/types';
 import { revalidateTag } from 'next/cache';

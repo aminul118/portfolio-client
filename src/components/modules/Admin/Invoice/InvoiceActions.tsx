@@ -81,11 +81,13 @@ const BannerActions = ({ invoice }: Props) => {
         onConfirm={() => handleDelete(invoice._id!)}
       />
 
-      <SendInvoiceDialog
-        open={sendOpen}
-        setOpen={setSendOpen}
-        invoice={invoice}
-      />
+      {invoice && (
+        <SendInvoiceDialog
+          open={sendOpen}
+          setOpen={setSendOpen}
+          invoice={invoice}
+        />
+      )}
     </>
   );
 };

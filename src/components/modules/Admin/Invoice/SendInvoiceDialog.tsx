@@ -43,8 +43,10 @@ const SendInvoiceDialog = ({ invoice, open, setOpen }: Props) => {
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    if (!invoice?._id) return;
+
     await executePost({
-      action: () => sendInvoice(invoice._id!, data.email),
+      action: () => sendInvoice(invoice._id as string, data.email),
       success: {
         onSuccess: () => {
           form.reset();

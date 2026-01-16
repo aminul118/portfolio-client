@@ -1,4 +1,5 @@
 'use client';
+
 import DeleteFromTableDropDown from '@/components/common/actions/DeleteFromTableDropDown';
 import { Button } from '@/components/ui/button';
 import {
