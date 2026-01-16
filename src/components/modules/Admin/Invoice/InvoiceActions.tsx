@@ -1,20 +1,30 @@
 'use client';
 
+import DeleteFromTableDropDown from '@/components/common/actions/DeleteFromTableDropDown';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { deleteSingleInvoice } from '@/services/invoice/invoice';
 import { IInvoice } from '@/types';
-import { Edit, EllipsisIcon, Rows4, Trash2Icon } from 'lucide-react';
+import { EllipsisIcon, Eye, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
 
-const InvoiceActions = ({ invoice }: Props) => {
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [viewDetailsModalOpen, setViewDetailsModalOpen] = useState(false);
+interface Props {
+  invoice: IInvoice;
+}
+
+const BannerActions = ({ invoice }: Props) => {
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+
+  const handleDelete = async (id: string) => {
+    return await deleteSingleInvoice(id);
+  };
 
   return (
     <>
@@ -25,42 +35,44 @@ const InvoiceActions = ({ invoice }: Props) => {
               size="icon"
               variant="ghost"
               className="shadow-none"
-              aria-label="Actions"
+              aria-label="Edit item"
             >
               <EllipsisIcon size={16} aria-hidden="true" />
             </Button>
           </div>
         </DropdownMenuTrigger>
-
         <DropdownMenuContent align="end" className="min-w-48">
-          <DropdownMenuItem onClick={() => setViewDetailsModalOpen(true)}>
-            <Rows4 className="mr-2 h-4 w-4" />
-            <span>View Details</span>
+          <DropdownMenuItem
+            onClick={() => {
+              setDetailsOpen(true);
+            }}
+          >
+            <Eye /> Banner Details
           </DropdownMenuItem>
+          <DropdownMenuSeparator />
 
-          <DropdownMenuItem onClick={() => setEditModalOpen(true)}>
-            <Edit className="mr-2 h-4 w-4" />
-            <span>Edit</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="text-destructive focus:text-destructive">
+          <DropdownMenuItem
+            className="text-destructive focus:text-destructive"
+            onClick={() => setDeleteOpen(true)}
+          >
             <Trash2Icon className="mr-2 h-4 w-4" />
             <span>Delete</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* Modals */}
-      {/* <EditExperienceModal
-        experience={project}
-        open={editModalOpen}
-        setOpen={setEditModalOpen}
+      {/* <BannerDetailsModal
+        open={detailsOpen}
+        setOpen={setDetailsOpen}
+        banner={banner}
       /> */}
+      <DeleteFromTableDropDown
+        open={deleteOpen}
+        setOpen={setDeleteOpen}
+        onConfirm={() => handleDelete(invoice._id!)}
+      />
     </>
   );
 };
 
-export default InvoiceActions;
-
-interface Props {
-  invoice: IInvoice;
-}
+export default BannerActions;
