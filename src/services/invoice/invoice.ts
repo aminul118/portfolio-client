@@ -29,6 +29,20 @@ const updateInvoice = async (payload: Record<string, string>, id: string) => {
   return res;
 };
 
+const sendInvoice = async (id: string, email: string) => {
+  const res = await serverFetch.post<ApiResponse<IInvoice>>(
+    `/invoice/${id}/send`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    },
+  );
+
+  return res;
+};
+
 const deleteSingleInvoice = async (id: string) => {
   const res = await serverFetch.delete<ApiResponse<IInvoice>>(`/invoice/${id}`);
   revalidate('invoice');
@@ -54,5 +68,6 @@ export {
   deleteSingleInvoice,
   getInvoices,
   getSingleInvoice,
+  sendInvoice,
   updateInvoice,
 };

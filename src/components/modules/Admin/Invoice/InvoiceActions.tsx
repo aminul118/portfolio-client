@@ -11,16 +11,18 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { deleteSingleInvoice } from '@/services/invoice/invoice';
 import { IInvoice } from '@/types';
-import { EllipsisIcon, Eye, Trash2Icon } from 'lucide-react';
+import { EllipsisIcon, Send, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
+import SendInvoiceDialog from './SendInvoiceDialog';
 
 interface Props {
   invoice: IInvoice;
 }
 
 const BannerActions = ({ invoice }: Props) => {
-  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [sendOpen, setSendOpen] = useState(false);
 
   const handleDelete = async (id: string) => {
     return await deleteSingleInvoice(id);
@@ -28,48 +30,61 @@ const BannerActions = ({ invoice }: Props) => {
 
   return (
     <>
-      <DropdownMenu>
+      {/* DROPDOWN */}
+      <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
         <DropdownMenuTrigger asChild>
           <div className="flex justify-end">
             <Button
               size="icon"
               variant="ghost"
               className="shadow-none"
-              aria-label="Edit item"
+              aria-label="Actions"
             >
               <EllipsisIcon size={16} aria-hidden="true" />
             </Button>
           </div>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent align="end" className="min-w-48">
           <DropdownMenuItem
-            onClick={() => {
-              setDetailsOpen(true);
+            onSelect={(e) => {
+              e.preventDefault();
+              setMenuOpen(false); // ✅ close menu FIRST
+              setSendOpen(true); // ✅ then open dialog
             }}
           >
-            <Eye /> Banner Details
+            <Send className="mr-2 h-4 w-4" />
+            Send Invoice
           </DropdownMenuItem>
+
           <DropdownMenuSeparator />
 
           <DropdownMenuItem
             className="text-destructive focus:text-destructive"
-            onClick={() => setDeleteOpen(true)}
+            onSelect={(e) => {
+              e.preventDefault();
+              setMenuOpen(false);
+              setDeleteOpen(true);
+            }}
           >
             <Trash2Icon className="mr-2 h-4 w-4" />
-            <span>Delete</span>
+            Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* <BannerDetailsModal
-        open={detailsOpen}
-        setOpen={setDetailsOpen}
-        banner={banner}
-      /> */}
+      {/* MODALS */}
+
       <DeleteFromTableDropDown
         open={deleteOpen}
         setOpen={setDeleteOpen}
         onConfirm={() => handleDelete(invoice._id!)}
+      />
+
+      <SendInvoiceDialog
+        open={sendOpen}
+        setOpen={setSendOpen}
+        invoice={invoice}
       />
     </>
   );
