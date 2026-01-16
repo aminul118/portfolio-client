@@ -1,5 +1,6 @@
 'use client';
 
+import SubmitButton from '@/components/common/button/submit-button';
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -20,7 +21,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import SubmitButton from '@/components/ui/submit-button';
 import { Textarea } from '@/components/ui/textarea';
 import useActionHandler from '@/hooks/useActionHandler';
 import { addExperience } from '@/services/experience/experience';
@@ -142,7 +142,10 @@ const AddExperienceModal = () => {
 
             <AlertDialogFooter className="pt-4">
               <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
-              <SubmitButton />
+              <SubmitButton
+                loading={form.formState.isSubmitting}
+                text="Add Experience"
+              />
             </AlertDialogFooter>
           </form>
         </Form>

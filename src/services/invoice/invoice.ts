@@ -1,0 +1,58 @@
+'use server';
+
+import { revalidate } from '@/lib/revalidate';
+import serverFetch from '@/lib/server-fetch';
+import { ApiResponse, IInvoice } from '@/types';
+
+const createInvoice = async (payload: IInvoice) => {
+  const res = await serverFetch.post<ApiResponse<IInvoice>>('/invoice/create', {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+  revalidate('invoice');
+  return res;
+};
+
+const updateInvoice = async (payload: Record<string, string>, id: string) => {
+  const res = await serverFetch.post<ApiResponse<IInvoice[]>>(
+    `/invoice/${id}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    },
+  );
+  revalidate('invoice');
+  return res;
+};
+
+const deleteSingleInvoice = async (id: string) => {
+  const res = await serverFetch.delete<ApiResponse<IInvoice>>(`/invoice/${id}`);
+  revalidate('invoice');
+  return res;
+};
+
+const getInvoices = async (query: Record<string, string>) => {
+  return await serverFetch.get<ApiResponse<IInvoice[]>>('/invoice/get-all', {
+    query,
+    cache: 'force-cache',
+    next: {
+      tags: ['invoice'],
+    },
+  });
+};
+
+const getSingleInvoice = async (slug: string) => {
+  return await serverFetch.get<ApiResponse<null>>(`/invoice/${slug}`);
+};
+
+export {
+  createInvoice,
+  deleteSingleInvoice,
+  getInvoices,
+  getSingleInvoice,
+  updateInvoice,
+};

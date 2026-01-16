@@ -17,6 +17,7 @@ export type {
   IBlog,
   IContact,
   IExperience,
+  IInvoice,
   ILogin,
   IMeta,
   IProject,
