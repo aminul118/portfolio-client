@@ -10,11 +10,11 @@ const Logo = ({ LogoWidth = 70, LogoHeight = 70, ...props }: Props) => {
   return (
     <div {...props}>
       <Image
-        src="/logo.png"
+        src="/logo.ico"
         alt="Smart Healthcare and Research Limited logo"
         width={LogoWidth}
         height={LogoHeight}
-        className="object-contain"
+        className="mx-auto object-contain"
       />
     </div>
   );

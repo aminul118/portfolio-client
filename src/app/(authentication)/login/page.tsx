@@ -1,6 +1,5 @@
 import Logo from '@/assets/Logo';
 import LoginForm from '@/components/modules/Authentication/LoginForm';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import images from '@/config/images';
 import generateMetaTags from '@/seo/generateMetaTags';
@@ -20,19 +19,11 @@ const LoginPage = () => {
                   <Logo />
                 </Link>
                 <p className="text-muted-foreground mt-4 text-center">
-                  Login to your A1 Lifts & Engineering portal
+                  Login to your portfolio portal
                 </p>
               </div>
               {/* Form Section */}
               <LoginForm />
-              <div className="mt-4 text-center text-sm">
-                {"Don't have an account?"}
-                <Link href="/register">
-                  <Button variant="link" className="p-0 pl-1">
-                    Sign up
-                  </Button>
-                </Link>
-              </div>
             </div>
 
             {/* Image Section */}

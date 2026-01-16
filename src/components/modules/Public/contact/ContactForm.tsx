@@ -48,7 +48,10 @@ const ContactForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="ml-auto w-full max-w-lg space-y-6"
+      >
         {/* Name */}
         <FormField
           control={form.control}
