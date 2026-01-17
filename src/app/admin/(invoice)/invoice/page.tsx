@@ -6,6 +6,7 @@ import cleanSearchParams from '@/lib/cleanSearchParams';
 import { getInvoices } from '@/services/invoice/invoice';
 import { SearchParams } from '@/types';
 import { Plus } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 const InvoicePage = async ({ searchParams }: SearchParams) => {
@@ -21,6 +22,8 @@ const InvoicePage = async ({ searchParams }: SearchParams) => {
   );
 };
 
+export default InvoicePage;
+
 const Action = () => {
   return (
     <>
@@ -33,4 +36,7 @@ const Action = () => {
   );
 };
 
-export default InvoicePage;
+// SEO
+export const metadata: Metadata = {
+  title: 'Invoice | Aminul Islam',
+};

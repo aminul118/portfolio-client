@@ -1,4 +1,5 @@
 import AddProjects from '@/components/modules/Admin/Projects/AddProject';
+import { Metadata } from 'next';
 
 const AddProjectPage = () => {
   return (
@@ -9,3 +10,8 @@ const AddProjectPage = () => {
 };
 
 export default AddProjectPage;
+
+// SEO
+export const metadata: Metadata = {
+  title: 'Add Project | Aminul Islam',
+};

@@ -1,6 +1,6 @@
 import { Loader } from 'lucide-react';
 
-const RootLoading = () => {
+const GlobalLoading = () => {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="flex items-center gap-2 text-gray-600">
@@ -10,4 +10,4 @@ const RootLoading = () => {
   );
 };
 
-export default RootLoading;
+export default GlobalLoading;

@@ -6,6 +6,7 @@ import cleanSearchParams from '@/lib/cleanSearchParams';
 import { getProjects } from '@/services/project/projects';
 import { SearchParams } from '@/types';
 import { Plus } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 const ProjectPage = async ({ searchParams }: SearchParams) => {
@@ -14,17 +15,7 @@ const ProjectPage = async ({ searchParams }: SearchParams) => {
 
   return (
     <>
-      <ClientTableWrapper
-        tableTitle="Projects"
-        meta={meta}
-        action={
-          <Button asChild>
-            <Link href="/admin/add-project">
-              <Plus /> Add Projects
-            </Link>
-          </Button>
-        }
-      >
+      <ClientTableWrapper tableTitle="Projects" meta={meta} action={<Action />}>
         <TableFilters />
         <ProjectTable projects={data} />
       </ClientTableWrapper>
@@ -33,3 +24,18 @@ const ProjectPage = async ({ searchParams }: SearchParams) => {
 };
 
 export default ProjectPage;
+
+const Action = () => {
+  return (
+    <Button asChild>
+      <Link href="/admin/add-project">
+        <Plus /> Add Projects
+      </Link>
+    </Button>
+  );
+};
+
+// SEO
+export const metadata: Metadata = {
+  title: 'Project | Aminul Islam',
+};

@@ -6,8 +6,7 @@ const SocialLinksPae = () => {
 
 export default SocialLinksPae;
 
-// >> SEO Start
+//  SEO
 export const metadata: Metadata = {
   title: 'Social Links | Aminul Islam',
 };
-// >> SEO End

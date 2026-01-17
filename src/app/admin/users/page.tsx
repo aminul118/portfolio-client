@@ -28,8 +28,7 @@ const UsersPage = async ({ searchParams }: SearchParams) => {
 
 export default UsersPage;
 
-// >> SEO Start
+//  SEO
 export const metadata: Metadata = {
   title: 'Registered Users | SHRL',
 };
-// >> SEO End

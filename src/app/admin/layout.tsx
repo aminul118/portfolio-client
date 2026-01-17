@@ -33,8 +33,7 @@ const AdminLayout = async ({ children }: Children) => {
 
 export default AdminLayout;
 
-// >> SEO Start
+// SEO
 export const metadata: Metadata = {
   title: 'Dashboard | Aminul Islam',
 };
-// >> SEO End

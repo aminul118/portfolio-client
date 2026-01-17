@@ -27,8 +27,7 @@ const ExperiencePage = async ({ searchParams }: SearchParams) => {
 
 export default ExperiencePage;
 
-// >> SEO Start
+//  SEO
 export const metadata: Metadata = {
   title: 'Experience | Aminul Islam',
 };
-// >> SEO End

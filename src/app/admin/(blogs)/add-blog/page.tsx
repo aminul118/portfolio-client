@@ -6,8 +6,7 @@ const AddBlogPage = () => {
 
 export default AddBlogPage;
 
-// >> SEO Start
+//  SEO
 export const metadata: Metadata = {
   title: 'Add Blog | Aminul Islam',
 };
-// >> SEO End

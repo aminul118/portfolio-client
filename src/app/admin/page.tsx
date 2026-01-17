@@ -6,8 +6,7 @@ const AdminHomePage = () => {
 
 export default AdminHomePage;
 
-// >> SEO Start
+//  SEO
 export const metadata: Metadata = {
   title: 'Dashboard | Aminul Islam',
 };
-// >> SEO End
