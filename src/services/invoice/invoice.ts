@@ -4,7 +4,30 @@ import { revalidate } from '@/lib/revalidate';
 import serverFetch from '@/lib/server-fetch';
 import { ApiResponse, IInvoice } from '@/types';
 
-const createInvoice = async (payload: IInvoice) => {
+interface IInvoiceItem {
+  itemName: string;
+  quantity: string;
+  price: number;
+  total: number;
+}
+
+interface IPayableTo {
+  name: string;
+  address?: string;
+  phone?: string;
+}
+
+interface IInvoicePayload {
+  payableTo: IPayableTo;
+  items: IInvoiceItem[];
+  subTotal: number;
+  discount: number;
+  tax: number;
+  grandTotal: number;
+  note?: string;
+}
+
+const createInvoice = async (payload: IInvoicePayload) => {
   const res = await serverFetch.post<ApiResponse<IInvoice>>('/invoice/create', {
     headers: {
       'Content-Type': 'application/json',

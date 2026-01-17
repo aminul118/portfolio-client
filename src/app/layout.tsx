@@ -29,7 +29,7 @@ const MainLayout = ({ children }: Children) => {
 
 export default MainLayout;
 
-// >> SEO Start
+//  SEO
 export const metadata: Metadata = generateMetaTags({
   title: 'Aminul Islam',
   description:
@@ -37,4 +37,3 @@ export const metadata: Metadata = generateMetaTags({
   keywords:
     'Software Developer, MERN Stack Developer, Next.js Developer, React Developer, TypeScript Developer, Full-Stack Developer, Web Development, API Development, Payment Solutions, E-commerce Development,SEO Specialist, Scalable Web Apps, DevOps, Software Engineer, Aminul118, Hyper118',
 });
-// >> SEO End

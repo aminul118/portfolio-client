@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { useFileUpload } from '@/hooks/use-file-upload';
 
