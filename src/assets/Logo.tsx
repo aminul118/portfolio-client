@@ -1,3 +1,4 @@
+import icons from '@/config/icons';
 import { DivProps } from '@/types';
 import Image from 'next/image';
 
@@ -10,7 +11,7 @@ const Logo = ({ LogoWidth = 70, LogoHeight = 70, ...props }: Props) => {
   return (
     <div {...props}>
       <Image
-        src="/logo.ico"
+        src={icons.logo}
         alt="Smart Healthcare and Research Limited logo"
         width={LogoWidth}
         height={LogoHeight}
