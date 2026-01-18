@@ -32,7 +32,7 @@ const Experience = async () => {
 
                 <div
                   className={cn(
-                    'w-full space-y-1 rounded-lg bg-slate-950 p-6 shadow-lg md:w-[45%]',
+                    'w-full space-y-1 rounded-lg bg-slate-900 p-6 shadow-lg md:w-[45%]',
                     isLeft ? 'md:text-right' : 'md:text-left',
                   )}
                 >

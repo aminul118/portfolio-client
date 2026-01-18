@@ -1,6 +1,6 @@
+import SocialLinks from '@/components/modules/Public/Home/SocialLinks';
 import icons from '@/constants/icons';
 import Image from 'next/image';
-import Logo from '../../modules/Public/Home/SocialLinks';
 
 const Footer = () => {
   return (
@@ -15,7 +15,7 @@ const Footer = () => {
 
       <div className="space-y-4 text-center">
         <p className="text-3xl font-semibold">Aminul</p>
-        <Logo />
+        <SocialLinks flexAlign="justify-center" />
 
         <p className="mt-8 text-sm">
           Copyright © {new Date().getFullYear()} - All right reserved by Md.

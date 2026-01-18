@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { FaFacebook, FaGithub, FaLinkedinIn, FaTelegram } from 'react-icons/fa';
 
@@ -7,7 +8,7 @@ type FlexAlignType = {
 
 const SocialLinks = async ({ flexAlign }: FlexAlignType) => {
   return (
-    <div className={`flex gap-3 text-xl ${flexAlign}`}>
+    <div className={cn('flex gap-3 text-xl', flexAlign)}>
       <Link
         href="https://github.com/aminul118"
         target="_blank"
