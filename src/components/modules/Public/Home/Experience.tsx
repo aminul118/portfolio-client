@@ -1,4 +1,5 @@
 import SectionHeading from '@/components/ui/SectionHeading';
+import { cn } from '@/lib/utils';
 import { getExperience } from '@/services/experience/experience';
 
 const Experience = async () => {
@@ -27,12 +28,13 @@ const Experience = async () => {
                 }`}
               >
                 {/* timeline dot */}
-                <span className="absolute top-6 left-1/2 hidden h-4 w-4 -translate-x-1/2 rounded-full border-2 border-white bg-slate-950 md:block" />
+                <span className="absolute top-14 left-1/2 hidden h-4 w-4 -translate-x-1/2 rounded-full border-2 border-white bg-slate-950 md:block" />
 
                 <div
-                  className={`w-full rounded-lg bg-slate-950 p-6 shadow-lg md:w-[45%] ${
-                    isLeft ? 'md:text-right' : 'md:text-left'
-                  }`}
+                  className={cn(
+                    'w-full space-y-1 rounded-lg bg-slate-950 p-6 shadow-lg md:w-[45%]',
+                    isLeft ? 'md:text-right' : 'md:text-left',
+                  )}
                 >
                   <h3 className="text-lg font-semibold text-white">
                     {exp.position}
