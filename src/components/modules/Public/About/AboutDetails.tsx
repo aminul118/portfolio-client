@@ -3,10 +3,7 @@ import AboutImage from './AboutImage';
 
 const AboutDetails = () => {
   return (
-    <div
-      className="container mx-auto mt-24 overflow-x-hidden px-3"
-      data-aos="fade-left"
-    >
+    <div className="container mx-auto mt-24 overflow-x-hidden px-3">
       <div className="flex flex-col justify-between gap-12 lg:flex-row">
         <div className="mt-6 ml-6">
           <AboutImage />
@@ -25,7 +22,7 @@ const AboutDetails = () => {
                 </p>
               ))}
               {about.list && (
-                <ul className="mt-2 list-inside list-disc">
+                <ul className="mt-3 list-outside list-disc space-y-1 pl-5">
                   {about.list.map((item, i) => (
                     <li key={i}>{item}</li>
                   ))}

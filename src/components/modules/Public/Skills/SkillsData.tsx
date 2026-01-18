@@ -14,10 +14,12 @@ import { LiaGit } from 'react-icons/lia';
 import { RiFirebaseFill } from 'react-icons/ri';
 import {
   SiExpress,
+  SiJsonwebtokens,
   SiMongodb,
   SiMongoose,
   SiPrisma,
   SiRedis,
+  SiShadcnui,
   SiTailwindcss,
 } from 'react-icons/si';
 import { TbBrandNextjs, TbBrandRedux } from 'react-icons/tb';
@@ -64,7 +66,11 @@ const skillsData = [
     name: 'Redux',
     gradient: 'from-purple-800 via-purple-700 to-purple-400',
   },
-
+  {
+    icon: <SiShadcnui className="text-white" />,
+    name: 'Shadcn',
+    gradient: 'from-gray-800 via-gray-700 to-gray-600',
+  },
   {
     icon: <FaNodeJs className="text-green-500" />,
     name: 'Node.js',
@@ -73,6 +79,11 @@ const skillsData = [
   {
     icon: <SiExpress className="text-white" />,
     name: 'Express.js',
+    gradient: 'from-gray-800 via-gray-700 to-gray-600',
+  },
+  {
+    icon: <SiJsonwebtokens className="text-white" />,
+    name: 'JWT',
     gradient: 'from-gray-800 via-gray-700 to-gray-600',
   },
   {

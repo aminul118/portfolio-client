@@ -16,12 +16,13 @@ const About = () => {
             I am Md. Aminul Islam, a professional web developer specializing in
             frontend and backend development.
           </p>
-          <ul className="mt-3 list-inside list-disc">
+          <ul className="mt-3 list-outside list-disc space-y-1 pl-5">
+            <li>Programming Language: JavaScript, TypeScript</li>
             <li>
-              Frontend: JavaScript, TypeScript, React JS, Next JS, Redux,
-              Tailwind, Shadcn
+              Frontend: Next.js, React.js, Axios, Redux, Context API, TanStack
+              Query, Tailwind CSS, Shadcn, Framer Motion, Aos
             </li>
-            <li>Backend: Node JS, Express</li>
+            <li>Backend: Node JS, Express, JWT, Ejs</li>
             <li>Databases: MongoDB, MySQL, Postgresql</li>
             <li>ORM: Mongoose, Prisma</li>
           </ul>

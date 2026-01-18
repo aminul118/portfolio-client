@@ -20,9 +20,10 @@ const aboutMe: TAbout[] = [
       'I specialize in crafting intuitive UIs, optimizing performance, and developing full-stack solutions that align with modern web standards.',
     ],
     list: [
-      'Frontend: JavaScript, TypeScript, React JS, Next JS, Redux, Tailwind, Shadcn',
-      'Backend: Node.js, Express.js',
-      'Database: MongoDB, Postgresql, MySQL',
+      'Programming Language: JavaScript, TypeScript,',
+      'Frontend:  Next.js, React.js, Axios, Redux, Context API, TanStack mQuery, Tailwind CSS, Shadcn, Framer Motion, Aos',
+      'Backend: Node.js, Express.js, JWT, Ejs',
+      'Database: MongoDB, Postgresql, MySQL, Redis',
       'ORM: Mongoose, Prisma',
     ],
   },
