@@ -50,7 +50,7 @@ const ContactForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="ml-auto w-full max-w-lg space-y-6"
+        className="ml-auto w-full max-w-lg space-y-6 px-5 lg:px-0"
       >
         {/* Name */}
         <FormField
