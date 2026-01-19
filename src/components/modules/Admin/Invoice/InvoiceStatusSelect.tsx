@@ -7,16 +7,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import useActionHandler from '@/hooks/useActionHandler';
 import { updateInvoice } from '@/services/invoice/invoice';
 import { IInvoice } from '@/types';
 import { useTransition } from 'react';
-import { toast } from 'sonner';
 
 type Props = {
   invoice: IInvoice;
 };
 
 const InvoiceStatusSelect = ({ invoice }: Props) => {
+  const { executePost } = useActionHandler();
   const [isPending, startTransition] = useTransition();
 
   //  If already PAID → lock it
@@ -32,12 +33,14 @@ const InvoiceStatusSelect = ({ invoice }: Props) => {
     if (value === invoice.status) return;
 
     startTransition(async () => {
-      try {
-        await updateInvoice({ status: value }, invoice._id!);
-        toast.success(`Status updated to ${value}`);
-      } catch {
-        toast.error('Failed to update status');
-      }
+      await executePost({
+        action: () => updateInvoice({ status: value }, invoice._id!),
+        success: {
+          message: `Status updated to ${value}`,
+          loadingText: `Updating status to ${value}...`,
+        },
+        errorMessage: 'Failed to update status',
+      });
     });
   };
 
@@ -54,8 +57,6 @@ const InvoiceStatusSelect = ({ invoice }: Props) => {
       <SelectContent>
         <SelectItem value="PENDING">Pending</SelectItem>
         <SelectItem value="UNPAID">Unpaid</SelectItem>
-
-        {/* allow going to PAID only once */}
         <SelectItem value="PAID">Paid</SelectItem>
       </SelectContent>
     </Select>
