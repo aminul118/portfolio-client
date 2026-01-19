@@ -3,11 +3,14 @@
 import SubmitButton from '@/components/common/button/submit-button';
 import {
   AlertDialog,
+  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
+  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -21,6 +24,7 @@ import useActionHandler from '@/hooks/useActionHandler';
 import { sendInvoice } from '@/services/invoice/invoice';
 import { IInvoice, IModal } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Send, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -89,10 +93,18 @@ const SendInvoiceDialog = ({ invoice, open, setOpen }: Props) => {
               )}
             />
 
-            <SubmitButton
-              loading={form.formState.isSubmitting}
-              text="Send Invoice"
-            />
+            <AlertDialogFooter>
+              <AlertDialogCancel asChild>
+                <Button variant="destructive" type="button">
+                  <X /> Cancel
+                </Button>
+              </AlertDialogCancel>
+              <SubmitButton
+                loading={form.formState.isSubmitting}
+                text="Send Invoice"
+                icon={<Send />}
+              />
+            </AlertDialogFooter>
           </form>
         </Form>
       </AlertDialogContent>

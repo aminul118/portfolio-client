@@ -27,7 +27,7 @@ import useActionHandler from '@/hooks/useActionHandler';
 import { registerUserFromAdmin } from '@/services/user/register';
 import { registrationFormValidation } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Plus } from 'lucide-react';
+import { Plus, UserPlus, X } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -196,12 +196,13 @@ const NewUserModal = () => {
                 <AlertDialogFooter>
                   <AlertDialogCancel asChild>
                     <Button variant="destructive" type="button">
-                      Cancel
+                      <X /> Cancel
                     </Button>
                   </AlertDialogCancel>
                   <SubmitButton
                     loading={form.formState.isSubmitting}
                     text="User create"
+                    icon={<UserPlus />}
                   />
                 </AlertDialogFooter>
               </form>
