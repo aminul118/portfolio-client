@@ -1,6 +1,6 @@
 import Logo from '@/components/modules/Public/Home/SocialLinks';
 import { FaEnvelope, FaLocationArrow } from 'react-icons/fa';
-import { FaPhone, FaWhatsapp } from 'react-icons/fa6';
+import { FaPhone } from 'react-icons/fa6';
 
 const ContactInfo = () => {
   return (
@@ -22,19 +22,6 @@ const ContactInfo = () => {
         <p className="flex items-center gap-2">
           <FaPhone />
           <a href="tel:+8801781082064" className="hover:underline">
-            +880 17810 820 64
-          </a>
-        </p>
-
-        {/* WhatsApp link */}
-        <p className="flex items-center gap-2">
-          <FaWhatsapp />
-          <a
-            href="https://wa.me/8801781082064"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:underline"
-          >
             +880 17810 820 64
           </a>
         </p>

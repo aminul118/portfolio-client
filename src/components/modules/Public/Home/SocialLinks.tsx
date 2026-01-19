@@ -1,14 +1,20 @@
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { FaFacebook, FaGithub, FaLinkedinIn, FaTelegram } from 'react-icons/fa';
+import {
+  FaFacebook,
+  FaGithub,
+  FaLinkedinIn,
+  FaTelegram,
+  FaWhatsapp,
+} from 'react-icons/fa';
 
-type FlexAlignType = {
-  flexAlign?: 'justify-center';
-};
+interface Props {
+  className?: 'justify-center';
+}
 
-const SocialLinks = async ({ flexAlign }: FlexAlignType) => {
+const SocialLinks = async ({ className }: Props) => {
   return (
-    <div className={cn('flex gap-3 text-xl', flexAlign)}>
+    <div className={cn('flex gap-3 text-xl', className)}>
       <Link
         href="https://github.com/aminul118"
         target="_blank"
@@ -33,6 +39,13 @@ const SocialLinks = async ({ flexAlign }: FlexAlignType) => {
         <FaFacebook />
       </Link>
 
+      <Link
+        href="https://wa.me/8801781082064"
+        target="_blank"
+        aria-label="Contact with telegram"
+      >
+        <FaWhatsapp />
+      </Link>
       <Link
         href="https://t.me/aminul118"
         target="_blank"

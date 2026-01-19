@@ -15,7 +15,7 @@ const Footer = () => {
 
       <div className="space-y-4 text-center">
         <p className="text-3xl font-semibold">Aminul</p>
-        <SocialLinks flexAlign="justify-center" />
+        <SocialLinks className="justify-center" />
 
         <p className="mt-8 text-sm">
           Copyright © {new Date().getFullYear()} - All right reserved by Md.
