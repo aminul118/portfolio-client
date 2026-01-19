@@ -5,6 +5,7 @@ import { IInvoice } from '@/types';
 import { Download } from 'lucide-react';
 import Link from 'next/link';
 import InvoiceActions from './InvoiceActions';
+import InvoiceStatusSelect from './InvoiceStatusSelect';
 
 const InvoiceTableColumn: Column<IInvoice>[] = [
   {
@@ -14,6 +15,10 @@ const InvoiceTableColumn: Column<IInvoice>[] = [
   {
     header: 'Company Name',
     accessor: (i) => i.payableTo.name,
+  },
+  {
+    header: 'Payment Status',
+    accessor: (i) => <InvoiceStatusSelect invoice={i} />,
   },
   {
     header: 'Download',

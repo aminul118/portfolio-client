@@ -102,6 +102,7 @@ export interface IInvoice {
   subTotal: number;
   discount: number;
   tax: number;
+  status: string;
   grandTotal: number;
   pdfUrl?: string;
   note?: string;

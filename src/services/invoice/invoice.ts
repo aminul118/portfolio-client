@@ -39,8 +39,8 @@ const createInvoice = async (payload: IInvoicePayload) => {
 };
 
 const updateInvoice = async (payload: Record<string, string>, id: string) => {
-  const res = await serverFetch.post<ApiResponse<IInvoice[]>>(
-    `/invoice/${id}`,
+  const res = await serverFetch.patch<ApiResponse<IInvoice[]>>(
+    `/invoice/update/${id}`,
     {
       headers: {
         'Content-Type': 'application/json',
