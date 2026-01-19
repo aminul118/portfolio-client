@@ -17,6 +17,10 @@ const InvoiceTableColumn: Column<IInvoice>[] = [
     accessor: (i) => i.payableTo.name,
   },
   {
+    header: 'Invoice No',
+    accessor: (i) => i.invoiceNo,
+  },
+  {
     header: 'Payment Status',
     accessor: (i) => <InvoiceStatusSelect invoice={i} />,
   },
