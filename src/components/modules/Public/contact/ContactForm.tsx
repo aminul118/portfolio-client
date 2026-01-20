@@ -18,6 +18,7 @@ import { contactAction } from '@/services/contact/contact';
 import { contactSchemaZodValidation } from '@/zod/contact';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Send } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -136,6 +137,7 @@ const ContactForm = () => {
         <SubmitButton
           loading={form.formState.isSubmitting}
           text="Send Message"
+          icon={<Send />}
         />
       </form>
     </Form>
