@@ -21,6 +21,7 @@ export type {
   ILogin,
   IMeta,
   IProject,
+  IStats,
   IUser,
 } from './api.types';
 

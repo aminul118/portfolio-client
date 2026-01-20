@@ -109,3 +109,13 @@ export interface IInvoice {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface IStats {
+  userCount: number;
+  projectCount: number;
+  invoice: {
+    invoiceCount: number;
+    totalEarnings: number;
+    totalDue: number;
+  };
+}
