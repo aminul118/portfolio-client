@@ -1,6 +1,7 @@
 'use client';
 
 import AminulLogo from '@/components/common/AminulLogo';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils'; // 👈 assuming your cn() is here
 import { Fade as Hamburger } from 'hamburger-react';
 import Link from 'next/link';
@@ -24,7 +25,7 @@ const Navbar = () => {
         <AminulLogo />
 
         {/* Desktop Navigation */}
-        <ul className="hidden space-x-6 text-sm font-medium md:flex">
+        <ul className="hidden items-center space-x-6 text-sm font-medium md:flex">
           {navItems.map(({ title, href }) => {
             const isActive = pathname === href;
 
@@ -52,6 +53,11 @@ const Navbar = () => {
               </li>
             );
           })}
+          <li>
+            <Button asChild>
+              <Link href={'/login'}>Portal</Link>
+            </Button>
+          </li>
         </ul>
 
         {/* Mobile Hamburger */}
