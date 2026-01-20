@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 
 const AddProjectPage = () => {
   return (
-    <section className="mx-auto w-11/12">
+    <section className="mx-auto w-11/12 py-8">
       <AddProjects />
     </section>
   );

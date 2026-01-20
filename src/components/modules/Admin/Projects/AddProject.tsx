@@ -11,6 +11,7 @@ import {
   FieldGroup,
   FieldLabel,
 } from '@/components/ui/field';
+import GradientTitle from '@/components/ui/gradientTitle';
 import ImageDrop from '@/components/ui/image-drop';
 import { Input } from '@/components/ui/input';
 import MultipleImageDrop from '@/components/ui/multiple-image-drop';
@@ -18,12 +19,14 @@ import useActionHandler from '@/hooks/useActionHandler';
 import { createProject } from '@/services/project/projects';
 import { projectValidationSchema } from '@/zod/project';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Undo2 } from 'lucide-react';
+import Link from 'next/link';
 import { Controller, useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 type FormValues = z.infer<typeof projectValidationSchema>;
 
-export default function AddProjects() {
+const AddProjects = () => {
   const { executePost } = useActionHandler();
   const form = useForm<FormValues>({
     resolver: zodResolver(projectValidationSchema),
@@ -52,7 +55,9 @@ export default function AddProjects() {
     await executePost({
       action: () => createProject(formData),
       success: {
-        onSuccess: () => form.reset(),
+        onSuccess: () => {
+          form.reset();
+        },
         loadingText: 'Project adding...',
         message: 'Project added successfully',
         redirectPath: '/admin/projects',
@@ -62,10 +67,20 @@ export default function AddProjects() {
   };
 
   return (
-    <div className="w-full py-12">
+    <div className="w-full">
+      <div className="mb-12 flex justify-between">
+        <GradientTitle title="Create Projects" className="text-left" />
+        <Button asChild>
+          <Link href={'/admin/projects'}>
+            <Undo2 />
+            Back to Projects
+          </Link>
+        </Button>
+      </div>
+
       <CardContent>
         <form id="add-project-form" onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="2xl::grid-cols-2 grid gap-6">
+          <div className="grid gap-6">
             <FieldGroup className="grid grid-cols-2">
               {/* Title */}
               <Controller
@@ -229,4 +244,6 @@ export default function AddProjects() {
       </CardFooter>
     </div>
   );
-}
+};
+
+export default AddProjects;

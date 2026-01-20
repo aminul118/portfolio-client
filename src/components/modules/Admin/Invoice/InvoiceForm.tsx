@@ -9,12 +9,14 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form';
+import GradientTitle from '@/components/ui/gradientTitle';
 import { Input } from '@/components/ui/input';
 import useActionHandler from '@/hooks/useActionHandler';
 import { createInvoice } from '@/services/invoice/invoice';
 import { InvoiceFormValues, invoiceSchema } from '@/zod/invoice';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Trash } from 'lucide-react';
+import { Trash, Undo2 } from 'lucide-react';
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { Resolver, useFieldArray, useForm } from 'react-hook-form';
 
@@ -82,7 +84,15 @@ const InvoiceForm = () => {
 
   return (
     <div className="mx-auto max-w-5xl p-6">
-      <h2 className="mb-6 text-2xl font-semibold">Create Invoice</h2>
+      <div className="flex justify-between">
+        <GradientTitle title="Create Invoice" className="text-left" />
+        <Button asChild>
+          <Link href={'/admin/invoice'}>
+            <Undo2 />
+            Back to Invoice
+          </Link>
+        </Button>
+      </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
