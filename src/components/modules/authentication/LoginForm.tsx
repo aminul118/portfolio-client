@@ -100,7 +100,12 @@ const LoginForm = () => {
           )}
         />
 
-        <SubmitButton loading={form.formState.isSubmitting} />
+        <SubmitButton
+          loading={form.formState.isSubmitting}
+          text="Login"
+          loadingText="Logging In"
+          loadingEffect
+        />
       </form>
     </Form>
   );

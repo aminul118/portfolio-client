@@ -1,15 +1,15 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import ButtonSpinner from '../loader/ButtonSpinner';
 
-interface Props {
+interface SubmitButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
-  className?: string;
   icon?: ReactNode;
   loading?: boolean;
-  disable?: boolean;
+  loadingEffect?: boolean;
+  loadingText?: string;
 }
 
 const SubmitButton = ({
@@ -17,18 +17,29 @@ const SubmitButton = ({
   className,
   icon,
   loading = false,
-  disable = false,
-}: Props) => {
+  loadingEffect = false,
+  disabled = false,
+  loadingText = 'Submitting',
+  ...props
+}: SubmitButtonProps) => {
   return (
-    <Button type="submit" className={className} disabled={loading || disable}>
+    <Button
+      type="submit"
+      className={className}
+      disabled={loading || disabled}
+      aria-busy={loading}
+      {...props}
+    >
       <span className="flex items-center gap-2">
         {loading ? (
           <>
-            <ButtonSpinner /> {text}
+            <ButtonSpinner />
+            {loadingEffect ? `${loadingText}...` : text}
           </>
         ) : (
           <>
-            {icon ? <>{icon}</> : null} {text}
+            {icon && icon}
+            {text}
           </>
         )}
       </span>

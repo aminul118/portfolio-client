@@ -85,7 +85,12 @@ const ChangePasswordForm = () => {
             )}
           />
 
-          <SubmitButton loading={form.formState.isSubmitting} />
+          <SubmitButton
+            text="Change password"
+            loading={form.formState.isSubmitting}
+            loadingText="Password changing"
+            loadingEffect
+          />
         </form>
       </Form>
     </div>

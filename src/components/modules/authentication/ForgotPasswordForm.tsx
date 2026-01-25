@@ -16,8 +16,8 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { forgotPassword } from '@/services/auth/forgotPassword';
 import { forgotPasswordValidation } from '@/zod/auth';
-
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Send } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -92,7 +92,13 @@ const ForgotPasswordForm = ({ className }: { className?: string }) => {
                 )}
               />
 
-              <SubmitButton text="Send" loading={form.formState.isSubmitting} />
+              <SubmitButton
+                text="Send"
+                icon={<Send />}
+                loading={form.formState.isSubmitting}
+                loadingText="Sending"
+                loadingEffect
+              />
             </form>
           </Form>
 

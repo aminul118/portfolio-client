@@ -122,6 +122,8 @@ const ResetPassword = ({ props }: { props: Record<string, any> }) => {
                 <SubmitButton
                   text="Reset Password"
                   loading={form.formState.isSubmitting}
+                  loadingText="Password resetting"
+                  loadingEffect
                 />
               </form>
 
