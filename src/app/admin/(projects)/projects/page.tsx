@@ -37,5 +37,5 @@ const Action = () => {
 
 // SEO
 export const metadata: Metadata = {
-  title: 'Project | Aminul Islam',
+  title: 'Projects | Aminul Islam',
 };

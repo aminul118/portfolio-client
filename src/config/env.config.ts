@@ -5,6 +5,9 @@ const accessSecret = process.env.JWT_ACCESS_SECRET as string;
 const refreshSecret = process.env.JWT_REFRESH_SECRET as string;
 const accessTokenMaxAge = parseInt(process.env.JWT_ACCESS_EXPIRES as string);
 const refreshTokenMaxAge = parseInt(process.env.JWT_REFRESH_EXPIRES as string);
+const googleAnalytics = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS as string;
+const googleTagManagerId = process.env
+  .NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID as string;
 
 const envVars = {
   nodeEnv,
@@ -15,6 +18,10 @@ const envVars = {
     refreshSecret,
     accessTokenMaxAge,
     refreshTokenMaxAge,
+  },
+  analytics: {
+    googleAnalytics,
+    googleTagManagerId,
   },
 };
 

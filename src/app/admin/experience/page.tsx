@@ -12,7 +12,7 @@ const ExperiencePage = async ({ searchParams }: SearchParams) => {
   const { data, meta } = await getExperience(params);
 
   return (
-    <div>
+    <>
       <ClientTableWrapper
         tableTitle="Projects"
         meta={meta}
@@ -21,7 +21,7 @@ const ExperiencePage = async ({ searchParams }: SearchParams) => {
         <TableFilters />
         <ExperienceTable experiences={data} />
       </ClientTableWrapper>
-    </div>
+    </>
   );
 };
 

@@ -1,9 +1,11 @@
+import envVars from '@/config/env.config';
 import fonts from '@/config/fonts.config';
 import ThemeProvider from '@/providers/ThemeProvider';
 import generateMetaTags from '@/seo/generateMetaTags';
 import '@/styles/custom.css';
 import '@/styles/globals.css';
 import { Children } from '@/types';
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { Metadata } from 'next';
 import { Toaster } from 'sonner';
 
@@ -11,6 +13,7 @@ const MainLayout = ({ children }: Children) => {
   return (
     <>
       <html lang="en" suppressHydrationWarning>
+        <GoogleAnalytics gaId={envVars.analytics.googleAnalytics} />
         <body className={fonts.spaceGrotesk.className} suppressHydrationWarning>
           <ThemeProvider
             attribute="class"
@@ -22,6 +25,7 @@ const MainLayout = ({ children }: Children) => {
             <Toaster position="top-right" richColors theme="dark" />
           </ThemeProvider>
         </body>
+        <GoogleTagManager gtmId={envVars.analytics.googleTagManagerId} />
       </html>
     </>
   );

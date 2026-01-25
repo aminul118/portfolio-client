@@ -40,7 +40,7 @@ export interface Auth {
 }
 
 export interface IBlog {
-  _id?: string;
+  _id: string;
   createdAt: string;
   updatedAt: string;
   title: string;
