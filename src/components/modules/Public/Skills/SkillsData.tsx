@@ -18,6 +18,7 @@ import {
   SiMongodb,
   SiMongoose,
   SiPrisma,
+  SiReactrouter,
   SiRedis,
   SiShadcnui,
   SiTailwindcss,
@@ -54,6 +55,11 @@ const skillsData = [
   {
     icon: <FaReact className="text-blue-600" />,
     name: 'React.js',
+    gradient: 'from-blue-500 via-cyan-400 to-teal-500',
+  },
+  {
+    icon: <SiReactrouter className="text-blue-600" />,
+    name: 'React Router',
     gradient: 'from-blue-500 via-cyan-400 to-teal-500',
   },
   {
