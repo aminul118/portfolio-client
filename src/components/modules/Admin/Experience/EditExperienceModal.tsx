@@ -1,5 +1,6 @@
 'use client';
 
+import SubmitButton from '@/components/common/button/submit-button';
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -9,7 +10,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -20,27 +20,34 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import useActionHandler from '@/hooks/useActionHandler';
+import { updateExperience } from '@/services/experience/experience';
 import { IExperience } from '@/types/api.types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Check, X } from 'lucide-react';
+import { X } from 'lucide-react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import z from 'zod';
+import { z } from 'zod';
 
-// ✅ Validation schema
+/* =======================
+   Validation Schema
+======================= */
 const formSchema = z.object({
-  position: z
-    .string()
-    .min(2, { message: 'Position must be at least 2 characters.' }),
-  companyName: z
-    .string()
-    .min(2, { message: 'Company name must be at least 2 characters.' }),
-  timeline: z
-    .string()
-    .min(2, { message: 'Timeline must be at least 2 characters.' }),
-  description: z
-    .string()
-    .min(6, { message: 'Description must be at least 6 characters.' }),
+  position: z.string().min(2, {
+    message: 'Position must be at least 2 characters.',
+  }),
+  companyName: z.string().min(2, {
+    message: 'Company name must be at least 2 characters.',
+  }),
+  timeline: z.string().min(2, {
+    message: 'Timeline must be at least 2 characters.',
+  }),
+  description: z.string().min(6, {
+    message: 'Description must be at least 6 characters.',
+  }),
 });
+
+type FormValues = z.infer<typeof formSchema>;
 
 interface Props {
   open: boolean;
@@ -48,20 +55,52 @@ interface Props {
   experience: IExperience;
 }
 
+/* =======================
+   Component
+======================= */
 const EditExperienceModal = ({ open, setOpen, experience }: Props) => {
-  const { companyName, description, position, timeline } = experience;
-  const form = useForm<z.infer<typeof formSchema>>({
+  const { executePost } = useActionHandler();
+
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      position,
-      companyName,
-      timeline,
-      description,
+      position: '',
+      companyName: '',
+      timeline: '',
+      description: '',
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log('✅ Form submitted:', values);
+  /* =======================
+     Reset form on data change
+  ======================= */
+  useEffect(() => {
+    if (experience) {
+      form.reset({
+        position: experience.position,
+        companyName: experience.companyName,
+        timeline: experience.timeline,
+        description: experience.description,
+      });
+    }
+  }, [experience, form]);
+
+  /* =======================
+     Submit Handler
+  ======================= */
+  const onSubmit = async (values: FormValues) => {
+    await executePost({
+      action: () => updateExperience(values, experience._id),
+      success: {
+        loadingText: 'Experience updating...',
+        message: 'Experience updated successfully',
+        onSuccess: () => {
+          form.reset();
+          setOpen(false);
+        },
+      },
+      errorMessage: 'Failed to update experience.',
+    });
   };
 
   return (
@@ -69,18 +108,17 @@ const EditExperienceModal = ({ open, setOpen, experience }: Props) => {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Edit Experience</AlertDialogTitle>
-
           <AlertDialogDescription>
-            Edit your work experience details below.
+            Update your work experience details below.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        {/* ✅ Move form outside of AlertDialogDescription */}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="mt-4 space-y-6"
           >
+            {/* Position */}
             <FormField
               control={form.control}
               name="position"
@@ -95,6 +133,7 @@ const EditExperienceModal = ({ open, setOpen, experience }: Props) => {
               )}
             />
 
+            {/* Company Name */}
             <FormField
               control={form.control}
               name="companyName"
@@ -109,6 +148,7 @@ const EditExperienceModal = ({ open, setOpen, experience }: Props) => {
               )}
             />
 
+            {/* Timeline */}
             <FormField
               control={form.control}
               name="timeline"
@@ -123,6 +163,7 @@ const EditExperienceModal = ({ open, setOpen, experience }: Props) => {
               )}
             />
 
+            {/* Description */}
             <FormField
               control={form.control}
               name="description"
@@ -131,9 +172,9 @@ const EditExperienceModal = ({ open, setOpen, experience }: Props) => {
                   <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Describe your role..."
-                      {...field}
+                      placeholder="Describe your role and responsibilities..."
                       className="min-h-52"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -141,13 +182,14 @@ const EditExperienceModal = ({ open, setOpen, experience }: Props) => {
               )}
             />
 
+            {/* Footer */}
             <AlertDialogFooter className="pt-4">
-              <AlertDialogCancel type="button">
-                <X className="mr-1 h-4 w-4" /> Cancel
+              <AlertDialogCancel type="button" onClick={() => setOpen(false)}>
+                <X className="mr-1 h-4 w-4" />
+                Cancel
               </AlertDialogCancel>
-              <Button type="submit">
-                <Check className="mr-1 h-4 w-4" /> Save
-              </Button>
+
+              <SubmitButton />
             </AlertDialogFooter>
           </form>
         </Form>

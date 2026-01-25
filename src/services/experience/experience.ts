@@ -18,17 +18,16 @@ const addExperience = async (payload: Record<string, string>) => {
   return res;
 };
 
-const UpdateExperience = async (formdata: FormData, id: string) => {
-  const payload = {
-    position: String(formdata.get('position') || ''),
-    companyName: String(formdata.get('companyName') || ''),
-    timeline: String(formdata.get('timeline') || ''),
-    description: String(formdata.get('description') || ''),
-  };
-
+const updateExperience = async (
+  payload: Record<string, string>,
+  id: string,
+) => {
   const res = await serverFetch.put<ApiResponse<IExperience>>(
     `/experience/${id}`,
     {
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(payload),
     },
   );
@@ -60,5 +59,5 @@ export {
   addExperience,
   deleteSingleExperience,
   getExperience,
-  UpdateExperience,
+  updateExperience,
 };
