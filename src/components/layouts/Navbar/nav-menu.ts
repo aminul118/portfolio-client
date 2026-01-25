@@ -9,6 +9,7 @@ const navItems: NavMenu[] = [
   { title: 'Skills', href: '/skills' },
   { title: 'Experience', href: '/experience' },
   { title: 'Projects', href: '/projects' },
+  { title: 'Blogs', href: '/blogs' },
   { title: 'Contact', href: '/contact' },
 ];
 
