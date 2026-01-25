@@ -8,9 +8,9 @@ const createBlog = async (formData: FormData) => {
   const body = new FormData();
 
   body.append('data', formData.get('data') as string);
-  body.append('file', formData.get('file') as File);
+  body.append('thumbnail', formData.get('thumbnail') as File);
 
-  const res = await serverFetch.post<ApiResponse<IBlog>>('/blog/create', {
+  const res = await serverFetch.post<ApiResponse<IBlog>>('/blogs/create', {
     body,
   });
   revalidate('blog');
@@ -23,7 +23,7 @@ const updateBlog = async (formData: FormData, slug: string) => {
   body.append('data', formData.get('data') as string);
   body.append('file', formData.get('file') as File);
 
-  const res = await serverFetch.post<ApiResponse<IBlog>>(`/blog/${slug}`, {
+  const res = await serverFetch.post<ApiResponse<IBlog>>(`/blogs/${slug}`, {
     body,
   });
   revalidate('blog');
@@ -31,7 +31,7 @@ const updateBlog = async (formData: FormData, slug: string) => {
 };
 
 const getBlogs = async (query: Record<string, string>) => {
-  return await serverFetch.get<ApiResponse<IBlog[]>>('/blog', {
+  return await serverFetch.get<ApiResponse<IBlog[]>>('/blogs', {
     query,
     cache: 'force-cache',
     next: {
@@ -41,11 +41,11 @@ const getBlogs = async (query: Record<string, string>) => {
 };
 
 const getSingleBlog = async (slug: string) => {
-  return await serverFetch.get<ApiResponse<IBlog>>(`/blog/${slug}`);
+  return await serverFetch.get<ApiResponse<IBlog>>(`/blogs/${slug}`);
 };
 
 const deleteSingleBlog = async (slug: string) => {
-  const res = await serverFetch.delete<ApiResponse<IBlog>>(`/blog/${slug}`);
+  const res = await serverFetch.delete<ApiResponse<IBlog>>(`/blogs/${slug}`);
   revalidate('blog');
   return res;
 };

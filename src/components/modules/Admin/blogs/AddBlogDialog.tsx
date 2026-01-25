@@ -59,7 +59,7 @@ const AddBlogDialog = () => {
     formData.append('data', JSON.stringify(rest));
 
     if (thumbnail instanceof File) {
-      formData.append('file', thumbnail);
+      formData.append('thumbnail', thumbnail);
     }
 
     await executePost({
@@ -76,7 +76,7 @@ const AddBlogDialog = () => {
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <Button>
           <Plus /> Add Blog

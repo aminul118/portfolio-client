@@ -60,7 +60,7 @@ const BlogActions = ({ blog }: { blog: IBlog }) => {
       {/* Modals */}
 
       <DeleteFromTableDropDown
-        onConfirm={() => handleDelete(blog.slug)}
+        onConfirm={() => handleDelete(blog._id)}
         open={deleteOpen}
         setOpen={setDeleteOpen}
       />

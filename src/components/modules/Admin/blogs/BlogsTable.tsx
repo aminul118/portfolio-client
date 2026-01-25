@@ -8,7 +8,7 @@ const BlogsTable = ({ blogs }: { blogs: IBlog[] }) => {
   return (
     <TableManageMent
       columns={BlogsColum}
-      data={blogs}
+      data={blogs || []}
       getRowKey={(b) => b._id}
       emptyMessage="No blog post found"
     />

@@ -5,7 +5,6 @@ import { Children } from '@/types';
 
 const RootLayout = async ({ children }: Children) => {
   const { data } = await getMe();
-  console.log(data);
   return (
     <main className="flex min-h-screen flex-col">
       <Navbar user={data} />

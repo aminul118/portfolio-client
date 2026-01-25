@@ -47,6 +47,7 @@ export interface IBlog {
   slug: string;
   content: string;
   thumbnail: string;
+  photos?: string[];
 }
 
 export interface IProject {

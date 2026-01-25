@@ -17,7 +17,6 @@ interface MobileProps {
 }
 
 const Navbar = ({ user }: { user: IUser }) => {
-  console.log(user);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 

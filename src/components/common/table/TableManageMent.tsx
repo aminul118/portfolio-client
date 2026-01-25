@@ -18,42 +18,53 @@ import {
 import { Edit, Eye, Loader2, MoreHorizontal, Trash } from 'lucide-react';
 import { ReactNode } from 'react';
 
+/* =======================
+   Column Type
+======================= */
 export interface Column<T> {
   header: string;
   accessor: keyof T | ((row: T, index: number) => ReactNode);
   className?: string;
 }
 
+/* =======================
+   Props Type
+======================= */
 interface TableManageMentProps<T> {
-  data: T[];
+  data?: T[] | unknown; // 👈 unknown added for safety
   columns: Column<T>[];
+  getRowKey: (row: T) => string;
   onView?: (row: T) => void;
   onEdit?: (row: T) => void;
   onDelete?: (row: T) => void;
-  getRowKey: (row: T) => string;
   emptyMessage?: string;
   isRefreshing?: boolean;
-  children?: ReactNode;
 }
 
+/* =======================
+   Component
+======================= */
 function TableManageMent<T>({
-  data = [],
-  columns = [],
+  data,
+  columns,
+  getRowKey,
   onView,
   onEdit,
   onDelete,
-  getRowKey,
   emptyMessage = 'No records found.',
   isRefreshing = false,
 }: TableManageMentProps<T>) {
-  const hasActions = !!(onView || onEdit || onDelete);
+  const hasActions = Boolean(onView || onEdit || onDelete);
+
+  /*  SAFETY: always work with array */
+  const safeData: T[] = Array.isArray(data) ? data : [];
 
   return (
     <section>
       <div className="relative rounded-lg">
-        {/* Refresh overlay */}
+        {/* ===== Refresh Overlay ===== */}
         {isRefreshing && (
-          <div className="bg-background/50 absolute inset-0 z-10 flex items-center justify-center rounded-lg backdrop-blur-[2px]">
+          <div className="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-sm">
             <div className="flex flex-col items-center gap-2">
               <Loader2 className="text-primary h-6 w-6 animate-spin" />
               <p className="text-muted-foreground text-sm">Refreshing...</p>
@@ -62,6 +73,7 @@ function TableManageMent<T>({
         )}
 
         <Table>
+          {/* ===== Header ===== */}
           <TableHeader>
             <TableRow className="bg-muted">
               {columns.map((column, index) => (
@@ -71,13 +83,14 @@ function TableManageMent<T>({
               ))}
 
               {hasActions && (
-                <TableHead className="w-[70px]">Actions</TableHead>
+                <TableHead className="w-[70px] text-center">Actions</TableHead>
               )}
             </TableRow>
           </TableHeader>
 
+          {/* ===== Body ===== */}
           <TableBody>
-            {data.length === 0 ? (
+            {safeData.length === 0 ? (
               <TableRow>
                 <TableCell
                   colSpan={columns.length + (hasActions ? 1 : 0)}
@@ -87,18 +100,18 @@ function TableManageMent<T>({
                 </TableCell>
               </TableRow>
             ) : (
-              data.map((item, rowIndex) => (
+              safeData.map((item, rowIndex) => (
                 <TableRow key={getRowKey(item)}>
                   {columns.map((col, colIndex) => (
                     <TableCell key={colIndex} className={col.className}>
                       {typeof col.accessor === 'function'
                         ? col.accessor(item, rowIndex)
-                        : String(item[col.accessor])}
+                        : String(item[col.accessor] ?? '')}
                     </TableCell>
                   ))}
 
                   {hasActions && (
-                    <TableCell>
+                    <TableCell className="text-center">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="icon">
