@@ -65,9 +65,9 @@ const SendInvoiceDialog = ({ invoice, open, setOpen }: Props) => {
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogContent>
+      <AlertDialogContent className="lg:max-w-lg">
         <AlertDialogHeader>
-          <AlertDialogTitle>Send Invoice to user&apos;s email</AlertDialogTitle>
+          <AlertDialogTitle>Send Invoice to user's email</AlertDialogTitle>
 
           <AlertDialogDescription>
             Enter the email address where this invoice should be sent.

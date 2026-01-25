@@ -34,7 +34,7 @@ const SubmitButton = ({
         {loading ? (
           <>
             <ButtonSpinner />
-            {loadingEffect ? `${loadingText}...` : text}
+            {loadingEffect ? `${loadingText} ...` : text}
           </>
         ) : (
           <>

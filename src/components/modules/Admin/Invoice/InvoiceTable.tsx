@@ -9,6 +9,7 @@ interface Props {
 }
 
 const InvoiceTable = ({ invoice }: Props) => {
+  console.log(invoice);
   return (
     <>
       <TableManageMent
