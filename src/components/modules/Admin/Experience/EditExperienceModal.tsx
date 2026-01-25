@@ -24,7 +24,7 @@ import useActionHandler from '@/hooks/useActionHandler';
 import { updateExperience } from '@/services/experience/experience';
 import { IExperience } from '@/types/api.types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { X } from 'lucide-react';
+import { SquarePen, X } from 'lucide-react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -105,7 +105,7 @@ const EditExperienceModal = ({ open, setOpen, experience }: Props) => {
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogContent>
+      <AlertDialogContent className="lg:max-w-xl">
         <AlertDialogHeader>
           <AlertDialogTitle>Edit Experience</AlertDialogTitle>
           <AlertDialogDescription>
@@ -189,7 +189,14 @@ const EditExperienceModal = ({ open, setOpen, experience }: Props) => {
                 Cancel
               </AlertDialogCancel>
 
-              <SubmitButton />
+              {/* Submit button */}
+              <SubmitButton
+                loading={form.formState.isSubmitting}
+                loadingEffect
+                loadingText="Updating Experience "
+                text="Update Experience"
+                icon={<SquarePen />}
+              />
             </AlertDialogFooter>
           </form>
         </Form>
