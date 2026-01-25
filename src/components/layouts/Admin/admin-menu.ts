@@ -4,7 +4,6 @@ import {
   Briefcase,
   FileCheck,
   Gauge,
-  Globe,
   Link,
   SquareChartGantt,
   Users,
@@ -21,7 +20,6 @@ const adminSidebarMenu: MenuGroup[] = [
       { name: 'Experience', url: '/admin/experience', icon: Briefcase },
       { name: 'Users', url: '/admin/users', icon: Users },
       { name: 'Invoice', url: '/admin/invoice', icon: FileCheck },
-      { name: 'Website', url: '/', icon: Globe },
     ],
   },
 ];

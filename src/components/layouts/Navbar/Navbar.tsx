@@ -3,18 +3,21 @@
 import AminulLogo from '@/components/common/AminulLogo';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils'; // 👈 assuming your cn() is here
+import { IUser } from '@/types';
 import { Fade as Hamburger } from 'hamburger-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { navItems, NavMenu } from './nav-menu';
+import UserAvatar from './NavUser';
 
 interface MobileProps {
   navItems: NavMenu[];
   setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Navbar = () => {
+const Navbar = ({ user }: { user: IUser }) => {
+  console.log(user);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -53,10 +56,15 @@ const Navbar = () => {
               </li>
             );
           })}
+
           <li>
-            <Button asChild>
-              <Link href={'/login'}>Portal</Link>
-            </Button>
+            {user ? (
+              <UserAvatar user={user} />
+            ) : (
+              <Button asChild>
+                <Link href={'/login'}>Portal</Link>
+              </Button>
+            )}
           </li>
         </ul>
 
