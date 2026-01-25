@@ -26,7 +26,7 @@ import useActionHandler from '@/hooks/useActionHandler';
 import { addExperience } from '@/services/experience/experience';
 import { experienceValidationSchema } from '@/zod/experience';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Plus } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
@@ -67,7 +67,7 @@ const AddExperienceModal = () => {
         </Button>
       </AlertDialogTrigger>
 
-      <AlertDialogContent>
+      <AlertDialogContent className="lg:max-w-2xl">
         <AlertDialogHeader>
           <AlertDialogTitle>Add Experience</AlertDialogTitle>
           <AlertDialogDescription>
@@ -141,10 +141,15 @@ const AddExperienceModal = () => {
             />
 
             <AlertDialogFooter className="pt-4">
-              <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+              <AlertDialogCancel type="button">
+                <X /> Cancel
+              </AlertDialogCancel>
               <SubmitButton
                 loading={form.formState.isSubmitting}
                 text="Add Experience"
+                loadingEffect
+                loadingText="Adding Experience"
+                icon={<Plus />}
               />
             </AlertDialogFooter>
           </form>
