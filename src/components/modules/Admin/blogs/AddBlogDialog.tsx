@@ -26,6 +26,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Input } from '@/components/ui/input';
+import MultipleImageDrop from '@/components/ui/multiple-image-drop';
 import SingleImageUploader from '@/components/ui/single-image-uploader';
 import useActionHandler from '@/hooks/useActionHandler';
 import { createBlog } from '@/services/blogs/blogs';
@@ -55,11 +56,19 @@ const AddBlogDialog = () => {
     const formData = new FormData();
 
     // Exclude the raw File from the JSON blob
-    const { thumbnail, ...rest } = data;
+    const { thumbnail, photos, ...rest } = data;
     formData.append('data', JSON.stringify(rest));
+
+    formData.append('data', JSON.stringify(data));
 
     if (thumbnail instanceof File) {
       formData.append('thumbnail', thumbnail);
+    }
+
+    if (photos && photos.length > 0) {
+      photos.forEach((photo) => {
+        formData.append('photos', photo);
+      });
     }
 
     await executePost({
@@ -111,23 +120,42 @@ const AddBlogDialog = () => {
               )}
             />
 
-            {/* 🔹 Photo Upload */}
-            <FormField
-              control={form.control}
-              name="thumbnail"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Photo</FormLabel>
-                  <FormControl>
-                    {/* Pass the onChange handler AS A PROP */}
-                    <SingleImageUploader
-                      onChange={(file) => field.onChange(file)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-2 gap-6">
+              {/* 🔹 Thumbnail Upload */}
+              <FormField
+                control={form.control}
+                name="thumbnail"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Thumbnail</FormLabel>
+                    <FormControl>
+                      {/* Pass the onChange handler AS A PROP */}
+                      <SingleImageUploader
+                        onChange={(file) => field.onChange(file)}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {/* 🔹 Photos Upload */}
+              <FormField
+                control={form.control}
+                name="photos"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Photos</FormLabel>
+                    <FormControl>
+                      {/* Pass the onChange handler AS A PROP */}
+                      <MultipleImageDrop
+                        onChange={(file) => field.onChange(file)}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             {/* 🔹 Content/Bio */}
             <FormField

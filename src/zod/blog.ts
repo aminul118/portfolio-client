@@ -6,6 +6,7 @@ const addBlogSchema = z.object({
     .string()
     .min(10, { message: 'Content must be at least 10 characters.' }),
   thumbnail: z.instanceof(File).optional().or(z.null()),
+  photos: z.array(z.instanceof(File)).optional(),
 });
 
 export { addBlogSchema };

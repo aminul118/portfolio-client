@@ -9,6 +9,13 @@ const createBlog = async (formData: FormData) => {
 
   body.append('data', formData.get('data') as string);
   body.append('thumbnail', formData.get('thumbnail') as File);
+  body.append('photos', formData.getAll('photos').toString());
+
+  const photos = formData.getAll('photos') as File[];
+
+  photos.forEach((file) => {
+    body.append('photos', file);
+  });
 
   const res = await serverFetch.post<ApiResponse<IBlog>>('/blogs/create', {
     body,
