@@ -63,7 +63,7 @@ const NavUser = ({ user }: { user: IUser }) => {
             <AvatarBadge className="bg-green-600 dark:bg-green-800" />
           </Avatar>
           <DropdownMenuItem>
-            <Link href={'/profile'}>View Profile</Link>
+            <Link href={'/my-profile'}>View Profile</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
 
