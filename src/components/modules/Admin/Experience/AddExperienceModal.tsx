@@ -27,6 +27,7 @@ import { addExperience } from '@/services/experience/experience';
 import { experienceValidationSchema } from '@/zod/experience';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus, X } from 'lucide-react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
@@ -34,6 +35,7 @@ type FormValues = z.infer<typeof experienceValidationSchema>;
 
 const AddExperienceModal = () => {
   const { executePost } = useActionHandler();
+  const [open, setOpen] = useState(false);
   const form = useForm<FormValues>({
     resolver: zodResolver(experienceValidationSchema),
     defaultValues: {
@@ -50,8 +52,8 @@ const AddExperienceModal = () => {
       success: {
         onSuccess: () => {
           form.reset();
+          setOpen(false);
         },
-
         loadingText: 'Experience adding...',
         message: 'Experience added successfully',
       },
@@ -60,7 +62,7 @@ const AddExperienceModal = () => {
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <Button>
           <Plus /> Add Experience

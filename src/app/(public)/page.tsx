@@ -9,7 +9,7 @@ import Skills from '@/components/modules/Public/Skills/Skills';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 
-const HomePage = () => {
+const HomePage = async () => {
   return (
     <>
       <HeroBanner />

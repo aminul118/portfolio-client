@@ -10,48 +10,59 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { toast } from 'sonner';
+import useActionHandler from '@/hooks/useActionHandler';
+import { ApiResponse, IModal } from '@/types';
 
-interface IDeleteResponse {
-  success: boolean;
-  message?: string;
-}
-
-interface Props {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  onConfirm: () => Promise<IDeleteResponse>;
+interface Props extends IModal {
+  onConfirm: () => Promise<ApiResponse<unknown>>;
 }
 
 const DeleteFromTableDropDown = ({ open, setOpen, onConfirm }: Props) => {
+  const { executePost, isPending } = useActionHandler();
+
   const handleDelete = async () => {
-    const toastId = toast.loading('Removing...');
-    try {
-      const res = await onConfirm();
-      console.log('RES-->', res);
-      if (res.success) {
-        toast.success(res.message ?? 'Removed Successfully', {
-          id: toastId,
-        });
-      }
-    } catch {
-      toast.error('Failed to delete. Please try again.', { id: toastId });
-    }
+    await executePost({
+      action: onConfirm,
+      success: {
+        loadingText: 'Deleting...',
+        message: 'Deleted successfully',
+        onSuccess: () => {
+          setOpen(false);
+        },
+      },
+      errorMessage: 'Failed to delete.',
+    });
   };
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
+    <AlertDialog
+      open={open}
+      onOpenChange={(value) => {
+        if (isPending) return; //  prevent close while deleting
+        setOpen(value);
+      }}
+    >
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            This action cannot be undone. This will permanently delete your data
+            from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
+
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+
+          <AlertDialogAction
+            disabled={isPending}
+            onClick={(e) => {
+              e.preventDefault();
+              handleDelete();
+            }}
+          >
+            {isPending ? 'Deleting...' : 'Continue'}
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

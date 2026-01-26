@@ -1,4 +1,5 @@
 'use client';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,39 +12,42 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
+import useActionHandler from '@/hooks/useActionHandler';
 import { Trash2 } from 'lucide-react';
-import { ReactNode } from 'react';
-import { toast } from 'sonner';
+import { ReactNode, useState } from 'react';
 import Tooltip from '../Tooltip';
 
-interface IDeleteResponse {
-  success: boolean;
-  message?: string;
-}
-
 interface IDeleteConfirmation {
-  onConfirm: () => Promise<IDeleteResponse>;
+  onConfirm: () => Promise<any>;
   children?: ReactNode;
 }
 
 const DeleteConfirmation = ({ children, onConfirm }: IDeleteConfirmation) => {
-  const handleDelete = async () => {
-    const toastId = toast.loading('Removing...');
-    try {
-      const res = await onConfirm();
+  const { executePost, isPending } = useActionHandler();
+  const [open, setOpen] = useState(false);
 
-      console.log('RES-->', res);
-      if (res.success) {
-        toast.success(res.message ?? 'Removed Successfully', { id: toastId });
-      }
-    } catch {
-      toast.error('Failed to delete. Please try again.', { id: toastId });
-    }
+  const handleDelete = async () => {
+    await executePost({
+      action: onConfirm,
+      success: {
+        loadingText: 'Deleting...',
+        message: 'Deleted successfully',
+        onSuccess: () => {
+          setOpen(false); //  close dialog after success
+        },
+      },
+      errorMessage: 'Failed to delete.',
+    });
   };
 
   return (
-    <AlertDialog>
-      {/* Remove Tooltip or replace with a fragment if Tooltip does not accept children */}
+    <AlertDialog
+      open={open}
+      onOpenChange={(value) => {
+        if (isPending) return; //  block close while pending
+        setOpen(value);
+      }}
+    >
       <Tooltip content="Delete">
         <AlertDialogTrigger asChild>
           {children ?? (
@@ -53,6 +57,7 @@ const DeleteConfirmation = ({ children, onConfirm }: IDeleteConfirmation) => {
           )}
         </AlertDialogTrigger>
       </Tooltip>
+
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -61,9 +66,19 @@ const DeleteConfirmation = ({ children, onConfirm }: IDeleteConfirmation) => {
             remove your data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
+
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+
+          <AlertDialogAction
+            disabled={isPending}
+            onClick={(e) => {
+              e.preventDefault(); //  prevent auto-close
+              handleDelete();
+            }}
+          >
+            {isPending ? 'Deleting...' : 'Continue'}
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
