@@ -16,8 +16,8 @@ const adminSidebarMenu: MenuGroup[] = [
       { name: 'Projects', url: '/admin/projects', icon: SquareChartGantt },
       { name: 'Blogs', url: '/admin/blogs', icon: BookOpen },
       { name: 'Experience', url: '/admin/experience', icon: Briefcase },
-      { name: 'Users', url: '/admin/users', icon: Users },
       { name: 'Invoice', url: '/admin/invoice', icon: FileCheck },
+      { name: 'Users', url: '/admin/users', icon: Users },
     ],
   },
 ];
