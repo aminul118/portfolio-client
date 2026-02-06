@@ -21,6 +21,7 @@ export const invoiceSchema = z.object({
   tax: z.coerce.number().min(0),
   grandTotal: z.coerce.number(),
   note: z.string().optional(),
+  paymentInfo: z.boolean().default(false),
 });
 
 export type InvoiceFormValues = z.infer<typeof invoiceSchema>;
