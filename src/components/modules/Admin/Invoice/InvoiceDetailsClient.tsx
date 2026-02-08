@@ -1,5 +1,6 @@
 'use client';
 
+import BackButton from '@/components/common/button/back-button';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import GradientTitle from '@/components/ui/gradientTitle';
@@ -37,6 +38,7 @@ export default function InvoiceDetailsClient({ invoice }: Props) {
         </div>
 
         <div className="flex items-center gap-2">
+          <BackButton />
           {/*  Option A: hide button when paid */}
           {!isPaid && (
             <Button onClick={() => setEditOpen(true)} variant="outline">
@@ -60,6 +62,9 @@ export default function InvoiceDetailsClient({ invoice }: Props) {
         </Card>
         {/* Invoice no */}
         <Card className="w-full max-w-lg rounded-2xl">
+          <CardHeader className="flex items-center justify-between">
+            <CardTitle>Invoice</CardTitle>
+          </CardHeader>
           <CardContent className="space-y-2">
             <Row label="Invoice No" value={invoice.invoiceNo} />
             <Row label="Date" value={invoice.invoiceDate} />
