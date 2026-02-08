@@ -11,7 +11,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { deleteSingleInvoice } from '@/services/invoice/invoice';
 import { IInvoice } from '@/types';
-import { EllipsisIcon, Plus, Send, Trash2Icon } from 'lucide-react';
+import { EllipsisIcon, Pencil, Plus, Send, Trash2Icon } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 import CreateAnotherInvoiceDialog from './CreateAnotherInvoiceDialog';
 import SendInvoiceDialog from './SendInvoiceDialog';
@@ -68,6 +69,12 @@ const BannerActions = ({ invoice }: Props) => {
             <Plus className="mr-2 h-4 w-4" />
             Create Invoice
           </DropdownMenuItem>
+          <Link href={`/admin/invoice/${invoice._id}`}>
+            <DropdownMenuItem>
+              <Pencil className="mr-2 h-4 w-4" />
+              Details Invoice
+            </DropdownMenuItem>
+          </Link>
 
           <DropdownMenuSeparator />
 

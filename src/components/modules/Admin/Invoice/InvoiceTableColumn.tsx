@@ -1,11 +1,11 @@
 import DateFormat from '@/components/common/formater/date-format';
 import { Column } from '@/components/common/table/TableManageMent';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { IInvoice } from '@/types';
 import { Download } from 'lucide-react';
 import Link from 'next/link';
 import InvoiceActions from './InvoiceActions';
-import InvoiceStatusSelect from './InvoiceStatusSelect';
 
 const InvoiceTableColumn: Column<IInvoice>[] = [
   {
@@ -22,8 +22,33 @@ const InvoiceTableColumn: Column<IInvoice>[] = [
   },
   {
     header: 'Payment Status',
-    accessor: (i) => <InvoiceStatusSelect invoice={i} />,
+    accessor: (i) => {
+      const status = i.status;
+
+      if (status === 'PAID') {
+        return (
+          <Badge className="bg-green-100 text-green-700 hover:bg-green-100">
+            Paid
+          </Badge>
+        );
+      }
+
+      if (status === 'UNPAID') {
+        return (
+          <Badge className="bg-red-100 text-red-700 hover:bg-red-100">
+            Unpaid
+          </Badge>
+        );
+      }
+
+      return (
+        <Badge className="bg-yellow-100 text-yellow-700 hover:bg-yellow-100">
+          Pending
+        </Badge>
+      );
+    },
   },
+
   {
     header: 'Download',
     accessor: (i) => (

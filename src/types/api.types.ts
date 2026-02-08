@@ -95,15 +95,16 @@ interface IPayableTo {
 }
 
 export interface IInvoice {
-  _id?: string;
+  _id: string;
+  paymentInfo: boolean;
   invoiceNo?: string;
   invoiceDate?: string;
   payableTo: IPayableTo;
   items: IInvoiceItem[];
   subTotal: number;
-  discount: number;
+  discount?: number;
   tax: number;
-  status: string;
+  status: 'PAID' | 'UNPAID' | 'PENDING';
   grandTotal: number;
   pdfUrl?: string;
   note?: string;

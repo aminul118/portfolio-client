@@ -3,6 +3,7 @@
 import { revalidate } from '@/lib/revalidate';
 import serverFetch from '@/lib/server-fetch';
 import { ApiResponse, IInvoice } from '@/types';
+import { InvoiceFormValues } from '@/zod/invoice';
 
 interface IInvoiceItem {
   itemName: string;
@@ -38,16 +39,14 @@ const createInvoice = async (payload: IInvoicePayload) => {
   return res;
 };
 
-const updateInvoice = async (payload: Record<string, string>, id: string) => {
-  const res = await serverFetch.patch<ApiResponse<IInvoice[]>>(
-    `/invoice/update/${id}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
+const updateInvoice = async (payload: InvoiceFormValues, id: string) => {
+  const res = await serverFetch.put<ApiResponse<IInvoice>>(`/invoice/${id}`, {
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    body: JSON.stringify(payload),
+  });
+
   revalidate('invoice');
   return res;
 };

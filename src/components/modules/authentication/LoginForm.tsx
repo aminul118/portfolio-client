@@ -21,15 +21,24 @@ import { loginFormValidation } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import AlertPopUp from './AlertPopUp';
 
 type FormValues = z.infer<typeof loginFormValidation>;
+
+type AlertState = {
+  type: 'success' | 'error' | 'info';
+  title: string;
+  description: string;
+} | null;
 
 const LoginForm = () => {
   const { redirect } = useSearchParamsValues('redirect');
   const router = useRouter();
+  const [alert, setAlert] = useState<AlertState>(null);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(loginFormValidation),
@@ -40,19 +49,31 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (values: FormValues) => {
+    setAlert(null); // reset previous alert
+
     try {
       const res = await loginAction(values);
 
       if (res.success) {
+        toast.success(res.message);
         router.push(
           redirect || getDefaultDashboardRoute(res.user?.role as UserRole),
         );
-        toast.success(res.message || 'Login successful!');
       } else {
-        toast.error('Login failed. Please check your credentials.');
+        setAlert({
+          type: 'error',
+          title: 'Login failed',
+          description:
+            res.message || 'Invalid email or password. Please try again.',
+        });
       }
-    } catch {
-      toast.error('Login failed. Please check your credentials.');
+    } catch (error: any) {
+      setAlert({
+        type: 'error',
+        title: 'Something went wrong',
+        description:
+          error.message || 'Unable to login. Please try again later.',
+      });
     }
   };
 
@@ -62,6 +83,16 @@ const LoginForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-6 py-8"
       >
+        {/* Alert */}
+        {alert && (
+          <AlertPopUp
+            type={alert.type}
+            title={alert.title}
+            description={alert.description}
+            onClose={() => setAlert(null)}
+          />
+        )}
+
         {/* Email */}
         <FormField
           control={form.control}
