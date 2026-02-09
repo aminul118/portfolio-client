@@ -1,7 +1,7 @@
 import HtmlContent from '@/components/common/formater/HtmlContent';
 import { Button } from '@/components/ui/button';
 import Container from '@/components/ui/Container';
-import { getProjectById } from '@/services/project/projects';
+import { getSingleProject } from '@/services/project/projects';
 import { Params } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,7 +9,7 @@ import { notFound } from 'next/navigation';
 
 const ProjectDetailsPage = async ({ params }: Params) => {
   const { slug } = await params;
-  const data = await getProjectById(slug);
+  const data = await getSingleProject(slug);
   const project = data?.data;
 
   if (!project) {

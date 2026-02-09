@@ -30,18 +30,16 @@ import {
 import { Separator } from '@/components/ui/separator';
 import useActionHandler from '@/hooks/useActionHandler';
 import { updateInvoice } from '@/services/invoice/invoice';
-import { IInvoice } from '@/types';
+import { IInvoice, IModal } from '@/types';
 import { InvoiceFormValues, invoiceSchema } from '@/zod/invoice';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus, Save, Trash, X } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
 import { Resolver, useFieldArray, useForm } from 'react-hook-form';
 
-type Props = {
-  open: boolean;
-  setOpen: (v: boolean) => void;
+interface Props extends IModal {
   invoice: IInvoice;
-};
+}
 
 const STATUSES = ['PENDING', 'UNPAID', 'PAID'] as const;
 

@@ -23,7 +23,7 @@ const BackButton = ({
       variant={variant}
       onClick={() => router.back()}
     >
-      <Undo size={16} className="mr-2" />
+      <Undo size={16} />
       {label}
     </Button>
   );

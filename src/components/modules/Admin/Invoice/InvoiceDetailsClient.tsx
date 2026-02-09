@@ -38,7 +38,7 @@ export default function InvoiceDetailsClient({ invoice }: Props) {
         </div>
 
         <div className="flex items-center gap-2">
-          <BackButton />
+          <BackButton label="Back" />
           {/*  Option A: hide button when paid */}
           {!isPaid && (
             <Button onClick={() => setEditOpen(true)} variant="outline">

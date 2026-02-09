@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { IProject } from '@/types';
 import {
-  Edit,
   EllipsisIcon,
   Link as LinkIcon,
   Rows4,
@@ -17,12 +16,9 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
-import ProjectViewModal from './ProjectViewModal';
 
 const ProjectActions = ({ project }: Props) => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [viewDetailsModalOpen, setViewDetailsModalOpen] = useState(false);
 
   return (
     <>
@@ -48,34 +44,19 @@ const ProjectActions = ({ project }: Props) => {
             </Link>
           </DropdownMenuItem>
 
-          <DropdownMenuItem onClick={() => setViewDetailsModalOpen(true)}>
-            <Rows4 className="mr-2 h-4 w-4" />
-            <span>View Details</span>
-          </DropdownMenuItem>
+          <Link href={`/admin/projects/${project.slug}`}>
+            <DropdownMenuItem>
+              <Rows4 className="mr-2 h-4 w-4" />
+              <span>View Details</span>
+            </DropdownMenuItem>
+          </Link>
 
-          <DropdownMenuItem onClick={() => setEditModalOpen(true)}>
-            <Edit className="mr-2 h-4 w-4" />
-            <span>Edit</span>
-          </DropdownMenuItem>
           <DropdownMenuItem className="text-destructive focus:text-destructive">
             <Trash2Icon className="mr-2 h-4 w-4" />
             <span>Delete</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
-      {/* Modals */}
-      {/* <EditExperienceModal
-        experience={project}
-        open={editModalOpen}
-        setOpen={setEditModalOpen}
-      /> */}
-
-      <ProjectViewModal
-        project={project}
-        open={viewDetailsModalOpen}
-        setOpen={setViewDetailsModalOpen}
-      />
     </>
   );
 };

@@ -18,7 +18,23 @@ const createProject = async (formData: FormData) => {
   return res;
 };
 
-const getProjectById = async (id: string) => {
+const updateProject = async (formData: FormData, id: string) => {
+  const body = new FormData();
+
+  body.append('data', formData.get('data') as string);
+  body.append('file', formData.get('file') as File);
+  const res = await serverFetch.put<ApiResponse<IProject>>(`/projects/${id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  revalidate('projects');
+  return res;
+};
+
+const getSingleProject = async (id: string) => {
   return await serverFetch.get<ApiResponse<IProject>>(`/projects/${id}`, {
     cache: 'no-store',
   });
@@ -42,4 +58,10 @@ const getProjects = async (query?: Record<string, any>) => {
   });
 };
 
-export { createProject, deleteSingleProject, getProjectById, getProjects };
+export {
+  createProject,
+  deleteSingleProject,
+  getProjects,
+  getSingleProject,
+  updateProject,
+};
