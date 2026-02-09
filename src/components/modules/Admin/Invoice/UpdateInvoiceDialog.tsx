@@ -207,7 +207,7 @@ export default function UpdateInvoiceDialog({ open, setOpen, invoice }: Props) {
                     append({ itemName: '', quantity: '1', price: 0, total: 0 })
                   }
                 >
-                  <Plus className="mr-2 h-4 w-4" /> Add Item
+                  <Plus /> Add Item
                 </Button>
               </div>
 

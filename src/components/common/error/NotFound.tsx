@@ -1,9 +1,10 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Frown, Undo } from 'lucide-react';
+import { Frown } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import BackButton from '../button/back-button';
 
 interface NotFoundProps {
   title?: string;
@@ -31,9 +32,7 @@ const NotFound = ({
           {description}
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-4">
-          <Button onClick={handleBack} className="w-full sm:w-auto">
-            <Undo className="mr-2 h-4 w-4" /> Back to previous page
-          </Button>
+          <BackButton label="Back" variant="default" />
           <Button variant="outline" asChild className="w-full sm:w-auto">
             <Link href="/contact">Contact Support</Link>
           </Button>

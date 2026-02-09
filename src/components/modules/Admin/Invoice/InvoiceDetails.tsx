@@ -19,7 +19,7 @@ const Row = ({ label, value }: { label: string; value?: any }) => (
   </div>
 );
 
-export default function InvoiceDetailsClient({ invoice }: Props) {
+const InvoiceDetails = ({ invoice }: Props) => {
   const [editOpen, setEditOpen] = useState(false);
 
   const isPaid = invoice.status === 'PAID';
@@ -41,8 +41,8 @@ export default function InvoiceDetailsClient({ invoice }: Props) {
           <BackButton label="Back" />
           {/*  Option A: hide button when paid */}
           {!isPaid && (
-            <Button onClick={() => setEditOpen(true)} variant="outline">
-              <Pencil className="mr-2 h-4 w-4" /> Edit
+            <Button onClick={() => setEditOpen(true)}>
+              <Pencil /> Edit
             </Button>
           )}
         </div>
@@ -132,4 +132,6 @@ export default function InvoiceDetailsClient({ invoice }: Props) {
       />
     </div>
   );
-}
+};
+
+export default InvoiceDetails;

@@ -158,7 +158,18 @@ const CreateInvoiceDialog = () => {
 
             {/* ===== ITEMS ===== */}
             <div className="space-y-4">
-              <h3 className="text-lg font-medium">Items</h3>
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-medium">Items</h3>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() =>
+                    append({ itemName: '', quantity: '1', price: 0, total: 0 })
+                  }
+                >
+                  + Add Item
+                </Button>
+              </div>
               {fields.map((field, index) => (
                 <div
                   key={field.id}
@@ -229,15 +240,6 @@ const CreateInvoiceDialog = () => {
                   </Button>
                 </div>
               ))}
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() =>
-                  append({ itemName: '', quantity: '1', price: 0, total: 0 })
-                }
-              >
-                + Add Item
-              </Button>
             </div>
 
             {/* ===== TOTALS ===== */}

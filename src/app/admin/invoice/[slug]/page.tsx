@@ -1,5 +1,5 @@
 import NotFound from '@/components/common/error/NotFound';
-import InvoiceDetailsClient from '@/components/modules/Admin/Invoice/InvoiceDetailsClient';
+import InvoiceDetails from '@/components/modules/Admin/Invoice/InvoiceDetails';
 import { getSingleInvoice } from '@/services/invoice/invoice';
 import { Params } from '@/types';
 
@@ -11,7 +11,7 @@ const InvoiceDetailsPage = async ({ params }: Params) => {
     return <NotFound title="Invoice not found" />;
   }
 
-  return <InvoiceDetailsClient invoice={invoice} />;
+  return <InvoiceDetails invoice={invoice} />;
 };
 
 export default InvoiceDetailsPage;
