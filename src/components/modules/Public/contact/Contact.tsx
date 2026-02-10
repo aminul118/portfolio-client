@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <div className="container mx-auto overflow-x-hidden py-12 lg:py-20">
       <SectionHeading heading="Contact Me" />
-      <div className="grid lg:grid-cols-2">
+      <div className="grid items-center lg:grid-cols-2">
         <ContactInfo />
         <ContactForm />
       </div>

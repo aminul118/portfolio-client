@@ -51,48 +51,54 @@ const ContactForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="ml-auto w-full max-w-lg space-y-6 px-5 lg:px-0"
+        className="ml-auto w-full max-w-xl space-y-6 px-5 lg:px-0"
       >
-        {/* Name */}
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="John Doe" autoComplete="name" {...field} />
-              </FormControl>
-              <FormDescription className="sr-only">
-                Your full name
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          {/* Name */}
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="John Doe"
+                    autoComplete="name"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription className="sr-only">
+                  Your full name
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        {/* Email */}
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  placeholder="john@company.com"
-                  autoComplete="email"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription className="sr-only">
-                Your email address
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          {/* Email */}
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    placeholder="john@company.com"
+                    autoComplete="email"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription className="sr-only">
+                  Your email address
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         {/* Subject */}
         <FormField
@@ -137,6 +143,7 @@ const ContactForm = () => {
         <SubmitButton
           loading={form.formState.isSubmitting}
           text="Send Message"
+          className="w-full"
           icon={<Send />}
         />
       </form>
