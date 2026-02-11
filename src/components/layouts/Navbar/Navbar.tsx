@@ -13,7 +13,7 @@ import {
 import { Fade as Hamburger } from 'hamburger-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { navItems, NavMenu } from './nav-menu';
 import UserAvatar from './NavUser';
 
@@ -28,18 +28,24 @@ const Navbar = ({ user }: { user: IUser }) => {
   const [hidden, setHidden] = useState(false);
   const pathname = usePathname();
   const { scrollY } = useScroll();
+  const [active, setActive] = useState(pathname);
+
+  // Sync active state with pathname (handles back/forward navigation)
+  useEffect(() => {
+    setActive(pathname);
+  }, [pathname]);
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
     if (latest > previous && latest > 150) {
-      setHidden(true);
+      if (!hidden) setHidden(true);
     } else {
-      setHidden(false);
+      if (hidden) setHidden(false);
     }
     if (latest > 50) {
-      setScrolled(true);
+      if (!scrolled) setScrolled(true);
     } else {
-      setScrolled(false);
+      if (scrolled) setScrolled(false);
     }
   });
 
@@ -65,14 +71,15 @@ const Navbar = ({ user }: { user: IUser }) => {
         {/* Desktop Navigation - Centered Floating Style */}
         <div className="hidden items-center gap-1 rounded-full border border-white/5 bg-white/5 px-2 py-1.5 shadow-sm backdrop-blur-sm lg:flex">
           {navItems.map(({ title, href }) => {
-            const isActive = pathname === href;
+            const isActive = active === href;
 
             return (
               <Link
                 key={title}
                 href={href}
+                onClick={() => setActive(href)}
                 className={cn(
-                  'relative rounded-full px-5 py-2 text-sm font-medium transition-colors duration-300',
+                  'relative rounded-full px-5 py-2 text-sm font-medium transition-colors duration-200',
                   isActive ? 'text-white' : 'text-slate-400 hover:text-white',
                 )}
               >

@@ -7,6 +7,7 @@ import '@/styles/globals.css';
 import { Children } from '@/types';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { Metadata } from 'next';
+import NextTopLoader from 'nextjs-toploader';
 import { Toaster } from 'sonner';
 
 const MainLayout = ({ children }: Children) => {
@@ -15,6 +16,17 @@ const MainLayout = ({ children }: Children) => {
       <html lang="en" suppressHydrationWarning>
         <GoogleAnalytics gaId={envVars.analytics.googleAnalytics} />
         <body className={fonts.spaceGrotesk.className} suppressHydrationWarning>
+          <NextTopLoader
+            color="#2299DD"
+            initialPosition={0.08}
+            crawlSpeed={200}
+            height={2}
+            crawl={true}
+            showSpinner={false}
+            easing="ease"
+            speed={200}
+            shadow="0 0 10px #2299DD,0 0 5px #2299DD"
+          />
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
