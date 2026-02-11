@@ -7,7 +7,7 @@ const ExperiencePage = async () => {
   const { data } = await getExperience();
   return (
     <>
-      <section className="container mx-auto px-2 pt-28 pb-16" id="experience">
+      <section className="container mx-auto px-2 py-16" id="experience">
         <SectionHeading
           heading="Experience"
           description="A showcase of my work blending creativity and functionality, featuring interactive designs, seamless development, and innovative solutions."

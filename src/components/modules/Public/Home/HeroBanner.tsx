@@ -8,7 +8,7 @@ const HeroBanner = () => {
   return (
     // Main Hero Section
     // min-h-[700px] ensures your website minimum height stays 700px
-    <section className="relative min-h-[600px] overflow-hidden bg-slate-900 pt-12 2xl:pt-32">
+    <section className="relative min-h-[600px] overflow-hidden bg-slate-900 px-3 pt-12 2xl:pt-32">
       {/* ================= Background Glow Effects ================= */}
       <div className="pointer-events-none absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full bg-blue-500/10 blur-3xl" />
       <div className="pointer-events-none absolute top-1/3 -right-40 h-[420px] w-[420px] rounded-full bg-cyan-500/10 blur-3xl" />
