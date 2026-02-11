@@ -1,8 +1,9 @@
 'use client';
 
+import SubmitButton from '@/components/common/button/submit-button';
 import ReactQuil from '@/components/common/rich-text/ReactQuil';
 import { Button } from '@/components/ui/button';
-import { CardContent, CardFooter } from '@/components/ui/card';
+import { CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Field,
@@ -19,7 +20,7 @@ import useActionHandler from '@/hooks/useActionHandler';
 import { createProject } from '@/services/project/projects';
 import { projectValidationSchema } from '@/zod/project';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Undo2 } from 'lucide-react';
+import { Plus, Undo2 } from 'lucide-react';
 import Link from 'next/link';
 import { Controller, useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -45,11 +46,18 @@ const AddProjects = () => {
     const formData = new FormData();
 
     // Exclude the raw File from the JSON blob
-    const { thumbnail, ...rest } = data;
+    const { thumbnail, photos, ...rest } = data;
     formData.append('data', JSON.stringify(rest));
 
     if (thumbnail instanceof File) {
-      formData.append('file', thumbnail);
+      formData.append('thumbnail', thumbnail);
+    }
+    if (photos && photos.length > 0) {
+      photos.forEach((photo: File) => {
+        if (photo instanceof File) {
+          formData.append('photos', photo);
+        }
+      });
     }
 
     await executePost({
@@ -79,7 +87,7 @@ const AddProjects = () => {
       </div>
 
       <CardContent>
-        <form id="add-project-form" onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid gap-6">
             <FieldGroup className="grid grid-cols-2">
               {/* Title */}
@@ -229,19 +237,9 @@ const AddProjects = () => {
               </Field>
             )}
           />
+          <SubmitButton className="mt-4" icon={<Plus />} text="Add Project" />
         </form>
       </CardContent>
-
-      <CardFooter className="mt-4">
-        <Field orientation="horizontal">
-          <Button type="button" variant="outline" onClick={() => form.reset()}>
-            Reset
-          </Button>
-          <Button type="submit" form="add-project-form">
-            Submit
-          </Button>
-        </Field>
-      </CardFooter>
     </div>
   );
 };

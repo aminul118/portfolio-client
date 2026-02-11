@@ -51,10 +51,9 @@ const ProjectViewWithEdit = ({ project }: Props) => {
           <div>
             <Image
               src={project.thumbnail}
-              width={900}
-              height={500}
+              width={1280}
+              height={720}
               alt={project.title}
-              className="w-full rounded-lg object-cover"
             />
           </div>
 

@@ -2,7 +2,7 @@ import z from 'zod';
 
 const projectValidationSchema = z.object({
   title: z.string().min(2, { message: 'Title must be at least 5 characters.' }),
-  slug: z.string().min(2, { message: 'Slug is required.' }),
+  slug: z.string().optional(),
   liveLink: z.string().url({ message: 'Enter a valid URL.' }),
   github: z.union([z.string().url(), z.literal('')]).optional(),
   content: z

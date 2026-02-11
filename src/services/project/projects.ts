@@ -9,7 +9,20 @@ const createProject = async (formData: FormData) => {
   const body = new FormData();
 
   body.append('data', formData.get('data') as string);
-  body.append('file', formData.get('file') as File);
+
+  const thumbnail = formData.get('thumbnail');
+
+  if (thumbnail instanceof File) {
+    body.append('thumbnail', thumbnail);
+  }
+
+  const photos = formData.getAll('photos');
+
+  photos.forEach((photo) => {
+    if (photo instanceof File) {
+      body.append('photos', photo);
+    }
+  });
 
   const res = await serverFetch.post<ApiResponse<IProject>>('/projects', {
     body,
@@ -23,9 +36,9 @@ const updateProject = async (formData: FormData, id: string) => {
 
   body.append('data', formData.get('data') as string);
 
-  const file = formData.get('file');
-  if (file instanceof File && file.size > 0) {
-    body.append('file', file);
+  const thumbnail = formData.get('thumbnail');
+  if (thumbnail instanceof File && thumbnail.size > 0) {
+    body.append('thumbnail', thumbnail);
   }
 
   // Forward gallery photos

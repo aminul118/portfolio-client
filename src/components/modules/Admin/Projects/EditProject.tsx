@@ -55,14 +55,13 @@ const EditProject = ({ project, onCancel, onUpdated }: Props) => {
   });
 
   const onSubmit = async (data: FormValues) => {
-    console.log(data);
     const formData = new FormData();
 
     const { thumbnail, photos, ...rest } = data;
     formData.append('data', JSON.stringify(rest));
 
     if (thumbnail instanceof File) {
-      formData.append('file', thumbnail);
+      formData.append('thumbnail', thumbnail);
     }
 
     if (Array.isArray(photos)) {
@@ -87,12 +86,7 @@ const EditProject = ({ project, onCancel, onUpdated }: Props) => {
   return (
     <div className="rounded-2xl">
       <CardContent className="pt-6">
-        <form
-          id="edit-project-form"
-          onSubmit={form.handleSubmit(onSubmit, (errors) => {
-            console.log('FORM VALIDATION ERRORS:', errors);
-          })}
-        >
+        <form id="edit-project-form" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid gap-6">
             <FieldGroup className="grid grid-cols-2 gap-6">
               {/* Title */}

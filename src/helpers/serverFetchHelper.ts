@@ -1,5 +1,6 @@
 import generateQueryUrl from '@/lib/generateQueryUrl';
 import { getCookie } from '@/lib/jwt';
+import { logger } from '@/lib/logger';
 import { getNewAccessToken } from '@/services/auth/getNewAccessToken';
 
 export type FetchOptions = RequestInit & {
@@ -12,6 +13,7 @@ const serverFetchHelper = async <T>(
 ): Promise<T> => {
   const { headers, query, ...rest } = options;
   const url = generateQueryUrl(endpoint, query);
+  logger.info(`SERVER FETCH: [${options.method || 'GET'}] ${url}`);
   const accessToken = await getCookie('accessToken');
 
   //to stop recursion loop
