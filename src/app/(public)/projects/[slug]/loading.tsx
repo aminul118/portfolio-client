@@ -1,34 +1,53 @@
 import Container from '@/components/ui/Container';
 import { Skeleton } from '@/components/ui/skeleton';
 
-const Loading = () => {
+const ProjectDetailsLoading = () => {
   return (
-    <Container className="space-y-6 py-6">
-      {/* Title Skeleton */}
-      <Skeleton className="h-10 w-3/4" />
-
-      {/* Button Skeleton */}
-      <Skeleton className="h-10 w-32" />
-
-      {/* Image Skeleton */}
-      <Skeleton className="h-96 w-full rounded-md" />
-
-      {/* Content Skeleton */}
-      <div className="space-y-3">
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-5/6" />
-        <Skeleton className="h-4 w-11/12" />
-        <Skeleton className="h-4 w-3/4" />
+    <Container className="space-y-6">
+      {/* Title + Buttons Row */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <Skeleton className="h-9 w-3/5 sm:h-10" />
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-10 w-24 rounded-md" />
+          <Skeleton className="h-10 w-28 rounded-md" />
+        </div>
       </div>
 
-      {/* Technology Tag Skeletons */}
-      <div className="flex gap-2 pt-2">
+      {/* Main Image Skeleton */}
+      <Skeleton className="mt-4 h-64 w-full rounded-lg sm:h-80 md:h-96" />
+
+      {/* Content Skeleton */}
+      <div className="mt-5 space-y-3">
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-11/12" />
+        <Skeleton className="h-4 w-5/6" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-2/3" />
+      </div>
+
+      {/* Technology Tags Skeleton */}
+      <div className="mt-4 flex flex-wrap gap-2">
         <Skeleton className="h-8 w-20 rounded-md" />
-        <Skeleton className="h-8 w-20 rounded-md" />
-        <Skeleton className="h-8 w-20 rounded-md" />
+        <Skeleton className="h-8 w-24 rounded-md" />
+        <Skeleton className="h-8 w-16 rounded-md" />
+        <Skeleton className="h-8 w-22 rounded-md" />
+        <Skeleton className="h-8 w-18 rounded-md" />
+      </div>
+
+      {/* Photo Gallery Skeleton */}
+      <div className="mt-6 space-y-4">
+        <Skeleton className="h-7 w-40" />
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+          <Skeleton className="aspect-video w-full rounded-lg" />
+          <Skeleton className="aspect-video w-full rounded-lg" />
+          <Skeleton className="aspect-video w-full rounded-lg" />
+          <Skeleton className="aspect-video w-full rounded-lg" />
+        </div>
       </div>
     </Container>
   );
 };
 
-export default Loading;
+export default ProjectDetailsLoading;
