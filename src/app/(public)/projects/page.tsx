@@ -13,7 +13,7 @@ const ProjectPage = async ({ searchParams }: SearchParams) => {
 
   return (
     <>
-      <Container>
+      <Container className="pt-28 pb-16">
         <SectionHeading
           heading="Projects"
           description="A showcase of my work blending creativity and functionality, featuring interactive designs, seamless development, and innovative solutions."

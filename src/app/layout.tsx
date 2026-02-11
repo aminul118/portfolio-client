@@ -35,9 +35,9 @@ export default MainLayout;
 
 //  SEO
 export const metadata: Metadata = generateMetaTags({
-  title: 'Aminul Islam',
+  title: 'Md. Aminul Islam | Full Stack Developer & SEO Specialist',
   description:
-    'Aminul Islam is a skilled Software Developer specializing in MERN stack, Next.js, TypeScript and scalable web applications. Currently working at TabEdge, delivering high-performance solutions.',
+    'Md. Aminul Islam is a professional Full Stack Developer specializing in MERN stack, Next.js, and TypeScript. Expert in building scalable, SEO-optimized web applications and delivering high-performance solutions.',
   keywords:
-    'Software Developer, MERN Stack Developer, Next.js Developer, React Developer, TypeScript Developer, Full-Stack Developer, Web Development, API Development, Payment Solutions, E-commerce Development,SEO Specialist, Scalable Web Apps, DevOps, Software Engineer, Aminul118, Hyper118',
+    'Md. Aminul Islam, Full Stack Developer, MERN Stack Developer, Next.js Expert, React Developer, TypeScript, SEO Specialist, Software Engineer, Web Development, API Development, TabEdge, Dhaka, Bangladesh, Aminul118',
 });

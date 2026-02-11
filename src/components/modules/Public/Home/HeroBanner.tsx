@@ -31,7 +31,7 @@ const HeroBanner = () => {
           <div className="flex h-full flex-col justify-center gap-6 pb-12 text-white/60">
             {/* Intro Text */}
             <div>
-              <p className="text-sm font-medium tracking-widest text-slate-400 uppercase lg:text-base">
+              <p className="mt-12 text-sm font-medium tracking-widest text-slate-400 uppercase lg:text-base">
                 Hello, I&apos;m
               </p>
 

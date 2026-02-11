@@ -3,9 +3,9 @@ import { MetaConfig } from '@/types';
 const metaConfig: MetaConfig = {
   baseUrl: 'https://www.aminuldev.site',
   baseImage: '/og-image.png',
-  siteName: 'Aminul Islam Portfolio',
+  siteName: 'Md. Aminul Islam Portfolio',
   category: 'portfolio',
-  applicationName: 'Md Aminul Islam Portfolio',
+  applicationName: 'Md. Aminul Islam Portfolio',
   facebook_app_id: '580317868506376',
   authors_name: 'Aminul Islam',
   authorPortfolio: 'http://www.aminuldev.site',

@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const BlogPageLoading = () => {
   return (
-    <Container className="py-12">
+    <Container className="pt-28 pb-12">
       {/* Blog Cards Skeleton — matches BlogCard layout */}
       <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 2xl:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (

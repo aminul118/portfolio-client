@@ -15,7 +15,7 @@ const BlogsPage = async ({ searchParams }: SearchParams) => {
   return (
     <>
       <ClientWrapper meta={meta}>
-        <Container className="py-12">
+        <Container className="pt-28 pb-12">
           {blogs?.length > 0 ? (
             <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 2xl:grid-cols-3">
               {blogs.map((blog) => {

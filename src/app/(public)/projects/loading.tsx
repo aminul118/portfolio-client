@@ -3,7 +3,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const ProjectsLoading = () => {
   return (
-    <Container>
+    <Container className="pt-28 pb-16">
       {/* Section Heading Skeleton */}
       <Skeleton className="mx-auto mt-6 h-10 w-5/12" />
       <Skeleton className="mx-auto mt-4 h-4 w-2/4" />
