@@ -13,13 +13,13 @@ import {
 import { Fade as Hamburger } from 'hamburger-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { navItems, NavMenu } from './nav-menu';
 import UserAvatar from './NavUser';
 
 interface MobileProps {
   navItems: NavMenu[];
-  setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setMenuOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const Navbar = ({ user }: { user: IUser }) => {
@@ -64,9 +64,9 @@ const Navbar = ({ user }: { user: IUser }) => {
           : 'bg-transparent py-4',
       )}
     >
-      <nav className="container mx-auto flex items-center justify-between px-4 lg:px-8">
+      <nav className="container mx-auto flex items-center justify-between">
         {/* Logo */}
-        <AminulLogo />
+        <AminulLogo className="ml-1 lg:ml-0" />
 
         {/* Desktop Navigation - Centered Floating Style */}
         <div className="hidden items-center gap-1 rounded-full border border-white/5 bg-white/5 px-2 py-1.5 shadow-sm backdrop-blur-sm lg:flex">

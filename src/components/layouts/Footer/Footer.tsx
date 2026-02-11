@@ -127,7 +127,7 @@ const Footer = () => {
             <span className="text-slate-400">Md. Aminul Islam</span>. All rights
             reserved.
           </p>
-          <p className="flex items-center gap-1.5 text-xs text-slate-500">
+          <p className="flex hidden items-center gap-1.5 text-xs text-slate-500 lg:flex">
             Crafted with
             <span className="inline-block animate-pulse text-red-400">♥</span>
             using

@@ -1,14 +1,15 @@
 import icons from '@/constants/icons';
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const AminulLogo = () => {
+const AminulLogo = ({ className }: { className?: string }) => {
   return (
     <>
       <Link
         aria-label="Navigate to home page"
         href="/"
-        className="flex items-center text-2xl font-semibold"
+        className={cn('flex items-center text-2xl font-semibold', className)}
       >
         <Image
           src={icons.logo}
