@@ -19,11 +19,13 @@ export async function generateMetadata() {
   const { data } = await getMe();
 
   return generateMetaTags({
-    title: `${data?.fullName} Profile | Aminul118`,
+    title: data?.fullName
+      ? `${data.fullName} Profile | Aminul118`
+      : 'User Profile | Aminul118',
     description:
-      'Aminul Islam is a skilled Software Developer specializing in MERN stack, Next.js, TypeScript and scalable web applications. Currently working at TabEdge, delivering high-performance solutions.',
+      'Aminul Islam is a skilled Software Developer specializing in MERN stack, Next.js, and TypeScript. Building scalable, high-performance web applications.',
     keywords:
-      'Software Developer, MERN Stack Developer, Next.js Developer, React Developer, TypeScript Developer, Full-Stack Developer, Web Development, API Development, Payment Solutions, E-commerce Development,SEO Specialist, Scalable Web Apps, DevOps, Software Engineer, Aminul118, Hyper118',
+      'User Profile, Aminul Islam, Full Stack Developer, MERN Stack, Next.js, React, TypeScript, Software Engineer, Web Development, Dashboard',
     image: data?.picture || './user-placeholder.png',
     websitePath: '/my-profile',
   });

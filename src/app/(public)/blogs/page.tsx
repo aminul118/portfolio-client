@@ -38,11 +38,10 @@ export default BlogsPage;
 
 //  SEO
 export const metadata: Metadata = generateMetaTags({
-  title: 'Blogs | Aminul Islam',
+  title: 'Tech Blogs & Insights | Md. Aminul Islam',
   description:
-    'Explore the latest blogs from Aminul Islam.  covering healthcare innovations, medical research, digital health trends, and community health insights from Bangladesh and beyond.',
+    'Read the latest articles and insights on Web Development, MERN Stack, Next.js, TypeScript, and software engineering best practices by Md. Aminul Islam.',
   keywords:
-    'SHRL blogs, healthcare articles Bangladesh, medical research, SHRL news, public health insights, digital health Bangladesh, healthcare innovation, SHRL research updates, medical technology blogs, community health awareness',
-  image: '/seo/shrl-hero-ss.png',
-  websitePath: 'blogs',
+    'Web Development Blogs, MERN Stack Tutorials, Next.js Guides, TypeScript Tips, Software Engineering, Coding Best Practices, React JS, Tech Insights, Aminul Islam Blog',
+  websitePath: '/blogs',
 });

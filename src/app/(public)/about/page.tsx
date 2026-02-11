@@ -14,10 +14,10 @@ export default AboutPage;
 
 // SEO
 export const metadata: Metadata = generateMetaTags({
-  title: 'About - Aminul Islam',
+  title: 'About Me | Md. Aminul Islam - Full Stack Developer',
   description:
-    'Aminul Islam is a skilled Software Developer specializing in MERN stack, Next.js, Firebase, TypeScript, MongoDB, and scalable web applications. Currently working at TabEdge, an American payment solution company, delivering high-performance solutions.',
+    'Learn more about Md. Aminul Islam, a dedicated Full Stack Developer and SEO Specialist. Passionate about building scalable, user-centric web applications and solving complex problems.',
   keywords:
-    'Software Developer, MERN Stack Developer, Next.js Developer, React Developer, MongoDB Expert, Firebase Expert, Mongoose, TypeScript Developer, Full-Stack Developer, Web Development, JavaScript Developer, Frontend Engineer, Backend Developer, API Development, Cloud Computing, Payment Solutions, E-commerce Development, TabEdge, TabEdge Developer, Web Application Designer, Graphic Designer, UI/UX Developer, SEO Specialist, Scalable Web Apps, Progressive Web Apps, Startup Tech, SaaS Developer, DevOps, Software Engineer, Aminul118, Hyper118',
+    'About Aminul Islam, Full Stack Developer Biography, Software Engineer Profile, MERN Stack Developer Info, Developer Background, Career Summary, Tech Enthusiast, Dhaka Bangladesh Developer',
   websitePath: '/about',
 });

@@ -16,12 +16,11 @@ export default SkillsPage;
 
 // >> SEO Start
 export const metadata: Metadata = generateMetaTags({
-  title: 'Skills | Aminul Islam',
-
+  title: 'Technical Skills & Expertise | Md. Aminul Islam',
   description:
-    'Aminul Islam is a skilled Software Developer specializing in MERN stack, Next.js, TypeScript and scalable web applications. Currently working at TabEdge, delivering high-performance solutions.',
+    "Detailed overview of Md. Aminul Islam's technical skills. Expertise in JavaScript, TypeScript, React, Next.js, Node.js, MongoDB, AWS, and modern web technologies.",
   keywords:
-    'Software Developer, MERN Stack Developer, Next.js Developer, React Developer, TypeScript Developer, Full-Stack Developer, Web Development, API Development, Payment Solutions, E-commerce Development,SEO Specialist, Scalable Web Apps, DevOps, Software Engineer, Aminul118, Hyper118',
+    'Aminul Islam Skills, JavaScript Expert, React Developer, Next.js Expert, Node.js Developer, MERN Stack Skills, TypeScript, Web Development Technologies, Programming Expertise, Software Engineering Skills',
   websitePath: '/skills',
 });
 // >> SEO End

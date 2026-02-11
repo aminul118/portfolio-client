@@ -32,10 +32,10 @@ export default ProjectPage;
 
 //  SEO
 export const metadata: Metadata = generateMetaTags({
-  title: 'Projects | Aminul Islam',
+  title: 'Portfolio Projects | Md. Aminul Islam - Web Development Showcase',
   description:
-    'Aminul Islam is a skilled Software Developer specializing in MERN stack, Next.js, TypeScript and scalable web applications. Currently working at TabEdge, delivering high-performance solutions.',
+    'Discover the portfolio of Md. Aminul Islam, featuring innovative MERN stack applications, Next.js websites, and high-performance web solutions. View live demos and code.',
   keywords:
-    'Software Developer, MERN Stack Developer, Next.js Developer, React Developer, TypeScript Developer, Full-Stack Developer, Web Development, API Development, Payment Solutions, E-commerce Development,SEO Specialist, Scalable Web Apps, DevOps, Software Engineer, Aminul118, Hyper118',
+    'Aminul Islam Projects, Web Development Portfolio, MERN Stack Projects, Next.js Portfolio, React Projects, Full Stack Applications, Software Case Studies, Web App Examples, GitHub Projects',
   websitePath: '/projects',
 });

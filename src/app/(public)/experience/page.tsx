@@ -37,10 +37,10 @@ export default ExperiencePage;
 
 //  SEO
 export const metadata: Metadata = generateMetaTags({
-  title: 'Experience | Aminul Islam',
+  title: 'Professional Experience | Md. Aminul Islam',
   description:
-    'Aminul Islam is a skilled Software Developer specializing in MERN stack, Next.js, TypeScript and scalable web applications. Currently working at TabEdge, delivering high-performance solutions.',
+    'Explore the professional journey of Md. Aminul Islam. View career highlights, roles at TabEdge, and expertise in building scalable web applications with MERN stack and Next.js.',
   keywords:
-    'Software Developer, MERN Stack Developer, Next.js Developer, React Developer, TypeScript Developer, Full-Stack Developer, Web Development, API Development, Payment Solutions, E-commerce Development,SEO Specialist, Scalable Web Apps, DevOps, Software Engineer, Aminul118, Hyper118',
-  websitePath: '/projects',
+    'Aminul Islam Experience, Software Engineer Career, Full Stack Developer History, TabEdge Developer, Web Development Portfolio, Professional Journey, Tech Career, Work Experience',
+  websitePath: '/experience',
 });

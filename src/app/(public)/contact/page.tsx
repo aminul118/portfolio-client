@@ -14,10 +14,10 @@ export default ContactPage;
 
 //  SEO
 export const metadata: Metadata = generateMetaTags({
-  title: 'Contact | Aminul Islam',
+  title: 'Contact Me | Hire Full Stack Developer Md. Aminul Islam',
   description:
-    'Aminul Islam is a skilled Software Developer specializing in MERN stack, Next.js, TypeScript and scalable web applications. Currently working at TabEdge, delivering high-performance solutions.',
+    'Get in touch with Md. Aminul Islam for web development projects, collaborations, or inquiries. Available for freelance and full-time opportunities in MERN stack and Next.js.',
   keywords:
-    'Software Developer, MERN Stack Developer, Next.js Developer, React Developer, TypeScript Developer, Full-Stack Developer, Web Development, API Development, Payment Solutions, E-commerce Development,SEO Specialist, Scalable Web Apps, DevOps, Software Engineer, Aminul118, Hyper118',
+    'Contact Aminul Islam, Hire Full Stack Developer, Web Developer for Hire, Freelance React Developer, Next.js Expert, Contact Web Developer, Software Engineer Contact, Dhaka, Bangladesh',
   websitePath: '/contact',
 });
