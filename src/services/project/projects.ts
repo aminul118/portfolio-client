@@ -22,12 +22,22 @@ const updateProject = async (formData: FormData, id: string) => {
   const body = new FormData();
 
   body.append('data', formData.get('data') as string);
-  body.append('file', formData.get('file') as File);
+
+  const file = formData.get('file');
+  if (file instanceof File && file.size > 0) {
+    body.append('file', file);
+  }
+
+  // Forward gallery photos
+  const photos = formData.getAll('photos');
+  photos.forEach((photo) => {
+    if (photo instanceof File && photo.size > 0) {
+      body.append('photos', photo);
+    }
+  });
+
   const res = await serverFetch.put<ApiResponse<IProject>>(`/projects/${id}`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
+    body,
   });
 
   revalidate('projects');

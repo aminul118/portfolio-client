@@ -11,7 +11,7 @@ interface BackButtonProps {
 }
 
 const BackButton = ({
-  label = 'Previous page',
+  label = 'Back',
   variant = 'outline',
   className,
 }: BackButtonProps) => {

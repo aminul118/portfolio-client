@@ -1,4 +1,6 @@
+import BackButton from '@/components/common/button/back-button';
 import HtmlContent from '@/components/common/formater/HtmlContent';
+import PhotoGallery from '@/components/modules/Public/Projects/PhotoGallery';
 import { Button } from '@/components/ui/button';
 import Container from '@/components/ui/Container';
 import { getSingleProject } from '@/services/project/projects';
@@ -18,13 +20,16 @@ const ProjectDetailsPage = async ({ params }: Params) => {
 
   return (
     <Container>
-      <div className="flex items-center justify-between">
-        <h1 className="my-4 text-3xl font-bold">{project?.title}</h1>
-        <Button asChild className="w-32">
-          <Link href={project?.liveLink} target="_blank">
-            Live Demo
-          </Link>
-        </Button>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-bold sm:text-3xl">{project?.title}</h1>
+        <div className="flex items-center gap-2">
+          <BackButton />
+          <Button asChild>
+            <Link href={project?.liveLink} target="_blank">
+              Live Demo
+            </Link>
+          </Button>
+        </div>
       </div>
 
       <Image
@@ -32,18 +37,29 @@ const ProjectDetailsPage = async ({ params }: Params) => {
         alt={project.title}
         width={800}
         height={400}
+        className="mt-4 w-full rounded-lg object-cover"
       />
 
       <HtmlContent content={project.content} className="mt-5 text-justify" />
-      <div className="mt-4 flex gap-2">
+      <div className="mt-4 flex flex-wrap gap-2">
         {project?.technology?.map((tech, i) => {
           return (
-            <Button variant="outline" key={i} className="">
+            <Button
+              variant="outline"
+              key={i}
+              size="sm"
+              className="text-xs sm:text-sm"
+            >
               {tech}
             </Button>
           );
         })}
       </div>
+
+      {/* Photos Gallery */}
+      {project?.photos && project.photos.length > 0 && (
+        <PhotoGallery photos={project.photos} title={project.title} />
+      )}
     </Container>
   );
 };

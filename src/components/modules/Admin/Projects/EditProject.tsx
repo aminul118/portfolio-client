@@ -55,6 +55,7 @@ const EditProject = ({ project, onCancel, onUpdated }: Props) => {
   });
 
   const onSubmit = async (data: FormValues) => {
+    console.log(data);
     const formData = new FormData();
 
     const { thumbnail, photos, ...rest } = data;
@@ -86,7 +87,12 @@ const EditProject = ({ project, onCancel, onUpdated }: Props) => {
   return (
     <div className="rounded-2xl">
       <CardContent className="pt-6">
-        <form id="edit-project-form" onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          id="edit-project-form"
+          onSubmit={form.handleSubmit(onSubmit, (errors) => {
+            console.log('FORM VALIDATION ERRORS:', errors);
+          })}
+        >
           <div className="grid gap-6">
             <FieldGroup className="grid grid-cols-2 gap-6">
               {/* Title */}
@@ -244,17 +250,15 @@ const EditProject = ({ project, onCancel, onUpdated }: Props) => {
               </Field>
             )}
           />
+
+          <CardFooter className="flex justify-end gap-2 border-t py-4">
+            <Button type="button" variant="outline" onClick={onCancel}>
+              Cancel
+            </Button>
+            <Button type="submit">Update</Button>
+          </CardFooter>
         </form>
       </CardContent>
-
-      <CardFooter className="flex justify-end gap-2 border-t py-4">
-        <Button type="button" variant="outline" onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button type="submit" form="edit-project-form">
-          Update
-        </Button>
-      </CardFooter>
     </div>
   );
 };
