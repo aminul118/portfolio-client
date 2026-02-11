@@ -1,12 +1,6 @@
 import AminulLogo from '@/components/common/AminulLogo';
+import SocialLinks from '@/components/modules/Public/Home/SocialLinks';
 import Link from 'next/link';
-import {
-  FaFacebook,
-  FaGithub,
-  FaLinkedinIn,
-  FaTelegram,
-  FaWhatsapp,
-} from 'react-icons/fa';
 import { FiMapPin, FiPhone } from 'react-icons/fi';
 import { HiOutlineMail } from 'react-icons/hi';
 
@@ -23,44 +17,11 @@ const resourceLinks = [
   { title: 'Contact', href: '/contact' },
 ];
 
-const socialLinks = [
-  {
-    icon: FaGithub,
-    href: 'https://github.com/aminul118',
-    label: 'GitHub',
-    hoverColor: 'hover:bg-gray-700 hover:text-white',
-  },
-  {
-    icon: FaLinkedinIn,
-    href: 'https://www.linkedin.com/in/aminul118',
-    label: 'LinkedIn',
-    hoverColor: 'hover:bg-blue-600 hover:text-white',
-  },
-  {
-    icon: FaFacebook,
-    href: 'https://www.facebook.com/aminul118',
-    label: 'Facebook',
-    hoverColor: 'hover:bg-blue-500 hover:text-white',
-  },
-  {
-    icon: FaWhatsapp,
-    href: 'https://wa.me/8801781082064',
-    label: 'WhatsApp',
-    hoverColor: 'hover:bg-green-500 hover:text-white',
-  },
-  {
-    icon: FaTelegram,
-    href: 'https://t.me/aminul118',
-    label: 'Telegram',
-    hoverColor: 'hover:bg-sky-500 hover:text-white',
-  },
-];
-
 const Footer = () => {
   return (
     <footer className="relative overflow-hidden bg-slate-900">
       {/* Top gradient line */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
+      {/* <div className="h-px w-full bg-gradient-to-r from-transparent via-blue-500 to-transparent" /> */}
 
       {/* Background glow effects */}
       <div className="pointer-events-none absolute -top-40 left-1/4 h-80 w-80 rounded-full bg-blue-500/5 blur-3xl" />
@@ -80,20 +41,7 @@ const Footer = () => {
             </p>
 
             {/* Social Icons */}
-            <div className="flex gap-2.5">
-              {socialLinks.map(({ icon: Icon, href, label, hoverColor }) => (
-                <Link
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className={`flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-400 transition-all duration-300 ${hoverColor} hover:scale-110 hover:border-transparent hover:shadow-lg`}
-                >
-                  <Icon className="text-sm" />
-                </Link>
-              ))}
-            </div>
+            <SocialLinks />
           </div>
 
           {/* Quick Links */}

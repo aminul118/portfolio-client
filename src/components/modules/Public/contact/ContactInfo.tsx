@@ -1,13 +1,9 @@
-import Logo from '@/components/modules/Public/Home/SocialLinks';
 import { FaEnvelope, FaLocationArrow } from 'react-icons/fa';
 import { FaPhone } from 'react-icons/fa6';
 
 const ContactInfo = () => {
   return (
-    <div
-      className="text-primary/80 mx-auto rounded-lg p-6"
-      data-aos="fade-right"
-    >
+    <div className="text-primary/80 mx-auto rounded-lg p-6">
       <h2 className="mb-4 text-2xl font-bold">Contact Information</h2>
       <p>
         Thanks for stopping by! If you have any questions, ideas, or simply want
@@ -38,11 +34,6 @@ const ContactInfo = () => {
         <p className="flex items-center gap-2">
           <FaLocationArrow /> Dhaka Bangladesh
         </p>
-      </div>
-
-      <div>
-        <p className="my-4 text-2xl font-bold">Social</p>
-        <Logo />
       </div>
     </div>
   );
