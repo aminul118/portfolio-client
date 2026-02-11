@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { cn } from '@/lib/utils';
 
 interface ColumnConfig {
   width?: string;
@@ -20,6 +21,7 @@ interface TableSkeletonProps {
   hasFilter?: boolean;
   hasPagination?: boolean;
   filterColumns?: ColumnConfig[];
+  className?: string;
 }
 
 const TableSkeleton = ({
@@ -42,9 +44,12 @@ const TableSkeleton = ({
   rows = 10,
   hasFilter = false,
   hasPagination = false,
+  className,
 }: TableSkeletonProps) => {
   return (
-    <section className="mx-auto w-11/12 overflow-x-hidden">
+    <section
+      className={cn('mx-auto w-11/12 overflow-x-hidden py-8', className)}
+    >
       {/* Title */}
       <Skeleton className="mb-8 h-10 w-96 rounded-md" />
 
