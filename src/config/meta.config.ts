@@ -7,7 +7,7 @@ const metaConfig: MetaConfig = {
   category: 'portfolio',
   applicationName: 'Md. Aminul Islam Portfolio',
   facebook_app_id: '580317868506376',
-  authors_name: 'Aminul Islam',
+  authors_name: 'Md. Aminul Islam',
   authorPortfolio: 'http://www.aminuldev.site',
   twitter_site: '@aminul118',
   bookmarks: 'https://www.aminul.dev/logo.png',

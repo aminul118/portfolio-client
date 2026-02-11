@@ -5,7 +5,7 @@ const AdminLoading = () => {
   return (
     <div className="mx-auto w-11/12 space-y-6">
       {/* Title Skeleton: "Welcome Admin" */}
-      <Skeleton className="h-10 w-64 rounded-md" />
+      <Skeleton className="mx-auto h-10 w-64 rounded-md" />
 
       {/* Stats Grid Skeleton */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
