@@ -3,7 +3,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const ProjectDetailsLoading = () => {
   return (
-    <Container className="space-y-6">
+    <Container className="mt-16 space-y-6 lg:mt-22">
       {/* Title + Buttons Row */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Skeleton className="h-9 w-3/5 sm:h-10" />

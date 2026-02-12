@@ -3,8 +3,11 @@ import HtmlContent from '@/components/common/formater/HtmlContent';
 import PhotoGallery from '@/components/modules/Public/Projects/PhotoGallery';
 import { Button } from '@/components/ui/button';
 import Container from '@/components/ui/Container';
+
+import metaConfig from '@/config/meta.config';
 import { getSingleProject } from '@/services/project/projects';
 import { Params } from '@/types';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -65,3 +68,39 @@ const ProjectDetailsPage = async ({ params }: Params) => {
 };
 
 export default ProjectDetailsPage;
+
+// SEO Metadata
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await getSingleProject(slug);
+  const project = data?.data;
+
+  if (!project) {
+    return {
+      title: 'Project Not Found',
+      description: 'The project you are looking for does not exist.',
+    };
+  }
+
+  const cleanDescription =
+    project.content?.replace(/<[^>]*>/g, '').slice(0, 160) ||
+    `Details about ${project.title}`;
+
+  return {
+    title: project.title,
+    description: cleanDescription,
+    openGraph: {
+      title: project.title,
+      description: cleanDescription,
+      url: `${metaConfig.baseUrl}/projects/${project.slug}`,
+      images: [
+        {
+          url: project.thumbnail,
+          width: 1200,
+          height: 630,
+          alt: project.title,
+        },
+      ],
+    },
+  };
+}
