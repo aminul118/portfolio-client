@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const ExperienceLoading = () => {
   return (
-    <section className="container mx-auto px-2 py-16">
+    <section className="container mx-auto mt-16 px-2 lg:mt-28">
       {/* Section heading skeleton */}
       <div className="mx-auto mb-10 max-w-xl space-y-3 text-center">
         <Skeleton className="mx-auto h-8 w-48" />

@@ -3,7 +3,11 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const AminulLogo = ({ className }: { className?: string }) => {
+interface Props {
+  className?: string;
+}
+
+const AminulLogo = ({ className }: Props) => {
   return (
     <>
       <Link
@@ -18,7 +22,7 @@ const AminulLogo = ({ className }: { className?: string }) => {
           alt="Md Aminul Islam Developer logo"
           priority={true}
         />
-        Aminul
+        <p className="text-white">Aminul</p>
       </Link>
     </>
   );
