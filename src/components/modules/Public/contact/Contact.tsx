@@ -25,7 +25,7 @@ const Contact = () => {
           </div>
 
           {/* Right Column: Contact Form */}
-          <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur-md lg:p-8">
+          <div className="w-full max-w-xl rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur-md lg:p-8">
             <h3 className="mb-6 text-2xl font-bold text-white">
               Send me a message
             </h3>

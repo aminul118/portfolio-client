@@ -38,7 +38,7 @@ const Experience = async () => {
                   }`}
                 >
                   {/* Timeline dot */}
-                  <div className="absolute top-18 left-4 flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full border-2 border-blue-500 bg-black shadow-[0_0_10px_rgba(59,130,246,0.5)] md:left-1/2">
+                  <div className="absolute top-0 left-4 flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full border-2 border-blue-500 bg-black shadow-[0_0_10px_rgba(59,130,246,0.5)] md:left-1/2">
                     <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
                   </div>
 
