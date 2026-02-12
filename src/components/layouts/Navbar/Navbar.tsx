@@ -66,7 +66,7 @@ const Navbar = ({ user }: { user: IUser }) => {
     >
       <nav className="container mx-auto flex items-center justify-between">
         {/* Logo */}
-        <AminulLogo className="ml-1 lg:ml-0" />
+        <AminulLogo className="ml-2 lg:ml-0" />
 
         {/* Desktop Navigation - Centered Floating Style */}
         <div className="hidden items-center gap-1 rounded-full border border-white/5 bg-white/5 px-2 py-1.5 shadow-sm backdrop-blur-sm lg:flex">
