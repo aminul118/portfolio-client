@@ -1,3 +1,4 @@
+import ExperienceTimeline from '@/components/modules/Public/Experience/ExperienceTimeline';
 import SectionHeading from '@/components/ui/SectionHeading';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { getExperience } from '@/services/experience/experience';
@@ -7,26 +8,20 @@ const ExperiencePage = async () => {
   const { data } = await getExperience();
   return (
     <>
-      <section className="container mx-auto px-2 py-16" id="experience">
+      <section className="container mx-auto px-4 py-16" id="experience">
+        {/* Background Gradients */}
+        <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
+          <div className="relative left-[calc(50%-11rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 rotate-30 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" />
+        </div>
+
         <SectionHeading
-          heading="Experience"
-          description="A showcase of my work blending creativity and functionality, featuring interactive designs, seamless development, and innovative solutions."
+          heading="Professional Journey"
+          description="A timeline of my growth, roles, and achievements in software engineering."
+          className="text-white"
         />
 
-        <div className="mx-auto mt-10 grid max-w-6xl gap-12 md:grid-cols-2">
-          {data?.map((exp, i) => (
-            <div
-              key={i}
-              className="rounded-lg bg-slate-950 p-8 shadow-lg transition-shadow duration-300 hover:shadow-xl"
-            >
-              <h3 className="text-xl font-semibold text-white">
-                {exp.position}
-              </h3>
-              <p className="text-md text-white/90">{exp.companyName}</p>
-              <p className="mb-4 text-sm text-white/90">{exp.timeline}</p>
-              <p className="text-white/60">{exp.description}</p>
-            </div>
-          ))}
+        <div className="relative z-10 w-full px-4 sm:px-0">
+          <ExperienceTimeline data={data || []} />
         </div>
       </section>
     </>

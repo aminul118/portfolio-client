@@ -49,10 +49,7 @@ const ContactForm = () => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="ml-auto w-full max-w-xl space-y-6 px-5 lg:px-0"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Name */}
           <FormField
@@ -60,11 +57,12 @@ const ContactForm = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel className="text-white/60">Name</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="John Doe"
                     autoComplete="name"
+                    className="border-white/10 bg-white/5 text-white placeholder:text-white/20 focus-visible:border-blue-500/50 focus-visible:ring-blue-500/20"
                     {...field}
                   />
                 </FormControl>
@@ -82,12 +80,13 @@ const ContactForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-white/60">Email</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
                     placeholder="john@company.com"
                     autoComplete="email"
+                    className="border-white/10 bg-white/5 text-white placeholder:text-white/20 focus-visible:border-blue-500/50 focus-visible:ring-blue-500/20"
                     {...field}
                   />
                 </FormControl>
@@ -106,9 +105,13 @@ const ContactForm = () => {
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Subject</FormLabel>
+              <FormLabel className="text-white/60">Subject</FormLabel>
               <FormControl>
-                <Input placeholder="Discuss about project" {...field} />
+                <Input
+                  placeholder="Discuss about project"
+                  className="border-white/10 bg-white/5 text-white placeholder:text-white/20 focus-visible:border-blue-500/50 focus-visible:ring-blue-500/20"
+                  {...field}
+                />
               </FormControl>
               <FormDescription className="sr-only">
                 Message topic
@@ -124,10 +127,10 @@ const ContactForm = () => {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Message</FormLabel>
+              <FormLabel className="text-white/60">Message</FormLabel>
               <FormControl>
                 <Textarea
-                  className="h-36"
+                  className="h-36 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus-visible:border-blue-500/50 focus-visible:ring-blue-500/20"
                   placeholder="Write your message here..."
                   {...field}
                 />
