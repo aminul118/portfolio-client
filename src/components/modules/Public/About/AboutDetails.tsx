@@ -112,7 +112,7 @@ const AboutDetails = () => {
                           key={index}
                           className="group flex flex-col items-center gap-3"
                         >
-                          <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-gray-800 to-black text-3xl text-white shadow-xl transition-transform duration-300 group-hover:scale-110 group-hover:text-blue-400">
+                          <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br from-gray-800 to-black text-3xl text-white shadow-xl transition-transform duration-300 group-hover:scale-110 group-hover:text-blue-400">
                             <div className="absolute inset-0 rounded-full bg-blue-500/20 opacity-0 blur transition-opacity group-hover:opacity-100"></div>
                             <Icon className="relative z-10" />
                           </div>
