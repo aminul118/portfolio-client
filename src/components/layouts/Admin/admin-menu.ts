@@ -4,6 +4,7 @@ import {
   Briefcase,
   FileCheck,
   Gauge,
+  Globe,
   SquareChartGantt,
   Users,
 } from 'lucide-react';
@@ -18,6 +19,7 @@ const adminSidebarMenu: MenuGroup[] = [
       { name: 'Experience', url: '/admin/experience', icon: Briefcase },
       { name: 'Invoice', url: '/admin/invoice', icon: FileCheck },
       { name: 'Users', url: '/admin/users', icon: Users },
+      { name: 'Website', url: '/', icon: Globe },
     ],
   },
 ];
