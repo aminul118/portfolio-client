@@ -25,6 +25,10 @@ const UsersColum: Column<IUser>[] = [
       ),
   },
   {
+    header: 'Name',
+    accessor: (u) => u.fullName,
+  },
+  {
     header: 'Email',
     accessor: (u) => u.email,
   },
