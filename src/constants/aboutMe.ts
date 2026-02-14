@@ -1,6 +1,16 @@
 import { TAbout, THobby } from '@/types';
 import { BiFootball } from 'react-icons/bi';
-import { FaCameraRetro, FaPlaneDeparture } from 'react-icons/fa';
+import {
+  FaCameraRetro,
+  FaCode,
+  FaDatabase,
+  FaHeart,
+  FaHistory,
+  FaNetworkWired,
+  FaPlaneDeparture,
+  FaServer,
+  FaUserTie,
+} from 'react-icons/fa';
 import { GiFullMotorcycleHelmet } from 'react-icons/gi';
 import { MdOutlineVideoLibrary } from 'react-icons/md';
 
@@ -14,6 +24,7 @@ const hobbies: THobby[] = [
 
 const aboutMe: TAbout[] = [
   {
+    icon: FaUserTie,
     title: 'About Me',
     paragraphs: [
       "I'm Aminul, a MERN Stack Developer with a strong focus on building scalable, efficient, and visually compelling web applications. My expertise spans both frontend and backend technologies, ensuring seamless user experiences.",
@@ -26,8 +37,42 @@ const aboutMe: TAbout[] = [
       'Database: MongoDB, Postgresql, MySQL, Redis',
       'ORM: Mongoose, Prisma',
     ],
+    techStack: [
+      {
+        icon: FaCode,
+        title: 'Frontend',
+        items: [
+          'Next.js',
+          'React.js',
+          'Axios',
+          'Redux',
+          'Context API',
+          'TanStack Query',
+          'Tailwind CSS',
+          'Shadcn UI',
+          'Framer Motion',
+          'Aos',
+        ],
+      },
+      {
+        icon: FaServer,
+        title: 'Backend',
+        items: ['Node.js', 'Express.js', 'JWT', 'Ejs'],
+      },
+      {
+        icon: FaDatabase,
+        title: 'Database',
+        items: ['MongoDB', 'Postgresql', 'MySQL', 'Redis'],
+      },
+      {
+        icon: FaNetworkWired,
+        title: 'ORM',
+        items: ['Mongoose', 'Prisma'],
+      },
+    ],
   },
   {
+    icon: FaHistory,
     title: 'My Journey',
     paragraphs: [
       'My programming journey began after my HSC when I was searching for a direction in my career. I enrolled at Daffodil International University, choosing Computer Science and Engineering out of passion. Before discovering coding, I was uncertain about my future, often feeling lost. A friend introduced me to web development and recommended Programming Hero, and that moment changed everything for me.',
@@ -38,8 +83,14 @@ const aboutMe: TAbout[] = [
     ],
   },
   {
+    icon: FaHeart,
     title: 'My Hobbies and Interests',
-    paragraphs: [],
+    paragraphs: [
+      'Beyond the screen, I enjoy exploring the world through traveling, capturing moments with my camera, and the thrill of riding. These passions keep me grounded and inspired.',
+      'I also love playing football and watching matches, which helps me stay active and connected with my interests.',
+      'I also enjoy making and editing videos, which allows me to express my creativity and share my experiences with others.',
+      'These activities help me recharge, stay creative, and bring fresh perspectives to my work.',
+    ],
   },
 ];
 

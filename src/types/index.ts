@@ -30,6 +30,18 @@ export type TAbout = {
   title: string;
   paragraphs: string[];
   list?: string[];
+  techStack?: {
+    icon?: React.ElementType;
+    title: string;
+    items: string[];
+    color?: string;
+  }[];
+  timeline?: {
+    year: string;
+    title: string;
+    description: string;
+  }[];
+  icon?: React.ElementType;
 };
 
 export type THobby = {
