@@ -89,16 +89,15 @@ const NotFound = () => {
             <div className="w-full sm:w-auto">
               <BackButton
                 variant="outline"
-                className="h-10 w-full gap-2 rounded-full border-gray-200 bg-black text-sm text-white hover:bg-gray-800 hover:text-white sm:h-12 sm:w-auto sm:px-8 sm:text-base dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-white"
+                className="w-full gap-2 rounded-full border-gray-200 bg-black text-sm text-white hover:bg-gray-800 hover:text-white sm:h-12 sm:w-auto sm:px-8 sm:text-base dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-white"
               />
             </div>
             <Button
               asChild
-              size="lg"
-              className="h-10 w-full gap-2 rounded-full bg-blue-600 text-sm text-white shadow-lg shadow-blue-500/25 transition-transform hover:scale-105 hover:bg-blue-700 sm:h-12 sm:w-auto sm:px-8 sm:text-base dark:bg-blue-500 dark:hover:bg-blue-600"
+              className="bg-primary w-full gap-2 rounded-full text-sm text-white shadow-lg shadow-blue-500/25 transition-transform hover:bg-blue-700 sm:h-12 sm:w-auto sm:px-8 sm:text-base dark:bg-blue-500 dark:hover:bg-blue-600"
             >
               <Link href="/">
-                <Home className="h-4 w-4" />
+                <Home />
                 Back to Home
               </Link>
             </Button>
