@@ -18,9 +18,8 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { IUser } from '@/types';
-import { Globe } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import Link from 'next/link';
-import DashboardThemeToggle from './dashboard-theme-toggle';
 
 const FooterUser = ({ user }: { user: IUser }) => {
   const { isMobile } = useSidebar();
@@ -84,12 +83,10 @@ const FooterUser = ({ user }: { user: IUser }) => {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="mt-3" />
-            <DashboardThemeToggle />
-            <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Globe /> <Link href="/">Website</Link>
+                <Settings /> <Link href="/admin/settings">Settings</Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
