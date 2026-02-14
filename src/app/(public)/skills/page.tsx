@@ -14,7 +14,7 @@ const SkillsPage = () => {
 
 export default SkillsPage;
 
-// >> SEO Start
+// SEO Metatag
 export const metadata: Metadata = generateMetaTags({
   title: 'Technical Skills & Expertise | Md. Aminul Islam',
   description:
@@ -23,4 +23,3 @@ export const metadata: Metadata = generateMetaTags({
     'Aminul Islam Skills, JavaScript Expert, React Developer, Next.js Expert, Node.js Developer, MERN Stack Skills, TypeScript, Web Development Technologies, Programming Expertise, Software Engineering Skills',
   websitePath: '/skills',
 });
-// >> SEO End

@@ -14,7 +14,7 @@ const MyProfilePage = async () => {
 
 export default MyProfilePage;
 
-//  SEO
+//  SEO Metatag
 export async function generateMetadata() {
   const { data } = await getMe();
 

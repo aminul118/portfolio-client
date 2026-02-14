@@ -30,7 +30,7 @@ const ExperiencePage = async () => {
 
 export default ExperiencePage;
 
-//  SEO
+//  SEO Metatag
 export const metadata: Metadata = generateMetaTags({
   title: 'Professional Experience | Md. Aminul Islam',
   description:

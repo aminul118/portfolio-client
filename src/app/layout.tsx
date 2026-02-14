@@ -35,7 +35,7 @@ const MainLayout = ({ children }: Children) => {
 
 export default MainLayout;
 
-//  SEO
+//  SEO Metatag
 export const metadata: Metadata = generateMetaTags({
   title: 'Md. Aminul Islam | Full Stack Developer & SEO Specialist',
   description:

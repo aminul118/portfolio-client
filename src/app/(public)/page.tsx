@@ -26,7 +26,7 @@ const HomePage = async () => {
 
 export default HomePage;
 
-//  SEO
+//  SEO Metatag
 export const metadata: Metadata = generateMetaTags({
   title: 'Md. Aminul Islam | Full Stack Developer & SEO Specialist',
   description:

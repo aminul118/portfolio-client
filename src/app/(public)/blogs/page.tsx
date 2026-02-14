@@ -36,7 +36,7 @@ const BlogsPage = async ({ searchParams }: SearchParams) => {
 
 export default BlogsPage;
 
-//  SEO
+//  SEO Metatag
 export const metadata: Metadata = generateMetaTags({
   title: 'Tech Blogs & Insights | Md. Aminul Islam',
   description:

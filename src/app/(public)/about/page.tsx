@@ -12,7 +12,7 @@ const AboutPage = () => {
 
 export default AboutPage;
 
-// SEO
+// SEO Metatag
 export const metadata: Metadata = generateMetaTags({
   title: 'About Me | Md. Aminul Islam - Full Stack Developer',
   description:

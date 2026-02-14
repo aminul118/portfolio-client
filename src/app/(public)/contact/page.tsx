@@ -12,7 +12,7 @@ const ContactPage = () => {
 
 export default ContactPage;
 
-//  SEO
+//  SEO Metatag
 export const metadata: Metadata = generateMetaTags({
   title: 'Contact Me | Hire Full Stack Developer Md. Aminul Islam',
   description:

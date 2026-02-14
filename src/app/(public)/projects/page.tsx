@@ -30,7 +30,7 @@ const ProjectPage = async ({ searchParams }: SearchParams) => {
 
 export default ProjectPage;
 
-//  SEO
+//  SEO Metatag
 export const metadata: Metadata = generateMetaTags({
   title: 'Portfolio Projects | Md. Aminul Islam - Web Development Showcase',
   description:

@@ -28,7 +28,7 @@ const BlogDetailsPage = async ({ params }: Params) => {
 
 export default BlogDetailsPage;
 
-//  SEO
+//  SEO Metatag
 export async function generateMetadata({ params }: Params) {
   const { slug } = await params;
   const { data: blog } = await getSingleBlog(slug);
