@@ -3,8 +3,8 @@ import {
   BookOpen,
   Briefcase,
   FileCheck,
-  Gauge,
   Globe,
+  LayoutDashboard,
   SquareChartGantt,
   Users,
 } from 'lucide-react';
@@ -13,7 +13,7 @@ const adminSidebarMenu: MenuGroup[] = [
   {
     title: 'Menu',
     menu: [
-      { name: 'Dashboard', url: '/admin', icon: Gauge },
+      { name: 'Dashboard', url: '/admin', icon: LayoutDashboard },
       { name: 'Projects', url: '/admin/projects', icon: SquareChartGantt },
       { name: 'Blogs', url: '/admin/blogs', icon: BookOpen },
       { name: 'Experience', url: '/admin/experience', icon: Briefcase },
