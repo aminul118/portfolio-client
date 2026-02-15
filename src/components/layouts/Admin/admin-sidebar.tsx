@@ -1,4 +1,3 @@
-import { adminSidebarMenu } from '@/components/layouts/Admin/admin-menu';
 import { Separator } from '@/components/ui/separator';
 import {
   Sidebar,
@@ -26,7 +25,7 @@ const AdminSidebar = async () => {
       <Separator />
       <SidebarContent>
         {/* Sidebar Menu */}
-        <Menu menuData={adminSidebarMenu} />
+        <Menu />
       </SidebarContent>
       {/* Footer */}
       <SidebarFooter className="py-6">

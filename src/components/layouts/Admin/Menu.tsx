@@ -1,3 +1,6 @@
+'use client';
+
+import { adminSidebarMenu } from '@/components/layouts/Admin/admin-menu';
 import {
   Collapsible,
   CollapsibleContent,
@@ -13,15 +16,21 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
-import { MenuGroup } from '@/types';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-interface MenuProps {
-  menuData: MenuGroup[];
-}
+const Menu = () => {
+  const pathname = usePathname();
+  const menuData = adminSidebarMenu;
 
-const Menu = ({ menuData }: MenuProps) => {
+  const isLinkActive = (url: string) => {
+    if (url === '/admin') {
+      return pathname === '/admin';
+    }
+    return pathname === url || pathname.startsWith(`${url}/`);
+  };
+
   return (
     <>
       {menuData.map((group, gi) => (
@@ -31,12 +40,13 @@ const Menu = ({ menuData }: MenuProps) => {
           <SidebarMenu>
             {group.menu.map((menu, i) => {
               const hasSubMenu = menu.subMenu && menu.subMenu.length > 0;
+              const active = isLinkActive(menu.url);
 
               if (!hasSubMenu) {
                 // Single menu item
                 return (
                   <SidebarMenuItem key={i}>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton asChild isActive={active}>
                       <Link href={menu.url}>
                         {menu.icon && <menu.icon />}
                         <span>{menu.name}</span>
@@ -48,10 +58,14 @@ const Menu = ({ menuData }: MenuProps) => {
 
               // Collapsible menu
               return (
-                <Collapsible key={i} className="group/collapsible">
+                <Collapsible
+                  key={i}
+                  className="group/collapsible"
+                  defaultOpen={active}
+                >
                   <SidebarMenuItem>
                     <CollapsibleTrigger asChild>
-                      <SidebarMenuButton asChild>
+                      <SidebarMenuButton asChild isActive={active}>
                         <div>
                           {menu.icon && <menu.icon />}
                           <span>{menu.name}</span>
@@ -61,18 +75,24 @@ const Menu = ({ menuData }: MenuProps) => {
                     </CollapsibleTrigger>
                     <CollapsibleContent>
                       <SidebarMenuSub>
-                        {menu.subMenu?.map((subItem, j) => (
-                          <SidebarMenuSubItem key={j} className="text-sm">
-                            <SidebarMenuSubButton asChild>
-                              <Link
-                                href={subItem.url}
-                                className="block rounded px-2 py-1"
+                        {menu.subMenu?.map((subItem, j) => {
+                          const subActive = isLinkActive(subItem.url);
+                          return (
+                            <SidebarMenuSubItem key={j} className="text-sm">
+                              <SidebarMenuSubButton
+                                asChild
+                                isActive={subActive}
                               >
-                                {subItem.name}
-                              </Link>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
+                                <Link
+                                  href={subItem.url}
+                                  className="block rounded px-2 py-1"
+                                >
+                                  {subItem.name}
+                                </Link>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          );
+                        })}
                       </SidebarMenuSub>
                     </CollapsibleContent>
                   </SidebarMenuItem>
