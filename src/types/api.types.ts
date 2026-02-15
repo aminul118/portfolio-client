@@ -116,9 +116,15 @@ export interface IInvoice {
 export interface IStats {
   userCount: number;
   projectCount: number;
+  blogCount: number;
   invoice: {
-    invoiceCount: number;
+    totalCount: number;
     totalEarnings: number;
     totalDue: number;
+    statusDistribution: {
+      PAID: number;
+      UNPAID: number;
+      PENDING: number;
+    };
   };
 }

@@ -3,7 +3,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const BlogDetailsLoading = () => {
   return (
-    <Container>
+    <Container className="py-20 lg:py-24">
       {/* Title */}
       <Skeleton className="h-9 w-3/4 sm:h-10" />
 
