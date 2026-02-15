@@ -13,6 +13,18 @@ const SingleImageUploader = ({ onChange, defaultValue }: ImageDropProps) => {
   const maxSizeMB = 2;
   const maxSize = maxSizeMB * 1024 * 1024;
 
+  const initialFiles = defaultValue
+    ? [
+        {
+          name: 'Thumbnail',
+          size: 0,
+          type: 'image/jpeg',
+          url: defaultValue,
+          id: 'initial-thumbnail',
+        },
+      ]
+    : [];
+
   const [
     { files, isDragging, errors },
     {
@@ -27,27 +39,30 @@ const SingleImageUploader = ({ onChange, defaultValue }: ImageDropProps) => {
   ] = useFileUpload({
     accept: 'image/svg+xml,image/png,image/jpeg,image/jpg,image/gif',
     maxSize,
+    initialFiles,
   });
 
-  const previewUrl = files[0]?.preview || defaultValue || null;
+  const previewUrl = files[0]?.preview || null;
 
   // Propagate value to parent (react-hook-form)
   useEffect(() => {
     if (files.length > 0) {
-      onChange(files[0].file as File);
+      const currentFile = files[0].file;
+      if (currentFile instanceof File) {
+        onChange(currentFile);
+      } else {
+        // It's the initial string URL, we can pass null or keep it as is if handles strings
+        // However, for single uploader, if it's the initial one, we don't want to trigger a 'change' to the form
+        // unless they specifically change it. But for Zod compliance in UpdateBlogModal,
+        // if we don't change anything, we want to keep it as it was (which is handled by serverFetch logic).
+        // Actually, if it's initial, we should probably pass the string URL or null.
+        // Let's pass the URL so the form knows it's still there.
+        onChange(currentFile.url as any);
+      }
     } else {
       onChange(null);
     }
   }, [files, onChange]);
-
-  // Best-effort cleanup if the hook provides blob URLs
-  useEffect(() => {
-    return () => {
-      if (previewUrl && previewUrl.startsWith('blob:')) {
-        URL.revokeObjectURL(previewUrl);
-      }
-    };
-  }, [previewUrl]);
 
   return (
     <div className="flex flex-col gap-2">

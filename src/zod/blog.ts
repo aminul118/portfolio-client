@@ -14,7 +14,10 @@ const updateBlogSchema = z.object({
   content: z
     .string()
     .min(10, { message: 'Content must be at least 10 characters.' }),
-  thumbnail: z.instanceof(File).optional().nullable(),
+  thumbnail: z
+    .union([z.instanceof(File), z.string()])
+    .optional()
+    .nullable(),
   photos: z
     .array(z.union([z.instanceof(File), z.string()]))
     .optional()

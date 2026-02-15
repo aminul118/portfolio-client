@@ -44,6 +44,8 @@ const UpdateBlogModal = ({ blog, open, setOpen }: Props) => {
     defaultValues: {
       title: blog.title || '',
       content: blog.content || '',
+      thumbnail: blog.thumbnail || null,
+      photos: blog.photos || [],
     },
   });
 
@@ -52,6 +54,8 @@ const UpdateBlogModal = ({ blog, open, setOpen }: Props) => {
       form.reset({
         title: blog.title,
         content: blog.content,
+        thumbnail: blog.thumbnail,
+        photos: blog.photos,
       });
     }
   }, [blog, form]);
@@ -72,6 +76,7 @@ const UpdateBlogModal = ({ blog, open, setOpen }: Props) => {
       'data',
       JSON.stringify({
         ...rest,
+        thumbnail: thumbnail instanceof File ? undefined : thumbnail,
         photos: remainingPhotos,
       }),
     );
