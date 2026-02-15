@@ -1,3 +1,4 @@
+import { AdminSidebarSkeleton } from '@/components/layouts/Admin/AdminSidebarSkeleton';
 import DashboardBreadcrumb from '@/components/layouts/Admin/DashboardBreadcrumb ';
 import AdminSidebar from '@/components/layouts/Admin/admin-sidebar';
 import { Separator } from '@/components/ui/separator';
@@ -8,12 +9,15 @@ import {
 } from '@/components/ui/sidebar';
 import { Children } from '@/types';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
-const AdminLayout = async ({ children }: Children) => {
+const AdminLayout = ({ children }: Children) => {
   return (
     <SidebarProvider>
       {/* Sidebar */}
-      <AdminSidebar />
+      <Suspense fallback={<AdminSidebarSkeleton />}>
+        <AdminSidebar />
+      </Suspense>
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
