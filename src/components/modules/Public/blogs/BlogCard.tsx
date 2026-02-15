@@ -1,7 +1,6 @@
 'use client';
 
 import DateFormat from '@/components/common/formater/date-format';
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { IBlog } from '@/types';
 import { motion } from 'framer-motion';
@@ -40,14 +39,14 @@ const BlogCard = ({ title, content, thumbnail, createdAt, slug }: IBlog) => {
           <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-80" />
 
           {/* Float Badge */}
-          <div className="absolute top-4 left-4">
+          {/* <div className="absolute top-4 left-4">
             <Badge
               variant="secondary"
               className="bg-blue-600/80 text-xs font-semibold text-white backdrop-blur-md hover:bg-blue-600"
             >
               Article
             </Badge>
-          </div>
+          </div> */}
         </div>
 
         <CardContent className="flex flex-col gap-3 p-6">
@@ -63,7 +62,7 @@ const BlogCard = ({ title, content, thumbnail, createdAt, slug }: IBlog) => {
           </h3>
 
           {/* Excerpt */}
-          <p className="line-clamp-3 text-sm leading-relaxed text-slate-400">
+          <p className="line-clamp-2 text-sm leading-relaxed text-slate-400">
             {getExcerpt(content, 120)}
           </p>
 
