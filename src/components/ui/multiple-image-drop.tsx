@@ -39,13 +39,25 @@ import { useEffect } from 'react';
 //   },
 // ];
 interface ImageDropProps {
-  onChange: (files: File[] | null) => void;
+  onChange: (files: (File | string)[] | null) => void;
+  defaultValues?: string[];
 }
 
-export default function MultipleImageDrop({ onChange }: ImageDropProps) {
+export default function MultipleImageDrop({
+  onChange,
+  defaultValues = [],
+}: ImageDropProps) {
   const maxSizeMB = 5;
   const maxSize = maxSizeMB * 1024 * 1024; // 5MB default
-  const maxFiles = 4;
+  const maxFiles = 10;
+
+  const initialFiles = defaultValues.map((url, index) => ({
+    name: `image-${index + 1}`,
+    size: 0,
+    type: 'image/jpeg',
+    url: url,
+    id: `initial-${index}`,
+  }));
 
   const [
     { files, isDragging, errors },
@@ -63,20 +75,19 @@ export default function MultipleImageDrop({ onChange }: ImageDropProps) {
     maxSize,
     multiple: true,
     maxFiles,
-    // initialFiles,
+    initialFiles,
   });
 
-  const photos = files
-    .map((f) => f.file)
-    .filter((f): f is File => f instanceof File);
-
   useEffect(() => {
-    const photoFiles = files
-      .map((f) => f.file)
-      .filter((f): f is File => f instanceof File);
+    const allFiles = files.map((f) => {
+      if (f.file instanceof File) {
+        return f.file;
+      }
+      return f.file.url; // Existing image URL
+    });
 
     // ONLY update parent when photos truly change
-    onChange(photoFiles.length > 0 ? photoFiles : null);
+    onChange(allFiles.length > 0 ? allFiles : null);
   }, [files]);
 
   return (
@@ -89,7 +100,7 @@ export default function MultipleImageDrop({ onChange }: ImageDropProps) {
         onDrop={handleDrop}
         data-dragging={isDragging || undefined}
         data-files={files.length > 0 || undefined}
-        className="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 relative flex min-h-52 flex-col items-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors not-data-[files]:justify-center has-[input:focus]:ring-[3px]"
+        className="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 relative flex min-h-52 flex-col items-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors not-data-files:justify-center has-[input:focus]:ring-[3px]"
       >
         <input
           {...getInputProps()}

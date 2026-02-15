@@ -5,8 +5,20 @@ const addBlogSchema = z.object({
   content: z
     .string()
     .min(10, { message: 'Content must be at least 10 characters.' }),
-  thumbnail: z.instanceof(File).optional().or(z.null()),
-  photos: z.array(z.instanceof(File)).optional(),
+  thumbnail: z.instanceof(File, { message: 'Thumbnail is required.' }),
+  photos: z.array(z.instanceof(File)).optional().nullable(),
 });
 
-export { addBlogSchema };
+const updateBlogSchema = z.object({
+  title: z.string().min(3, { message: 'Title must be at least 3 characters.' }),
+  content: z
+    .string()
+    .min(10, { message: 'Content must be at least 10 characters.' }),
+  thumbnail: z.instanceof(File).optional().nullable(),
+  photos: z
+    .array(z.union([z.instanceof(File), z.string()]))
+    .optional()
+    .nullable(),
+});
+
+export { addBlogSchema, updateBlogSchema };

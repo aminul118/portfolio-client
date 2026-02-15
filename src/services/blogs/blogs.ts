@@ -8,11 +8,13 @@ const createBlog = async (formData: FormData) => {
   const body = new FormData();
 
   body.append('data', formData.get('data') as string);
-  body.append('thumbnail', formData.get('thumbnail') as File);
-  body.append('photos', formData.getAll('photos').toString());
+
+  const thumbnail = formData.get('thumbnail');
+  if (thumbnail) {
+    body.append('thumbnail', thumbnail as File);
+  }
 
   const photos = formData.getAll('photos') as File[];
-
   photos.forEach((file) => {
     body.append('photos', file);
   });
@@ -24,13 +26,22 @@ const createBlog = async (formData: FormData) => {
   return res;
 };
 
-const updateBlog = async (formData: FormData, slug: string) => {
+const updateBlog = async (formData: FormData, id: string) => {
   const body = new FormData();
 
   body.append('data', formData.get('data') as string);
-  body.append('file', formData.get('file') as File);
 
-  const res = await serverFetch.post<ApiResponse<IBlog>>(`/blogs/${slug}`, {
+  const thumbnail = formData.get('thumbnail');
+  if (thumbnail) {
+    body.append('thumbnail', thumbnail as File);
+  }
+
+  const photos = formData.getAll('photos') as File[];
+  photos.forEach((file) => {
+    body.append('photos', file);
+  });
+
+  const res = await serverFetch.patch<ApiResponse<IBlog>>(`/blogs/${id}`, {
     body,
   });
   revalidate('blog');
@@ -51,8 +62,8 @@ const getSingleBlog = async (slug: string) => {
   return await serverFetch.get<ApiResponse<IBlog>>(`/blogs/${slug}`);
 };
 
-const deleteSingleBlog = async (slug: string) => {
-  const res = await serverFetch.delete<ApiResponse<IBlog>>(`/blogs/${slug}`);
+const deleteSingleBlog = async (id: string) => {
+  const res = await serverFetch.delete<ApiResponse<IBlog>>(`/blogs/${id}`);
   revalidate('blog');
   return res;
 };

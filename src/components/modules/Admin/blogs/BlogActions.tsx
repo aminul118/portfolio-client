@@ -11,13 +11,15 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { deleteSingleBlog } from '@/services/blogs/blogs';
 import { IBlog } from '@/types/api.types';
-import { EllipsisIcon, EyeIcon, Trash2Icon } from 'lucide-react';
+import { EllipsisIcon, EyeIcon, PencilIcon, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
 import ShowBlogModal from './ShowBlogModal';
+import UpdateBlogModal from './UpdateBlogModal';
 
 const BlogActions = ({ blog }: { blog: IBlog }) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [showDetailsOpen, setShowDetailsOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
 
   const handleDelete = async (id: string) => {
     const res = await deleteSingleBlog(id);
@@ -46,6 +48,11 @@ const BlogActions = ({ blog }: { blog: IBlog }) => {
             <span>Details</span>
           </DropdownMenuItem>
 
+          <DropdownMenuItem onClick={() => setEditOpen(true)}>
+            <PencilIcon className="mr-2 h-4 w-4" />
+            <span>Edit</span>
+          </DropdownMenuItem>
+
           <DropdownMenuSeparator />
           <DropdownMenuItem
             className="text-destructive focus:text-destructive"
@@ -70,6 +77,8 @@ const BlogActions = ({ blog }: { blog: IBlog }) => {
         open={showDetailsOpen}
         setOpen={setShowDetailsOpen}
       />
+
+      <UpdateBlogModal blog={blog} open={editOpen} setOpen={setEditOpen} />
     </>
   );
 };

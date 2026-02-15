@@ -3,16 +3,11 @@
 import SubmitButton from '@/components/common/button/submit-button';
 import ReactQuil from '@/components/common/rich-text/ReactQuil';
 import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -26,74 +21,91 @@ import { Input } from '@/components/ui/input';
 import MultipleImageDrop from '@/components/ui/multiple-image-drop';
 import SingleImageUploader from '@/components/ui/single-image-uploader';
 import useActionHandler from '@/hooks/useActionHandler';
-import { createBlog } from '@/services/blogs/blogs';
-import { addBlogSchema } from '@/zod/blog';
+import { updateBlog } from '@/services/blogs/blogs';
+import { IBlog, IModal } from '@/types';
+import { updateBlogSchema } from '@/zod/blog';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Plus, X } from 'lucide-react';
-import { Suspense, useState } from 'react';
+import { Save } from 'lucide-react';
+import { Suspense, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-type FormValues = z.infer<typeof addBlogSchema>;
+type FormValues = z.infer<typeof updateBlogSchema>;
 
-const AddBlogDialog = () => {
-  const [open, setOpen] = useState(false);
+interface Props extends IModal {
+  blog: IBlog;
+}
+
+const UpdateBlogModal = ({ blog, open, setOpen }: Props) => {
   const { executePost } = useActionHandler();
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(addBlogSchema),
+    resolver: zodResolver(updateBlogSchema),
     defaultValues: {
-      title: '',
-      content: '',
+      title: blog.title || '',
+      content: blog.content || '',
     },
   });
+
+  useEffect(() => {
+    if (blog) {
+      form.reset({
+        title: blog.title,
+        content: blog.content,
+      });
+    }
+  }, [blog, form]);
 
   //  Submit handler
   const onSubmit = async (data: FormValues) => {
     const formData = new FormData();
 
-    // Exclude the raw Files from the JSON blob
+    // 1. Separate new files and existing URLs
     const { thumbnail, photos, ...rest } = data;
-    formData.append('data', JSON.stringify(rest));
 
+    const newPhotos = photos?.filter((p): p is File => p instanceof File) || [];
+    const remainingPhotos =
+      photos?.filter((p): p is string => typeof p === 'string') || [];
+
+    // 2. Add standard data with remaining photo URLs
+    formData.append(
+      'data',
+      JSON.stringify({
+        ...rest,
+        photos: remainingPhotos,
+      }),
+    );
+
+    // 3. Append new thumbnail if selected
     if (thumbnail instanceof File) {
       formData.append('thumbnail', thumbnail);
     }
 
-    if (photos && photos.length > 0) {
-      photos.forEach((photo) => {
+    // 4. Append all new photo files
+    if (newPhotos.length > 0) {
+      newPhotos.forEach((photo) => {
         formData.append('photos', photo);
       });
     }
 
     await executePost({
-      action: () => createBlog(formData),
+      action: () => updateBlog(formData, blog._id),
       success: {
         onSuccess: () => {
-          form.reset();
           setOpen(false);
         },
-        loadingText: 'Blog adding...',
-        message: 'Blog added successfully',
+        loadingText: 'Blog updating...',
+        message: 'Blog updated successfully',
       },
     });
   };
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
-        <Button>
-          <Plus /> Add Blog
-        </Button>
-      </AlertDialogTrigger>
-
-      <AlertDialogContent className="lg:max-w-4xl">
-        <AlertDialogHeader>
-          <AlertDialogTitle>Add Blog</AlertDialogTitle>
-          <AlertDialogDescription>
-            Please fill in your blog details below.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className="scrollbar-thin max-h-[90vh] overflow-y-auto lg:max-w-4xl">
+        <DialogHeader>
+          <DialogTitle>Update Blog</DialogTitle>
+        </DialogHeader>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -122,12 +134,10 @@ const AddBlogDialog = () => {
                 name="thumbnail"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      Thumbnail <span className="text-destructive">*</span>
-                    </FormLabel>
+                    <FormLabel>Thumbnail (Optional)</FormLabel>
                     <FormControl>
-                      {/* Pass the onChange handler AS A PROP */}
                       <SingleImageUploader
+                        defaultValue={blog.thumbnail}
                         onChange={(file) => field.onChange(file)}
                       />
                     </FormControl>
@@ -141,10 +151,10 @@ const AddBlogDialog = () => {
                 name="photos"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Photos</FormLabel>
+                    <FormLabel>Photos (Optional)</FormLabel>
                     <FormControl>
-                      {/* Pass the onChange handler AS A PROP */}
                       <MultipleImageDrop
+                        defaultValues={blog.photos}
                         onChange={(file) => field.onChange(file)}
                       />
                     </FormControl>
@@ -175,25 +185,20 @@ const AddBlogDialog = () => {
               )}
             />
 
-            {/* Submit */}
-
-            <AlertDialogFooter className="pt-4">
-              <AlertDialogCancel type="button">
-                <X /> Cancel
-              </AlertDialogCancel>
+            <div className="flex justify-end pt-4">
               <SubmitButton
                 loading={form.formState.isSubmitting}
-                text="Blog add"
+                text="Update Blog"
                 loadingEffect
-                loadingText="Blog adding"
-                icon={<Plus />}
+                loadingText="Updating..."
+                icon={<Save className="h-4 w-4" />}
               />
-            </AlertDialogFooter>
+            </div>
           </form>
         </Form>
-      </AlertDialogContent>
-    </AlertDialog>
+      </DialogContent>
+    </Dialog>
   );
 };
 
-export default AddBlogDialog;
+export default UpdateBlogModal;

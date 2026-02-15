@@ -6,9 +6,10 @@ import { useEffect } from 'react';
 
 interface ImageDropProps {
   onChange: (file: File | null) => void;
+  defaultValue?: string;
 }
 
-const SingleImageUploader = ({ onChange }: ImageDropProps) => {
+const SingleImageUploader = ({ onChange, defaultValue }: ImageDropProps) => {
   const maxSizeMB = 2;
   const maxSize = maxSizeMB * 1024 * 1024;
 
@@ -28,7 +29,7 @@ const SingleImageUploader = ({ onChange }: ImageDropProps) => {
     maxSize,
   });
 
-  const previewUrl = files[0]?.preview || null;
+  const previewUrl = files[0]?.preview || defaultValue || null;
 
   // Propagate value to parent (react-hook-form)
   useEffect(() => {
