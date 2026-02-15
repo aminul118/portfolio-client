@@ -1,34 +1,80 @@
+'use client';
+
 import DateFormat from '@/components/common/formater/date-format';
-import { Card, CardContent, CardTitle } from '@/components/ui/card';
-import HtmlContent from '@/components/ui/HtmlContent';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 import { IBlog } from '@/types';
+import { motion } from 'framer-motion';
+import { ArrowRight, Calendar } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const BlogCard = ({ title, content, thumbnail, createdAt, slug }: IBlog) => {
+  // Simple helper to strip HTML and truncate for the excerpt
+  const getExcerpt = (html: string, limit: number = 100) => {
+    const stripped = html.replace(/<[^>]*>?/gm, '');
+    return stripped.length > limit
+      ? stripped.substring(0, limit) + '...'
+      : stripped;
+  };
+
   return (
-    <Link href={`/blogs/${slug}`}>
-      <Card className="overflow-hidden pt-0">
-        <div className="relative overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      whileHover={{ y: -5 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+    >
+      <Card className="group relative h-full overflow-hidden border-white/10 bg-slate-900/50 px-0 pt-0 backdrop-blur-sm transition-all duration-300 hover:border-blue-500/50 hover:shadow-[0_0_30px_-10px_rgba(59,130,246,0.5)]">
+        {/* Image Container */}
+        <div className="relative aspect-video w-full overflow-hidden">
           <Image
             src={thumbnail || '/default-avatar.png'}
-            width={400}
-            height={200}
-            alt={title || 'Blogs'}
-            priority
-            className="h-48 w-full object-cover transition-transform duration-500 ease-in-out hover:scale-110 xl:h-70"
+            fill
+            alt={title || 'Blog Post'}
+            className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
+          {/* Overlay Gradient */}
+          <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-80" />
+
+          {/* Float Badge */}
+          <div className="absolute top-4 left-4">
+            <Badge
+              variant="secondary"
+              className="bg-blue-600/80 text-xs font-semibold text-white backdrop-blur-md hover:bg-blue-600"
+            >
+              Article
+            </Badge>
+          </div>
         </div>
-        <CardContent>
-          <CardTitle className="mb-1 text-lg font-semibold">{title}</CardTitle>
-          <p className="text-xs text-gray-500">
-            Post Date: <DateFormat date={createdAt} />
+
+        <CardContent className="flex flex-col gap-3 p-6">
+          {/* Meta Info */}
+          <div className="flex items-center gap-2 text-xs font-medium text-slate-400">
+            <Calendar className="size-3 text-blue-400" />
+            <DateFormat date={createdAt} />
+          </div>
+
+          {/* Title */}
+          <h3 className="line-clamp-2 text-xl font-bold text-white transition-colors duration-300 group-hover:text-blue-400">
+            {title}
+          </h3>
+
+          {/* Excerpt */}
+          <p className="line-clamp-3 text-sm leading-relaxed text-slate-400">
+            {getExcerpt(content, 120)}
           </p>
 
-          <HtmlContent content={content} />
+          {/* Footer / Read More */}
+          <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-blue-400 transition-all duration-300 group-hover:gap-3">
+            <Link href={`/blogs/${slug}`}>Read Article</Link>
+            <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </div>
         </CardContent>
       </Card>
-    </Link>
+    </motion.div>
   );
 };
 

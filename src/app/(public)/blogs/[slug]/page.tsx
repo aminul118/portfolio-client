@@ -1,6 +1,8 @@
 import DateFormat from '@/components/common/formater/date-format';
 import Container from '@/components/ui/Container';
 import HtmlContent from '@/components/ui/HtmlContent';
+import metaConfig from '@/config/meta.config';
+import { generateJsonLd } from '@/seo/generateJsonLd';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { getSingleBlog } from '@/services/blogs/blogs';
 import { Params } from '@/types';
@@ -13,16 +15,58 @@ const BlogDetailsPage = async ({ params }: Params) => {
   if (!blog) {
     notFound();
   }
-  const { content, createdAt, title, thumbnail } = blog;
+  const { content, createdAt, title, updatedAt, thumbnail } = blog;
+
+  // JSON-LD data for BlogPosting
+  const jsonLd = generateJsonLd('BlogPosting', {
+    headline: title,
+    image: thumbnail || metaConfig.baseImage,
+    datePublished: createdAt,
+    dateModified: updatedAt,
+    author: {
+      '@type': 'Person',
+      name: metaConfig.authors_name,
+      url: metaConfig.authorPortfolio,
+    },
+    description: content?.replace(/<[^>]*>/g, '').slice(0, 160),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${metaConfig.baseUrl}/blogs/${slug}`,
+    },
+  });
 
   return (
-    <Container>
-      <h1 className="text-3xl font-bold">{title}</h1>
-      <p className="text-xs text-gray-500">
-        Post Date: <DateFormat date={createdAt} />
-      </p>
-      <HtmlContent content={content} className="mt-8" />
-    </Container>
+    <article>
+      {/* Dynamic JSON-LD structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd}
+        key="blog-jsonld"
+      />
+
+      <Container className="py-20 lg:py-24">
+        <header className="mb-8 space-y-4">
+          <h1 className="text-3xl font-extrabold tracking-tight text-white md:text-5xl">
+            {title}
+          </h1>
+          <div className="flex items-center gap-3 text-sm text-slate-400">
+            <span className="font-medium text-blue-400">
+              {metaConfig.authors_name}
+            </span>
+            <span className="text-slate-600">•</span>
+            <div className="flex items-center gap-1">
+              <span>Post Date:</span>
+              <DateFormat date={createdAt} />
+            </div>
+          </div>
+        </header>
+
+        <HtmlContent
+          content={content}
+          className="prose prose-invert prose-blue prose-headings:text-white prose-p:text-slate-300 prose-a:text-blue-400 max-w-none"
+        />
+      </Container>
+    </article>
   );
 };
 
@@ -37,11 +81,13 @@ export async function generateMetadata({ params }: Params) {
     notFound();
   }
   const { content, title, thumbnail } = blog;
+  const description = content?.replace(/<[^>]*>/g, '').slice(0, 160) || '';
+
   return generateMetaTags({
-    title: `${title}`,
-    description: content?.replace(/<[^>]*>/g, '').slice(0, 160) || '',
-    keywords: `${title}, Blog`,
-    image: thumbnail || '',
+    title: `${title} | Aminul Islam Blog`,
+    description,
+    keywords: `${title}, Aminul Islam, Web Development, Tech Blog, Next.js`,
+    image: thumbnail || metaConfig.baseImage,
     websitePath: `/blogs/${slug}`,
   });
 }
