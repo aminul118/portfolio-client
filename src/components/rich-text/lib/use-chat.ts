@@ -19,7 +19,7 @@ import { type PlateEditor, useEditorRef, usePluginOption } from 'platejs/react';
 import { aiChatPlugin } from '@/components/rich-text/kits/ai-kit';
 
 import { withAIBatch } from '@platejs/ai';
-import { discussionPlugin } from './discussion-kit';
+import { discussionPlugin } from '../kits/discussion-kit';
 
 export type ToolName = 'comment' | 'edit' | 'generate';
 

@@ -1,5 +1,8 @@
 // @ts-nocheck
-import type { ChatMessage, ToolName } from '@/components/use-chat';
+import type {
+  ChatMessage,
+  ToolName,
+} from '@/components/rich-text/lib/use-chat';
 import type { NextRequest } from 'next/server';
 
 import { createGateway } from '@ai-sdk/gateway';

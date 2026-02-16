@@ -4,6 +4,13 @@ import * as React from 'react';
 
 import type { WithRequiredKey } from 'platejs';
 
+import { Button, buttonVariants } from '@/components/ui/button';
+import {
+  Popover,
+  PopoverAnchor,
+  PopoverContent,
+} from '@/components/ui/popover';
+import { Separator } from '@/components/ui/separator';
 import {
   FloatingMedia as FloatingMediaPrimitive,
   FloatingMediaStore,
@@ -22,19 +29,32 @@ import {
   useSelected,
 } from 'platejs/react';
 
-import { Button, buttonVariants } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverAnchor,
-  PopoverContent,
-} from '@/components/ui/popover';
-import { Separator } from '@/components/ui/separator';
-
+import { deleteImage } from '../actions/cloudinary';
 import { CaptionButton } from './caption';
 
 const inputVariants = cva(
   'flex h-[28px] w-full rounded-md border-none bg-transparent px-1.5 py-1 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-transparent md:text-sm',
 );
+
+// Helper to extract Cloudinary public ID from URL
+function getPublicIdFromUrl(url: string) {
+  try {
+    if (!url || !url.includes('cloudinary.com')) return null;
+    const parts = url.split('/upload/');
+    if (parts.length < 2) return null;
+    let path = parts[1];
+    // Remove version (e.g., v16151515/)
+    path = path.replace(/^v\d+\//, '');
+    // Remove extension
+    const lastDotIndex = path.lastIndexOf('.');
+    if (lastDotIndex !== -1) {
+      path = path.substring(0, lastDotIndex);
+    }
+    return path;
+  } catch (e) {
+    return null;
+  }
+}
 
 export function MediaToolbar({
   children,
@@ -106,7 +126,26 @@ export function MediaToolbar({
 
             <Separator orientation="vertical" className="mx-1 h-6" />
 
-            <Button size="sm" variant="ghost" {...buttonProps}>
+            <Button
+              size="sm"
+              variant="ghost"
+              {...buttonProps}
+              onClick={async (e) => {
+                const elementData = element as any;
+                const publicId =
+                  elementData.publicId || getPublicIdFromUrl(elementData.url);
+
+                if (publicId) {
+                  try {
+                    await deleteImage(publicId);
+                  } catch (error) {
+                    console.error('Failed to delete image:', error);
+                  }
+                }
+                // @ts-ignore
+                buttonProps.onClick?.(e);
+              }}
+            >
               <Trash2Icon />
             </Button>
           </div>
