@@ -9,13 +9,16 @@ import {
   CalendarIcon,
   ChevronRightIcon,
   Code2,
+  Columns2Icon,
   Columns3Icon,
+  Columns4Icon,
   Heading1Icon,
   Heading2Icon,
   Heading3Icon,
   LightbulbIcon,
   ListIcon,
   ListOrdered,
+  MinusIcon,
   PilcrowIcon,
   Quote,
   RadicalIcon,
@@ -144,6 +147,12 @@ const groups: Group[] = [
         label: 'Callout',
         value: KEYS.callout,
       },
+      {
+        icon: <MinusIcon />,
+        keywords: ['line', 'hr', 'divider', 'separator'],
+        label: 'Divider',
+        value: KEYS.hr,
+      },
     ].map((item) => ({
       ...item,
       onSelect: (editor, value) => {
@@ -161,9 +170,19 @@ const groups: Group[] = [
         value: KEYS.toc,
       },
       {
+        icon: <Columns2Icon />,
+        label: '2 columns',
+        value: 'action_two_columns',
+      },
+      {
         icon: <Columns3Icon />,
         label: '3 columns',
         value: 'action_three_columns',
+      },
+      {
+        icon: <Columns4Icon />,
+        label: '4 columns',
+        value: 'action_four_columns',
       },
       {
         focusEditor: false,

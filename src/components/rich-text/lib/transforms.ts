@@ -27,7 +27,9 @@ import {
   PathApi,
 } from 'platejs';
 
+const ACTION_TWO_COLUMNS = 'action_two_columns';
 const ACTION_THREE_COLUMNS = 'action_three_columns';
+const ACTION_FOUR_COLUMNS = 'action_four_columns';
 
 const insertList = (editor: PlateEditor, type: string) => {
   editor.tf.insertNodes(
@@ -46,8 +48,12 @@ const insertBlockMap: Record<
   [KEYS.listTodo]: insertList,
   [KEYS.ol]: insertList,
   [KEYS.ul]: insertList,
+  [ACTION_TWO_COLUMNS]: (editor) =>
+    insertColumnGroup(editor, { columns: 2, select: true }),
   [ACTION_THREE_COLUMNS]: (editor) =>
     insertColumnGroup(editor, { columns: 3, select: true }),
+  [ACTION_FOUR_COLUMNS]: (editor) =>
+    insertColumnGroup(editor, { columns: 4, select: true }),
   [KEYS.audio]: (editor) => insertAudioPlaceholder(editor, { select: true }),
   [KEYS.callout]: (editor) => insertCallout(editor, { select: true }),
   [KEYS.codeBlock]: (editor) => insertCodeBlock(editor, { select: true }),
@@ -160,7 +166,9 @@ const setBlockMap: Record<
   [KEYS.listTodo]: setList,
   [KEYS.ol]: setList,
   [KEYS.ul]: setList,
+  [ACTION_TWO_COLUMNS]: (editor) => toggleColumnGroup(editor, { columns: 2 }),
   [ACTION_THREE_COLUMNS]: (editor) => toggleColumnGroup(editor, { columns: 3 }),
+  [ACTION_FOUR_COLUMNS]: (editor) => toggleColumnGroup(editor, { columns: 4 }),
   [KEYS.codeBlock]: (editor) => toggleCodeBlock(editor),
 };
 
