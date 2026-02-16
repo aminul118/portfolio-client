@@ -13,7 +13,6 @@ import {
   ComboboxPopover,
   ComboboxProvider,
   ComboboxRow,
-  Portal,
   useComboboxContext,
   useComboboxStore,
 } from '@ariakit/react';
@@ -294,16 +293,14 @@ const InlineComboboxContent: typeof ComboboxPopover = ({
   }
 
   return (
-    <Portal>
-      <ComboboxPopover
-        className={cn(
-          'bg-popover z-500 max-h-[288px] w-[300px] overflow-y-auto rounded-md shadow-md',
-          className,
-        )}
-        onKeyDownCapture={handleKeyDown}
-        {...props}
-      />
-    </Portal>
+    <ComboboxPopover
+      className={cn(
+        'bg-popover pointer-events-auto z-[9999] max-h-[288px] w-[300px] overflow-y-auto rounded-md shadow-md',
+        className,
+      )}
+      onKeyDownCapture={handleKeyDown}
+      {...props}
+    />
   );
 };
 

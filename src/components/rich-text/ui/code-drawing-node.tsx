@@ -397,7 +397,7 @@ function CodeDrawingToolbar({
           >
             <SelectValue />
           </SelectTrigger>
-          <SelectContent className="z-[100]">
+          <SelectContent className="z-100">
             {CODE_DRAWING_TYPE_ARRAY.map((item) => (
               <SelectItem key={item.value} value={item.value}>
                 {item.label}
@@ -421,7 +421,7 @@ function CodeDrawingToolbar({
           >
             <SelectValue />
           </SelectTrigger>
-          <SelectContent className="z-[100]">
+          <SelectContent className="z-100">
             {VIEW_MODE_ARRAY.map((item) => (
               <SelectItem key={item.value} value={item.value}>
                 {item.label}

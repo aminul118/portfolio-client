@@ -43,7 +43,7 @@ const PlateRichEditor = ({
       >
         <EditorContainer
           style={{ minHeight: height }}
-          className="bg-background overflow-hidden rounded-md border"
+          className="bg-background rounded-md border"
         >
           <Editor variant="fullWidth" className="p-4 focus:outline-none" />
         </EditorContainer>
