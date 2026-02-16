@@ -194,7 +194,7 @@ const InlineCombobox = ({
   }, [items, store]);
 
   return (
-    <span contentEditable={false}>
+    <span contentEditable={false} className="select-none">
       <ComboboxProvider
         open={
           (items.length > 0 || hasEmpty) &&
@@ -238,9 +238,9 @@ const InlineComboboxInput = ({
 
   return (
     <>
-      {showTrigger && trigger}
+      {showTrigger && <span className="select-none">{trigger}</span>}
 
-      <span className="relative min-h-[1lh]">
+      <span className="relative min-h-[1.5em]">
         <span
           className="invisible overflow-hidden text-nowrap"
           aria-hidden="true"
@@ -251,7 +251,7 @@ const InlineComboboxInput = ({
         <Combobox
           ref={ref}
           className={cn(
-            'absolute top-0 left-0 size-full bg-transparent outline-none',
+            'absolute top-0 left-0 size-full cursor-text bg-transparent outline-none select-text',
             className,
           )}
           value={value}
@@ -292,10 +292,12 @@ const InlineComboboxContent: typeof ComboboxPopover = ({
     }
   }
 
+  // d
   return (
     <ComboboxPopover
+      portal
       className={cn(
-        'bg-popover pointer-events-auto z-9999 max-h-[288px] w-[300px] overflow-y-auto rounded-md shadow-md',
+        'bg-popover pointer-events-auto z-[9999] max-h-[50vh] min-h-[150px] w-[300px] overflow-y-auto rounded-md shadow-md',
         className,
       )}
       onKeyDownCapture={handleKeyDown}
