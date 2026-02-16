@@ -35,6 +35,11 @@ export async function deleteImage(publicId: string) {
       },
     );
     const result = await response.json();
+
+    if (result.error) {
+      return { success: false, error: result.error.message };
+    }
+
     return { success: true, result };
   } catch (error) {
     console.error('Error deleting image from Cloudinary:', error);

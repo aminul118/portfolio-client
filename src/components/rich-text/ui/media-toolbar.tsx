@@ -11,6 +11,7 @@ import {
   PopoverContent,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
 import {
   FloatingMedia as FloatingMediaPrimitive,
   FloatingMediaStore,
@@ -18,7 +19,18 @@ import {
   useImagePreviewValue,
 } from '@platejs/media/react';
 import { cva } from 'class-variance-authority';
-import { Link, Trash2Icon } from 'lucide-react';
+import {
+  AlignCenter,
+  AlignCenterVertical,
+  AlignEndVertical,
+  AlignLeft,
+  AlignRight,
+  AlignStartVertical,
+  Link,
+  MoveDown,
+  MoveUp,
+  Trash2Icon,
+} from 'lucide-react';
 import {
   useEditorRef,
   useEditorSelector,
@@ -28,7 +40,7 @@ import {
   useRemoveNodeButton,
   useSelected,
 } from 'platejs/react';
-
+import { toast } from 'sonner';
 import { deleteImage } from '../actions/cloudinary';
 import { CaptionButton } from './caption';
 
@@ -126,22 +138,226 @@ export function MediaToolbar({
 
             <Separator orientation="vertical" className="mx-1 h-6" />
 
+            <div className="flex items-center gap-1">
+              <Button
+                size="sm"
+                variant="ghost"
+                className={cn(element.align === 'left' && 'bg-muted')}
+                onClick={() => {
+                  const path = editor.api.findPath(element);
+                  if (path) {
+                    editor.tf.setNodes({ align: 'left' }, { at: path });
+                  }
+                }}
+              >
+                <AlignLeft className="size-4" />
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                className={cn(
+                  (!element.align || element.align === 'center') && 'bg-muted',
+                )}
+                onClick={() => {
+                  const path = editor.api.findPath(element);
+                  if (path) {
+                    editor.tf.setNodes({ align: 'center' }, { at: path });
+                  }
+                }}
+              >
+                <AlignCenter className="size-4" />
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                className={cn(element.align === 'right' && 'bg-muted')}
+                onClick={() => {
+                  const path = editor.api.findPath(element);
+                  if (path) {
+                    editor.tf.setNodes({ align: 'right' }, { at: path });
+                  }
+                }}
+              >
+                <AlignRight className="size-4" />
+              </Button>
+            </div>
+
+            <Separator orientation="vertical" className="mx-1 h-6" />
+
+            <div className="flex items-center gap-1">
+              <Button
+                size="sm"
+                variant="ghost"
+                className={cn(element.objectPosition === 'top' && 'bg-muted')}
+                onClick={() => {
+                  const path = editor.api.findPath(element);
+                  if (path) {
+                    editor.tf.setNodes({ objectPosition: 'top' }, { at: path });
+                  }
+                }}
+                title="Crop Top"
+              >
+                <AlignStartVertical className="size-4" />
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                className={cn(
+                  (!element.objectPosition ||
+                    element.objectPosition === 'center') &&
+                    'bg-muted',
+                )}
+                onClick={() => {
+                  const path = editor.api.findPath(element);
+                  if (path) {
+                    editor.tf.setNodes(
+                      { objectPosition: 'center' },
+                      { at: path },
+                    );
+                  }
+                }}
+                title="Crop Center"
+              >
+                <AlignCenterVertical className="size-4" />
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                className={cn(
+                  element.objectPosition === 'bottom' && 'bg-muted',
+                )}
+                onClick={() => {
+                  const path = editor.api.findPath(element);
+                  if (path) {
+                    editor.tf.setNodes(
+                      { objectPosition: 'bottom' },
+                      { at: path },
+                    );
+                  }
+                }}
+                title="Crop Bottom"
+              >
+                <AlignEndVertical className="size-4" />
+              </Button>
+            </div>
+
+            <Separator orientation="vertical" className="mx-1 h-6" />
+
+            <div className="flex items-center gap-1">
+              <Button
+                size="sm"
+                variant="ghost"
+                className={cn(element.width === '50%' && 'bg-muted')}
+                onClick={() => {
+                  const path = editor.api.findPath(element);
+                  if (path) {
+                    editor.tf.setNodes({ width: '50%' }, { at: path });
+                  }
+                }}
+              >
+                50%
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                className={cn(element.width === '75%' && 'bg-muted')}
+                onClick={() => {
+                  const path = editor.api.findPath(element);
+                  if (path) {
+                    editor.tf.setNodes({ width: '75%' }, { at: path });
+                  }
+                }}
+              >
+                75%
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                className={cn(
+                  (!element.width || element.width === '100%') && 'bg-muted',
+                )}
+                onClick={() => {
+                  const path = editor.api.findPath(element);
+                  if (path) {
+                    editor.tf.setNodes({ width: '100%' }, { at: path });
+                  }
+                }}
+              >
+                100%
+              </Button>
+            </div>
+
+            <Separator orientation="vertical" className="mx-1 h-6" />
+
+            <div className="flex items-center gap-1">
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => {
+                  const path = editor.api.findPath(element);
+                  if (path && path[0] > 0) {
+                    editor.tf.moveNodes({
+                      at: path,
+                      to: [path[0] - 1],
+                    });
+                  }
+                }}
+                title="Move Up"
+              >
+                <MoveUp className="size-4" />
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => {
+                  const path = editor.api.findPath(element);
+                  if (path) {
+                    editor.tf.moveNodes({
+                      at: path,
+                      to: [path[0] + 1],
+                    });
+                  }
+                }}
+                title="Move Down"
+              >
+                <MoveDown className="size-4" />
+              </Button>
+            </div>
+
+            <Separator orientation="vertical" className="mx-1 h-6" />
+
             <Button
               size="sm"
               variant="ghost"
               {...buttonProps}
               onClick={async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
                 const elementData = element as any;
                 const publicId =
                   elementData.publicId || getPublicIdFromUrl(elementData.url);
 
                 if (publicId) {
+                  const toastId = toast.loading('Deleting image...');
                   try {
-                    await deleteImage(publicId);
+                    const result = await deleteImage(publicId);
+                    if (result.success) {
+                      toast.success('Image deleted', { id: toastId });
+                    } else {
+                      console.error('Cloudinary delete error:', result.error);
+                      toast.error('Failed to delete image from cloud', {
+                        id: toastId,
+                      });
+                    }
                   } catch (error) {
                     console.error('Failed to delete image:', error);
+                    toast.error('Error deleting image', { id: toastId });
                   }
+                } else {
+                  // toast.warning('Image ID not found, removing locally only');
                 }
+
                 // @ts-ignore
                 buttonProps.onClick?.(e);
               }}
