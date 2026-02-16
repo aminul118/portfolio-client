@@ -1,11 +1,13 @@
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
-import AddBlogDialog from '@/components/modules/Admin/blogs/AddBlogDialog';
 import BlogsTable from '@/components/modules/Admin/blogs/BlogsTable';
+import { Button } from '@/components/ui/button';
 import cleanSearchParams from '@/lib/cleanSearchParams';
 import { getBlogs } from '@/services/blogs/blogs';
 import { SearchParams } from '@/types';
+import { Plus } from 'lucide-react';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 const BlogPage = async ({ searchParams }: SearchParams) => {
   const params = await cleanSearchParams(searchParams);
@@ -24,9 +26,11 @@ export default BlogPage;
 
 const Actions = () => {
   return (
-    <>
-      <AddBlogDialog />
-    </>
+    <Link href="/admin/blogs/create">
+      <Button>
+        <Plus className="mr-2 h-4 w-4" /> Add Blog
+      </Button>
+    </Link>
   );
 };
 

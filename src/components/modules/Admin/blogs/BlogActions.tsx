@@ -12,14 +12,11 @@ import {
 import { deleteSingleBlog } from '@/services/blogs/blogs';
 import { IBlog } from '@/types/api.types';
 import { EllipsisIcon, EyeIcon, PencilIcon, Trash2Icon } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
-import ShowBlogModal from './ShowBlogModal';
-import UpdateBlogModal from './UpdateBlogModal';
 
 const BlogActions = ({ blog }: { blog: IBlog }) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
-  const [showDetailsOpen, setShowDetailsOpen] = useState(false);
-  const [editOpen, setEditOpen] = useState(false);
 
   const handleDelete = async (id: string) => {
     const res = await deleteSingleBlog(id);
@@ -43,19 +40,29 @@ const BlogActions = ({ blog }: { blog: IBlog }) => {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end" className="min-w-48">
-          <DropdownMenuItem onClick={() => setShowDetailsOpen(true)}>
-            <EyeIcon className="mr-2 h-4 w-4" />
-            <span>Details</span>
+          <DropdownMenuItem asChild>
+            <Link
+              href={`/admin/blogs/${blog.slug}`}
+              className="flex cursor-pointer items-center"
+            >
+              <EyeIcon className="mr-2 h-4 w-4" />
+              <span>Details</span>
+            </Link>
           </DropdownMenuItem>
 
-          <DropdownMenuItem onClick={() => setEditOpen(true)}>
-            <PencilIcon className="mr-2 h-4 w-4" />
-            <span>Edit</span>
+          <DropdownMenuItem asChild>
+            <Link
+              href={`/admin/blogs/${blog.slug}/edit`}
+              className="flex cursor-pointer items-center"
+            >
+              <PencilIcon className="mr-2 h-4 w-4" />
+              <span>Edit</span>
+            </Link>
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            className="text-destructive focus:text-destructive"
+            className="text-destructive focus:text-destructive cursor-pointer"
             onClick={() => setDeleteOpen(true)}
           >
             <Trash2Icon className="mr-2 h-4 w-4" />
@@ -64,21 +71,11 @@ const BlogActions = ({ blog }: { blog: IBlog }) => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* Modals */}
-
       <DeleteFromTableDropDown
         onConfirm={() => handleDelete(blog._id)}
         open={deleteOpen}
         setOpen={setDeleteOpen}
       />
-
-      <ShowBlogModal
-        blog={blog}
-        open={showDetailsOpen}
-        setOpen={setShowDetailsOpen}
-      />
-
-      <UpdateBlogModal blog={blog} open={editOpen} setOpen={setEditOpen} />
     </>
   );
 };

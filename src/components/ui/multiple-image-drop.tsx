@@ -51,7 +51,7 @@ export default function MultipleImageDrop({
   const maxSize = maxSizeMB * 1024 * 1024; // 5MB default
   const maxFiles = 10;
 
-  const initialFiles = defaultValues.map((url, index) => ({
+  const initialFiles = (defaultValues || []).map((url, index) => ({
     name: `image-${index + 1}`,
     size: 0,
     type: 'image/jpeg',
