@@ -1,4 +1,5 @@
 import DateFormat from '@/components/common/formater/date-format';
+import LatestBlogs from '@/components/modules/Public/blogs/LetestBlogs';
 import HtmlContent from '@/components/rich-text/core/html-content';
 import Container from '@/components/ui/Container';
 import metaConfig from '@/config/meta.config';
@@ -67,26 +68,41 @@ const BlogDetailsPage = async ({ params }: Params) => {
       />
 
       <Container className="py-20 lg:py-24">
-        <header className="mb-8 space-y-4">
-          <h1 className="text-3xl font-extrabold tracking-tight text-white md:text-5xl">
-            {title}
-          </h1>
-          <div className="flex items-center gap-3 text-sm text-slate-400">
-            <span className="font-medium text-blue-400">
-              {metaConfig.authors_name}
-            </span>
-            <span className="text-slate-600">•</span>
-            <div className="flex items-center gap-1">
-              <span>Post Date:</span>
-              <DateFormat date={createdAt} />
-            </div>
-          </div>
-        </header>
+        <div className="grid gap-10 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <header className="mb-8 space-y-4">
+              <h1 className="text-3xl font-extrabold tracking-tight text-white md:text-5xl">
+                {title}
+              </h1>
+              <div className="flex items-center gap-3 text-sm text-slate-400">
+                <span className="font-medium text-blue-400">
+                  {metaConfig.authors_name}
+                </span>
+                <span className="text-slate-600">•</span>
+                <div className="flex items-center gap-1">
+                  <span>Post Date:</span>
+                  <DateFormat date={createdAt} />
+                </div>
+              </div>
+            </header>
 
-        <HtmlContent
-          content={content}
-          className="prose prose-invert prose-blue prose-headings:text-white prose-p:text-slate-300 prose-a:text-blue-400 max-w-none"
-        />
+            <HtmlContent
+              content={content}
+              className="prose prose-invert prose-blue prose-headings:text-white prose-p:text-slate-300 prose-a:text-blue-400 max-w-none"
+            />
+          </div>
+
+          <aside className="space-y-6 lg:col-span-1">
+            <div className="lg:sticky lg:top-24">
+              <h3 className="mb-6 text-xl font-bold text-white">
+                Latest Blogs
+              </h3>
+              <div className="grid gap-6">
+                <LatestBlogs currentSlug={slug} />
+              </div>
+            </div>
+          </aside>
+        </div>
       </Container>
     </article>
   );
