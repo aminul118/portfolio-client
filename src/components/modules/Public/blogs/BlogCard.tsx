@@ -9,12 +9,33 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const BlogCard = ({ title, content, thumbnail, createdAt, slug }: IBlog) => {
-  // Simple helper to strip HTML and truncate for the excerpt
-  const getExcerpt = (html: string, limit: number = 100) => {
-    const stripped = html.replace(/<[^>]*>?/gm, '');
-    return stripped.length > limit
-      ? stripped.substring(0, limit) + '...'
-      : stripped;
+  // Simple helper to strip HTML or Plate JSON and truncate for the excerpt
+  const getExcerpt = (content: string, limit: number = 100) => {
+    if (!content) return '';
+
+    let text = '';
+    if (content.trim().startsWith('[')) {
+      try {
+        const parsed = JSON.parse(content);
+        // Recursive function to extract text from Plate JSON
+        const extractText = (nodes: any[]): string => {
+          return nodes
+            .map((node) => {
+              if (node.text) return node.text;
+              if (node.children) return extractText(node.children);
+              return '';
+            })
+            .join(' ');
+        };
+        text = extractText(parsed);
+      } catch {
+        text = content.replace(/<[^>]*>?/gm, '');
+      }
+    } else {
+      text = content.replace(/<[^>]*>?/gm, '');
+    }
+
+    return text.length > limit ? text.substring(0, limit) + '...' : text;
   };
 
   return (

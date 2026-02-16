@@ -1,11 +1,11 @@
 import DateFormat from '@/components/common/formater/date-format';
+import HtmlContent from '@/components/rich-text/core/html-content';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import HtmlContent from '@/components/ui/HtmlContent';
 import { IBlog, IModal } from '@/types';
 import Image from 'next/image';
 

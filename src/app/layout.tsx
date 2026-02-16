@@ -1,4 +1,5 @@
 import TopLoadingBar from '@/components/common/loader/TopLoadingBar';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import envVars from '@/config/env.config';
 import fonts from '@/config/fonts.config';
 import ThemeProvider from '@/providers/ThemeProvider';
@@ -23,7 +24,7 @@ const MainLayout = ({ children }: Children) => {
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <TooltipProvider>{children}</TooltipProvider>
             <Toaster position="top-right" richColors theme="dark" />
           </ThemeProvider>
         </body>

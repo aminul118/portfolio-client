@@ -1,7 +1,7 @@
 'use client';
 
 import SubmitButton from '@/components/common/button/submit-button';
-import ReactQuil from '@/components/common/rich-text/ReactQuil';
+import PlateRichEditor from '@/components/rich-text/core/rich-editor';
 import {
   Dialog,
   DialogContent,
@@ -175,10 +175,10 @@ const UpdateBlogModal = ({ blog, open, setOpen }: Props) => {
               name="content"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Blog Writer</FormLabel>
+                  <FormLabel>Content</FormLabel>
                   <FormControl>
                     <Suspense fallback={<div>Loading editor…</div>}>
-                      <ReactQuil
+                      <PlateRichEditor
                         value={field.value}
                         onChange={field.onChange}
                         height={400}

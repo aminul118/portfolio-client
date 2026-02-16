@@ -1,6 +1,6 @@
 import BackButton from '@/components/common/button/back-button';
-import HtmlContent from '@/components/common/formater/HtmlContent';
 import PhotoGallery from '@/components/modules/Public/Projects/PhotoGallery';
+import HtmlContent from '@/components/rich-text/core/html-content';
 import { Button } from '@/components/ui/button';
 import Container from '@/components/ui/Container';
 

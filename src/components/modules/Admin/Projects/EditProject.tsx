@@ -1,6 +1,6 @@
 'use client';
 
-import ReactQuil from '@/components/common/rich-text/ReactQuil';
+import PlateRichEditor from '@/components/rich-text/core/rich-editor';
 import { Button } from '@/components/ui/button';
 import { CardContent, CardFooter } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -19,7 +19,7 @@ import { updateProject } from '@/services/project/projects';
 import { IProject } from '@/types';
 import { projectValidationSchema } from '@/zod/project';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMemo } from 'react';
+import { Suspense, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -220,10 +220,12 @@ const EditProject = ({ project, onCancel, onUpdated }: Props) => {
                 render={({ field }) => (
                   <Field>
                     <FieldLabel>Description</FieldLabel>
-                    <ReactQuil
-                      value={field.value || ''}
-                      onChange={field.onChange}
-                    />
+                    <Suspense fallback={<div>Loading editor...</div>}>
+                      <PlateRichEditor
+                        value={field.value || ''}
+                        onChange={field.onChange}
+                      />
+                    </Suspense>
                   </Field>
                 )}
               />

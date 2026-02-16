@@ -1,6 +1,6 @@
 import DateFormat from '@/components/common/formater/date-format';
+import HtmlContent from '@/components/rich-text/core/html-content';
 import Container from '@/components/ui/Container';
-import HtmlContent from '@/components/ui/HtmlContent';
 import metaConfig from '@/config/meta.config';
 import { generateJsonLd } from '@/seo/generateJsonLd';
 import generateMetaTags from '@/seo/generateMetaTags';
@@ -17,6 +17,28 @@ const BlogDetailsPage = async ({ params }: Params) => {
   }
   const { content, createdAt, title, updatedAt, thumbnail } = blog;
 
+  const cleanDescription = (text: string) => {
+    if (!text) return '';
+    if (text.trim().startsWith('[')) {
+      try {
+        const parsed = JSON.parse(text);
+        const extractText = (nodes: any[]): string => {
+          return nodes
+            .map((node) => {
+              if (node.text) return node.text;
+              if (node.children) return extractText(node.children);
+              return '';
+            })
+            .join(' ');
+        };
+        return extractText(parsed);
+      } catch {
+        return text.replace(/<[^>]*>/g, '');
+      }
+    }
+    return text.replace(/<[^>]*>/g, '');
+  };
+
   // JSON-LD data for BlogPosting
   const jsonLd = generateJsonLd('BlogPosting', {
     headline: title,
@@ -28,7 +50,7 @@ const BlogDetailsPage = async ({ params }: Params) => {
       name: metaConfig.authors_name,
       url: metaConfig.authorPortfolio,
     },
-    description: content?.replace(/<[^>]*>/g, '').slice(0, 160),
+    description: cleanDescription(content).slice(0, 160),
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${metaConfig.baseUrl}/blogs/${slug}`,
@@ -81,7 +103,30 @@ export async function generateMetadata({ params }: Params) {
     notFound();
   }
   const { content, title, thumbnail } = blog;
-  const description = content?.replace(/<[^>]*>/g, '').slice(0, 160) || '';
+
+  const getCleanText = (content: string) => {
+    if (!content) return '';
+    if (content.trim().startsWith('[')) {
+      try {
+        const parsed = JSON.parse(content);
+        const extractText = (nodes: any[]): string => {
+          return nodes
+            .map((node) => {
+              if (node.text) return node.text;
+              if (node.children) return extractText(node.children);
+              return '';
+            })
+            .join(' ');
+        };
+        return extractText(parsed);
+      } catch {
+        return content.replace(/<[^>]*>/g, '');
+      }
+    }
+    return content.replace(/<[^>]*>/g, '');
+  };
+
+  const description = getCleanText(content).slice(0, 160);
 
   return generateMetaTags({
     title: `${title} | Aminul Islam Blog`,

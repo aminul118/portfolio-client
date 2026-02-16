@@ -23,6 +23,10 @@ const envVars = {
     googleAnalytics,
     googleTagManagerId,
   },
+  cloudinary: {
+    cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string,
+    uploadPreset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET as string,
+  },
 };
 
 export default envVars;

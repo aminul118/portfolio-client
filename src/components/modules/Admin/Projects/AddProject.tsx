@@ -1,7 +1,7 @@
 'use client';
 
 import SubmitButton from '@/components/common/button/submit-button';
-import ReactQuil from '@/components/common/rich-text/ReactQuil';
+import PlateRichEditor from '@/components/rich-text/core/rich-editor';
 import { Button } from '@/components/ui/button';
 import { CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -22,6 +22,7 @@ import { projectValidationSchema } from '@/zod/project';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus, Undo2 } from 'lucide-react';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -213,10 +214,12 @@ const AddProjects = () => {
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel>Description</FieldLabel>
-                    <ReactQuil
-                      value={field.value || ''}
-                      onChange={field.onChange}
-                    />
+                    <Suspense fallback={<div>Loading editor...</div>}>
+                      <PlateRichEditor
+                        value={field.value || ''}
+                        onChange={field.onChange}
+                      />
+                    </Suspense>
                   </Field>
                 )}
               />

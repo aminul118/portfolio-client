@@ -2,7 +2,7 @@
 
 import BackButton from '@/components/common/button/back-button';
 import DateFormat from '@/components/common/formater/date-format';
-import HtmlContent from '@/components/common/formater/HtmlContent';
+import HtmlContent from '@/components/rich-text/core/html-content';
 import { Button } from '@/components/ui/button';
 import GradientTitle from '@/components/ui/gradientTitle';
 import { IProject } from '@/types';
