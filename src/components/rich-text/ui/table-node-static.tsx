@@ -1,12 +1,9 @@
-import * as React from 'react';
-
+import { cn } from '@/lib/utils';
+import { BaseTablePlugin } from '@platejs/table';
 import type { TTableCellElement, TTableElement } from 'platejs';
 import type { SlateElementProps } from 'platejs/static';
-
-import { BaseTablePlugin } from '@platejs/table';
 import { SlateElement } from 'platejs/static';
-
-import { cn } from '@/lib/utils';
+import * as React from 'react';
 
 export function TableElementStatic({
   children,
@@ -21,12 +18,18 @@ export function TableElementStatic({
       className="overflow-x-auto py-5"
       style={{ paddingLeft: marginLeft }}
     >
-      <div className="group/table relative w-fit">
+      <div className="group/table not-prose relative w-fit max-w-full">
         <table
-          className="mr-0 ml-px table h-px table-fixed border-collapse"
-          style={{ borderCollapse: 'collapse', width: '100%' }}
+          className={cn(
+            'mr-0 ml-px table h-px border-collapse',
+            (props.element.width as any) ? 'table-fixed' : 'table-auto',
+          )}
+          style={{
+            borderCollapse: 'collapse',
+            width: (props.element.width as any) ?? 'auto',
+          }}
         >
-          <tbody className="min-w-full">{children}</tbody>
+          <tbody className="">{children}</tbody>
         </table>
       </div>
     </SlateElement>
@@ -60,7 +63,7 @@ export function TableCellElementStatic({
       className={cn(
         'bg-background h-full overflow-visible border-none p-0',
         element.background ? 'bg-(--cellBackground)' : 'bg-background',
-        isHeader && 'text-left font-normal *:m-0',
+        isHeader && 'text-left *:m-0',
         'before:size-full',
         "before:absolute before:box-border before:content-[''] before:select-none",
         borders &&
@@ -74,8 +77,7 @@ export function TableCellElementStatic({
       style={
         {
           '--cellBackground': element.background,
-          maxWidth: width || 240,
-          minWidth: width || 120,
+          width: width ?? 'auto',
         } as React.CSSProperties
       }
       attributes={{
@@ -85,7 +87,7 @@ export function TableCellElementStatic({
       }}
     >
       <div
-        className="relative z-20 box-border h-full px-4 py-2"
+        className="relative z-20 box-border h-full px-3 py-2"
         style={{ minHeight }}
       >
         {props.children}

@@ -4,7 +4,20 @@ import * as React from 'react';
 
 import type * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Popover, PopoverContent } from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
 import { useDraggable, useDropLine } from '@platejs/dnd';
+import { ResizableProvider, useResizableValue } from '@platejs/resizable';
 import {
   BlockSelectionPlugin,
   useBlockSelected,
@@ -60,25 +73,16 @@ import {
   withHOC,
 } from 'platejs/react';
 
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuPortal,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Popover, PopoverContent } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
-
 import { blockSelectionVariants } from './block-selection';
 import {
   ColorDropdownMenuItems,
   DEFAULT_COLORS,
 } from './font-color-toolbar-button';
-import { ResizeHandle } from './resize-handle';
+import {
+  mediaResizeHandleVariants,
+  Resizable,
+  ResizeHandle,
+} from './resize-handle';
 import {
   BorderAllIcon,
   BorderBottomIcon,
@@ -95,57 +99,84 @@ import {
 } from './toolbar';
 export const TableElement = withHOC(
   TableProvider,
-  function TableElement({
-    children,
-    ...props
-  }: PlateElementProps<TTableElement>) {
-    const readOnly = useReadOnly();
-    const isSelectionAreaVisible = usePluginOption(
-      BlockSelectionPlugin,
-      'isSelectionAreaVisible',
-    );
-    const hasControls = !readOnly && !isSelectionAreaVisible;
-    const {
-      isSelectingCell,
-      marginLeft,
-      props: tableProps,
-    } = useTableElement();
+  withHOC(
+    ResizableProvider,
+    function TableElement({
+      children,
+      ...props
+    }: PlateElementProps<TTableElement>) {
+      const readOnly = useReadOnly();
+      const isSelectionAreaVisible = usePluginOption(
+        BlockSelectionPlugin,
+        'isSelectionAreaVisible',
+      );
+      const hasControls = !readOnly && !isSelectionAreaVisible;
+      const {
+        isSelectingCell,
+        marginLeft,
+        props: tableProps,
+      } = useTableElement();
 
-    const isSelectingTable = useBlockSelected(props.element.id as string);
+      const width = useResizableValue('width');
 
-    const content = (
-      <PlateElement
-        {...props}
-        className={cn(
-          'overflow-x-auto py-5',
-          hasControls && '-ml-2 *:data-[slot=block-selection]:left-2',
-        )}
-        style={{ paddingLeft: marginLeft }}
-      >
-        <div className="group/table relative w-fit">
-          <table
-            className={cn(
-              'mr-0 ml-px table h-px table-fixed border-collapse',
-              isSelectingCell && 'selection:bg-transparent',
-            )}
-            {...tableProps}
-          >
-            <tbody className="min-w-full">{children}</tbody>
-          </table>
+      const isSelectingTable = useBlockSelected(props.element.id as string);
 
-          {isSelectingTable && (
-            <div className={blockSelectionVariants()} contentEditable={false} />
+      const content = (
+        <PlateElement
+          {...props}
+          className={cn(
+            'overflow-x-auto py-5',
+            hasControls && '-ml-2 *:data-[slot=block-selection]:left-2',
           )}
-        </div>
-      </PlateElement>
-    );
+          style={{ paddingLeft: marginLeft }}
+        >
+          <div className="group/table relative w-fit">
+            <Resizable
+              align="left"
+              options={{
+                align: 'left',
+                readOnly,
+              }}
+              style={{
+                width,
+              }}
+            >
+              <table
+                className={cn(
+                  'mr-0 ml-px table h-px border-collapse',
+                  width ? 'table-fixed' : 'table-auto',
+                  isSelectingCell && 'selection:bg-transparent',
+                )}
+                {...tableProps}
+              >
+                <tbody className="">{children}</tbody>
+              </table>
 
-    if (readOnly) {
-      return content;
-    }
+              {!readOnly && (
+                <ResizeHandle
+                  className={mediaResizeHandleVariants({ direction: 'right' })}
+                  options={{ direction: 'right' }}
+                />
+              )}
+            </Resizable>
 
-    return <TableFloatingToolbar>{content}</TableFloatingToolbar>;
-  },
+            {isSelectingTable && (
+              <div
+                className={blockSelectionVariants()}
+                contentEditable={false}
+              />
+            )}
+          </div>
+        </PlateElement>
+      );
+
+      if (readOnly) {
+        return content;
+      }
+
+      return <TableFloatingToolbar>{content}</TableFloatingToolbar>;
+    },
+  ),
 );
 
 function TableFloatingToolbar({
@@ -566,8 +597,7 @@ export function TableCellElement({
       style={
         {
           '--cellBackground': element.background,
-          maxWidth: width || 240,
-          minWidth: width || 120,
+          width: width ?? 'auto',
         } as React.CSSProperties
       }
       attributes={{
@@ -593,7 +623,7 @@ export function TableCellElement({
             <>
               <ResizeHandle
                 {...rightProps}
-                className="-top-2 -right-1 h-[calc(100%_+_8px)] w-2"
+                className="-top-2 -right-1 h-[calc(100%+8px)] w-2"
                 data-col={colIndex}
               />
               <ResizeHandle {...bottomProps} className="-bottom-1 h-2" />
