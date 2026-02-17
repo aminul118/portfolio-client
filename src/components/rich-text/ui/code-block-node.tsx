@@ -66,7 +66,9 @@ export function CodeBlockElement(props: PlateElementProps<TCodeBlockElement>) {
             size="icon"
             variant="ghost"
             className="text-muted-foreground size-6 gap-1 text-xs"
-            value={() => NodeApi.string(element)}
+            value={() =>
+              element.children.map((line) => NodeApi.string(line)).join('\n')
+            }
           />
         </div>
       </div>
@@ -170,7 +172,10 @@ function CopyButton({
 
   return (
     <Button
-      onClick={() => {
+      type="button"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
         void navigator.clipboard.writeText(
           typeof value === 'function' ? value() : value,
         );

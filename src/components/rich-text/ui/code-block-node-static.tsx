@@ -28,7 +28,11 @@ export function CodeBlockElementStatic(
             size="icon"
             variant="ghost"
             className="text-muted-foreground hover:bg-muted size-8"
-            value={() => NodeApi.string(props.element)}
+            value={() =>
+              props.element.children
+                .map((line) => NodeApi.string(line))
+                .join('\n')
+            }
           />
         </div>
       </div>
@@ -65,7 +69,10 @@ function CopyButton({
 
   return (
     <Button
-      onClick={() => {
+      type="button"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
         const text = typeof value === 'function' ? value() : value;
         void navigator.clipboard.writeText(text);
         setHasCopied(true);

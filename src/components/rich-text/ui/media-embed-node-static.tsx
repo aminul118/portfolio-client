@@ -1,37 +1,33 @@
 'use client';
 
+import { cn } from '@/lib/utils';
+import { parseTwitterUrl, parseVideoUrl } from '@platejs/media';
+import type { TMediaEmbedElement } from 'platejs';
+import { NodeApi } from 'platejs';
+import type { SlateElementProps } from 'platejs/static';
+import { SlateElement } from 'platejs/static';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import { Tweet } from 'react-tweet';
-
-import type { TMediaEmbedElement } from 'platejs';
-import type { SlateElementProps } from 'platejs/static';
-
-import { parseTwitterUrl, parseVideoUrl } from '@platejs/media';
-import { useMediaState } from '@platejs/media/react';
-import { NodeApi } from 'platejs';
-import { SlateElement } from 'platejs/static';
-
-import { cn } from '@/lib/utils';
 
 export function MediaEmbedElementStatic(
   props: SlateElementProps<TMediaEmbedElement>,
 ) {
-  const {
-    align = 'center',
-    embed,
-    isTweet,
-    isVideo,
-    isYoutube,
-  } = useMediaState({
-    urlParsers: [parseTwitterUrl, parseVideoUrl],
-  });
+  const { align = 'center', url } = props.element;
+
+  const twitterData = parseTwitterUrl(url);
+  const videoData = parseVideoUrl(url);
+
+  const isTweet = !!twitterData;
+  const isVideo = !!videoData;
+  const isYoutube = videoData?.provider === 'youtube';
+  const embed = twitterData || videoData;
   const provider = embed?.provider;
 
   return (
     <SlateElement className="py-2.5" {...props}>
       <figure
         className="group relative m-0 w-full cursor-default"
-        style={{ textAlign: align }}
+        style={{ textAlign: align as any }}
       >
         <div
           className={cn('relative inline-block max-w-full')}
