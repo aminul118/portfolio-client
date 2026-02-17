@@ -69,7 +69,7 @@ const BlogDetailsPage = async ({ params }: Params) => {
 
       <Container className="py-20 lg:py-24">
         <div className="grid gap-10 lg:grid-cols-3">
-          <div className="lg:col-span-2">
+          <div className="overflow-hidden lg:col-span-2">
             <header className="mb-8 space-y-4">
               <h1 className="text-3xl font-extrabold tracking-tight text-white md:text-5xl">
                 {title}

@@ -19,7 +19,7 @@ export function CodeBlockElementStatic(
       {...props}
     >
       <div className="bg-muted/50 group/code relative rounded-md">
-        <pre className="overflow-x-auto p-8 pr-4 font-mono text-sm leading-[normal] [tab-size:2] print:break-inside-avoid">
+        <pre className="overflow-x-auto p-4 pr-4 font-mono text-sm leading-[normal] [tab-size:2] md:p-8 print:break-inside-avoid">
           <code>{props.children}</code>
         </pre>
 

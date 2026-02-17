@@ -62,13 +62,20 @@ export const ColumnElement = withHOC(
     });
 
     return (
-      <div className="group/column relative" style={{ width: width ?? '100%' }}>
+      <div
+        className="group/column relative w-full min-w-0 md:w-(--col-width)"
+        style={
+          {
+            '--col-width': width ?? '100%',
+          } as React.CSSProperties
+        }
+      >
         {!readOnly && !isSelectionAreaVisible && (
           <div
             ref={handleRef}
             className={cn(
               'absolute top-2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2',
-              'pointer-events-auto flex items-center',
+              'pointer-events-auto hidden items-center md:flex',
               'opacity-0 transition-opacity group-hover/column:opacity-100',
             )}
           >
@@ -79,7 +86,7 @@ export const ColumnElement = withHOC(
         <PlateElement
           {...props}
           ref={useComposedRef(props.ref, previewRef)}
-          className="h-full px-2 pt-2 group-first/column:pl-0 group-last/column:pr-0"
+          className="h-full px-0 pt-2 md:px-2 md:group-first/column:pl-0 md:group-last/column:pr-0"
         >
           <div
             className={cn(
@@ -103,7 +110,7 @@ const ColumnDragHandle = React.memo(function ColumnDragHandle() {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="ghost" className="h-5 !px-1">
+          <Button variant="ghost" className="h-5 px-1!">
             <GripHorizontal
               className="text-muted-foreground"
               onClick={(event) => {
@@ -143,7 +150,9 @@ export function ColumnGroupElement(props: PlateElementProps) {
   return (
     <PlateElement className="mb-2" {...props}>
       <ColumnFloatingToolbar>
-        <div className="flex size-full rounded">{props.children}</div>
+        <div className="flex size-full flex-col rounded md:flex-row">
+          {props.children}
+        </div>
       </ColumnFloatingToolbar>
     </PlateElement>
   );

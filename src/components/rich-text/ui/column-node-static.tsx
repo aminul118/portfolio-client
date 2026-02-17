@@ -7,9 +7,16 @@ export function ColumnElementStatic(props: SlateElementProps<TColumnElement>) {
   const { width } = props.element;
 
   return (
-    <div className="group/column relative" style={{ width: width ?? '100%' }}>
+    <div
+      className="group/column relative w-full min-w-0 md:w-(--col-width)"
+      style={
+        {
+          '--col-width': width ?? '100%',
+        } as React.CSSProperties
+      }
+    >
       <SlateElement
-        className="h-full px-2 pt-2 group-first/column:pl-0 group-last/column:pr-0"
+        className="h-full px-0 pt-2 md:px-2 md:group-first/column:pl-0 md:group-last/column:pr-0"
         {...props}
       >
         <div className="relative h-full border border-transparent p-1.5">
@@ -23,7 +30,9 @@ export function ColumnElementStatic(props: SlateElementProps<TColumnElement>) {
 export function ColumnGroupElementStatic(props: SlateElementProps) {
   return (
     <SlateElement className="mb-2" {...props}>
-      <div className="flex size-full rounded">{props.children}</div>
+      <div className="flex size-full flex-col rounded md:flex-row">
+        {props.children}
+      </div>
     </SlateElement>
   );
 }

@@ -24,7 +24,7 @@ const ProjectDetailsPage = async ({ params }: Params) => {
   return (
     <Container className="mt-16 lg:mt-22">
       <div className="grid gap-10 lg:grid-cols-3">
-        <div className="flex flex-col gap-3 lg:col-span-2">
+        <div className="flex flex-col gap-3 overflow-hidden lg:col-span-2">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <h1 className="text-2xl font-bold sm:text-3xl">{project?.title}</h1>
             <div className="flex items-center gap-2">

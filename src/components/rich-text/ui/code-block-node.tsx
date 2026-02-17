@@ -40,7 +40,7 @@ export function CodeBlockElement(props: PlateElementProps<TCodeBlockElement>) {
       {...props}
     >
       <div className="bg-muted/50 relative rounded-md">
-        <pre className="overflow-x-auto p-8 pr-4 font-mono text-sm leading-[normal] [tab-size:2] print:break-inside-avoid">
+        <pre className="overflow-x-auto p-4 pr-4 font-mono text-sm leading-[normal] [tab-size:2] md:p-8 print:break-inside-avoid">
           <code>{props.children}</code>
         </pre>
 
@@ -56,7 +56,7 @@ export function CodeBlockElement(props: PlateElementProps<TCodeBlockElement>) {
               onClick={() => formatCodeBlock(editor, { element })}
               title="Format code"
             >
-              <BracesIcon className="text-muted-foreground !size-3.5" />
+              <BracesIcon className="text-muted-foreground size-3.5!" />
             </Button>
           )}
 
@@ -180,9 +180,9 @@ function CopyButton({
     >
       <span className="sr-only">Copy</span>
       {hasCopied ? (
-        <CheckIcon className="!size-3" />
+        <CheckIcon className="size-3!" />
       ) : (
-        <CopyIcon className="!size-3" />
+        <CopyIcon className="size-3!" />
       )}
     </Button>
   );

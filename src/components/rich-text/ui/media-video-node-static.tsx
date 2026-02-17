@@ -13,7 +13,7 @@ export function VideoElementStatic(
     <SlateElement className="py-2.5" {...props}>
       <div style={{ textAlign: align }}>
         <figure
-          className="group relative m-0 inline-block cursor-default"
+          className="group relative m-0 inline-block max-w-full cursor-default"
           style={{ width }}
         >
           <video
