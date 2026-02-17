@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getCookie, verifyAccessToken } from '@/lib/jwt';
 import serverFetch from '@/lib/server-fetch';
 import { ApiResponse } from '@/types';
@@ -67,11 +66,11 @@ const getNewAccessToken = async () => {
       success: true,
       message: 'Token refreshed successfully',
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       tokenRefreshed: false,
       success: false,
-      message: error?.message || 'Something went wrong',
+      message: error instanceof Error ? error.message : 'Something went wrong',
     };
   }
 };

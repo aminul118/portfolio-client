@@ -114,7 +114,13 @@ export interface IInvoice {
 }
 
 export interface IStats {
-  userCount: number;
+  user: {
+    totalCount: number;
+    activeCount: number;
+    inactiveCount: number;
+    blockedCount: number;
+    deletedCount: number;
+  };
   projectCount: number;
   blogCount: number;
   invoice: {
