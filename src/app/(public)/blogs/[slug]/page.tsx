@@ -75,7 +75,7 @@ const BlogDetailsPage = async ({ params }: Params) => {
                 {title}
               </h1>
               <div className="flex items-center gap-3 text-sm text-slate-400">
-                <span className="font-medium text-blue-400">
+                <span className="hidden font-medium text-blue-400 lg:block">
                   {metaConfig.authors_name}
                 </span>
                 <span className="text-slate-600">•</span>
