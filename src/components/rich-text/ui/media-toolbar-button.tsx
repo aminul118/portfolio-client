@@ -8,9 +8,9 @@ import { PlaceholderPlugin } from '@platejs/media/react';
 import {
   AudioLinesIcon,
   FileUpIcon,
-  FilmIcon,
   ImageIcon,
   LinkIcon,
+  PlayCircleIcon,
 } from 'lucide-react';
 import { isUrl, KEYS } from 'platejs';
 import { useEditorRef } from 'platejs/react';
@@ -71,7 +71,7 @@ const MEDIA_CONFIG: Record<
   },
   [KEYS.video]: {
     accept: ['video/*'],
-    icon: <FilmIcon className="size-4" />,
+    icon: <PlayCircleIcon className="size-4" />,
     title: 'Insert Video',
     tooltip: 'Video',
   },

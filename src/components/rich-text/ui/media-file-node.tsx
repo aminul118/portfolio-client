@@ -1,13 +1,11 @@
 'use client';
 
-import type { TFileElement } from 'platejs';
-import type { PlateElementProps } from 'platejs/react';
-
 import { useMediaState } from '@platejs/media/react';
 import { ResizableProvider } from '@platejs/resizable';
 import { FileUp } from 'lucide-react';
+import type { TFileElement } from 'platejs';
+import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, useReadOnly, withHOC } from 'platejs/react';
-
 import { Caption, CaptionTextarea } from './caption';
 
 export const FileElement = withHOC(

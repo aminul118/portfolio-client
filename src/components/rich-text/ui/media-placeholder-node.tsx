@@ -1,18 +1,22 @@
 'use client';
 
-import * as React from 'react';
-
-import type { TPlaceholderElement } from 'platejs';
-import type { PlateElementProps } from 'platejs/react';
-
 import {
   PlaceholderPlugin,
   PlaceholderProvider,
   updateUploadHistory,
 } from '@platejs/media/react';
-import { AudioLines, FileUp, Film, ImageIcon, Loader2Icon } from 'lucide-react';
+import {
+  AudioLines,
+  FileUp,
+  ImageIcon,
+  Loader2Icon,
+  PlayCircleIcon,
+} from 'lucide-react';
+import type { TPlaceholderElement } from 'platejs';
 import { KEYS } from 'platejs';
+import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, useEditorPlugin, withHOC } from 'platejs/react';
+import * as React from 'react';
 import { useFilePicker } from 'use-file-picker';
 
 import { useUploadFile } from '@/components/rich-text/hooks/use-upload-file';
@@ -44,7 +48,7 @@ const CONTENT: Record<
   [KEYS.video]: {
     accept: ['video/*'],
     content: 'Add a video',
-    icon: <Film />,
+    icon: <PlayCircleIcon />,
   },
 };
 
