@@ -206,7 +206,6 @@ const BlogForm = ({ blog }: Props) => {
                   <PlateRichEditor
                     value={field.value}
                     onChange={field.onChange}
-                    height={500}
                   />
                 </Suspense>
               </FormControl>

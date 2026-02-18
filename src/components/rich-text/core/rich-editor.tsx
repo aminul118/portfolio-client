@@ -17,7 +17,7 @@ export interface PlateRichEditorProps {
 const PlateRichEditor = ({
   value,
   onChange,
-  height = 400,
+  height = 800,
 }: PlateRichEditorProps) => {
   const initialValue = useMemo(() => {
     if (!value) return [{ type: 'p', children: [{ text: '' }] }];
@@ -42,8 +42,8 @@ const PlateRichEditor = ({
         }}
       >
         <EditorContainer
-          style={{ minHeight: height }}
-          className="bg-background rounded-md border"
+          style={{ height: height }}
+          className="bg-background scrollbar-small overflow-y-auto rounded-md border"
         >
           <Editor variant="fullWidth" className="p-4 focus:outline-none" />
         </EditorContainer>
