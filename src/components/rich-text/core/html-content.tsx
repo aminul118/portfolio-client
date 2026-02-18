@@ -1,6 +1,9 @@
+'use client';
+
 import { BaseEditorKit } from '@/components/rich-text/kits/editor-base-kit';
 import { EditorStatic } from '@/components/rich-text/ui/editor-static';
 import { createSlateEditor } from 'platejs';
+import { useMemo } from 'react';
 
 interface IHtml {
   content: string;
@@ -8,28 +11,28 @@ interface IHtml {
 }
 
 const HtmlContent = ({ content, className }: IHtml) => {
-  if (!content || typeof content !== 'string') return null;
+  const { isPlate, value } = useMemo(() => {
+    if (!content || typeof content !== 'string')
+      return { isPlate: false, value: null };
+    if (!content.trim().startsWith('[')) return { isPlate: false, value: null };
 
-  const isPlateContent = content.trim().startsWith('[');
-  let plateValue = null;
-
-  if (isPlateContent) {
     try {
       const parsed = JSON.parse(content);
-      if (Array.isArray(parsed)) {
-        plateValue = parsed;
-      }
+      return { isPlate: Array.isArray(parsed), value: parsed };
     } catch {
-      // Not valid JSON, fallback to HTML
+      return { isPlate: false, value: null };
     }
-  }
+  }, [content]);
 
-  if (plateValue) {
-    const staticEditor = createSlateEditor({ plugins: BaseEditorKit });
+  const staticEditor = useMemo(() => {
+    if (!isPlate) return null;
+    return createSlateEditor({ plugins: BaseEditorKit });
+  }, [isPlate]);
 
+  if (isPlate && staticEditor) {
     return (
       <div className={className}>
-        <EditorStatic value={plateValue} editor={staticEditor} variant="none" />
+        <EditorStatic value={value} editor={staticEditor} variant="none" />
       </div>
     );
   }

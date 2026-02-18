@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { CheckIcon, CopyIcon } from 'lucide-react';
 import { type TCodeBlockElement, NodeApi } from 'platejs';
