@@ -1,4 +1,5 @@
 import Grid from '@/components/common/Grid';
+import ClientWrapper from '@/components/common/wrapper/ClientWrapper';
 import ProjectCard from '@/components/modules/Public/Projects/ProjectCard';
 import Container from '@/components/ui/Container';
 import SectionHeading from '@/components/ui/SectionHeading';
@@ -9,21 +10,23 @@ import { Metadata } from 'next';
 
 const ProjectPage = async ({ searchParams }: SearchParams) => {
   const params = await searchParams;
-  const { data, meta } = await getProjects(params);
+  const { data, meta } = await getProjects({ ...params, limit: '12' });
 
   return (
     <>
-      <Container className="py-8">
-        <SectionHeading
-          heading="Projects"
-          description="A showcase of my work blending creativity and functionality, featuring interactive designs, seamless development, and innovative solutions."
-        />
-        <Grid>
-          {data?.map((project) => (
-            <ProjectCard key={project._id} project={project} />
-          ))}
-        </Grid>
-      </Container>
+      <ClientWrapper meta={meta}>
+        <Container className="py-8">
+          <SectionHeading
+            heading="Projects"
+            description="A showcase of my work blending creativity and functionality, featuring interactive designs, seamless development, and innovative solutions."
+          />
+          <Grid>
+            {data?.map((project) => (
+              <ProjectCard key={project._id} project={project} />
+            ))}
+          </Grid>
+        </Container>
+      </ClientWrapper>
     </>
   );
 };

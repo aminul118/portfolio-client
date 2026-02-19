@@ -1,4 +1,5 @@
 import NotFound from '@/components/common/error/NotFound';
+import Grid from '@/components/common/Grid';
 import ClientWrapper from '@/components/common/wrapper/ClientWrapper';
 import BlogCard from '@/components/modules/Public/blogs/BlogCard';
 import Container from '@/components/ui/Container';
@@ -10,18 +11,18 @@ import { Metadata } from 'next';
 
 const BlogsPage = async ({ searchParams }: SearchParams) => {
   const params = await cleanSearchParams(searchParams);
-  const { data: blogs, meta } = await getBlogs(params);
+  const { data: blogs, meta } = await getBlogs({ ...params, limit: '12' });
 
   return (
     <>
       <ClientWrapper meta={meta}>
         <Container className="pt-28 pb-12">
           {blogs?.length > 0 ? (
-            <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 2xl:grid-cols-3">
+            <Grid>
               {blogs.map((blog) => {
                 return <BlogCard key={blog._id} {...blog} />;
               })}
-            </div>
+            </Grid>
           ) : (
             <NotFound
               title="Blogs Not Found"
