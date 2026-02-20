@@ -1,7 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { attachTokensToResponse } from './middleware/cookieUtils';
-import { decodeEdgeToken } from './middleware/tokenUtils';
 import { tryRefreshToken } from './services/auth/refreshToken';
+import { decodeToken, setAuthCookies } from './services/user/proxy-utils';
 import {
   getDefaultDashboardRoute,
   getRouteOwner,
@@ -19,60 +18,54 @@ export async function proxy(req: NextRequest) {
 
   // 1) First try with current access token
   let user = await getVerifiedUser(req);
-  let newAccessToken: string | null = null;
-  let newRefreshToken: string | null = null;
+  let response = NextResponse.next();
+
+  // Helper for redirection
+  const redirectTo = (path: string) =>
+    NextResponse.redirect(new URL(path, origin));
 
   // 2) If access is invalid but refresh exists -> refresh once (avoid doing this on auth pages)
-  // We also try refresh on '/' to allow auto-login
-  if (!user && !isAuthPage && (routeOwner !== null || pathname === '/')) {
+  if (!user && !isAuthPage && routeOwner !== null) {
     const refreshed = await tryRefreshToken(req);
 
     if (refreshed?.accessToken) {
-      newAccessToken = refreshed.accessToken;
-      newRefreshToken = refreshed.refreshToken;
+      const { accessToken, refreshToken } = refreshed;
 
-      // Use the Edge-safe decoder for the newly fetched token
-      user = decodeEdgeToken(newAccessToken);
+      // Set the new tokens in the response cookies
+      setAuthCookies(response, accessToken, refreshToken);
+
+      // Decode token to get user info (role, etc.)
+      user = decodeToken(accessToken);
     }
   }
 
   const role = user?.role as UserRole | undefined;
 
-  // Shorthand for applying cookies to any response
-  const withCookies = (res: NextResponse) =>
-    attachTokensToResponse(res, newAccessToken, newRefreshToken);
-
-  // Case: Root route handles auto-dashboard or login
+  // 3) Handle Root Route
   if (pathname === '/') {
-    if (!user) return NextResponse.redirect(new URL('/login', origin));
-    return withCookies(
-      NextResponse.redirect(new URL(getDefaultDashboardRoute(role!), origin)),
-    );
+    if (!user) return redirectTo('/login');
+    return redirectTo(getDefaultDashboardRoute(role!));
   }
 
-  // Case: Public auth pages (/login, /register, etc.)
-  if (!user && isAuthPage) return NextResponse.next();
+  // 4) Public Auth Pages (guest allowed)
+  if (!user && isAuthPage) return response;
 
-  // Case: Prevent logged-in users from seeing auth pages
+  // 5) Logged-in users should not see auth pages
   if (user && isAuthPage) {
-    return withCookies(
-      NextResponse.redirect(new URL(getDefaultDashboardRoute(role!), origin)),
-    );
+    return redirectTo(getDefaultDashboardRoute(role!));
   }
 
-  // Case: Protected route check
+  // 6) Protect protected routes for guests
   if (!user && routeOwner !== null && pathname !== '/login') {
-    return NextResponse.redirect(new URL('/login', origin));
+    return redirectTo('/login');
   }
 
-  // Case: Role access control check
+  // 7) Role-based protection
   if (user && !isValidRedirectForRole(pathname, role!)) {
-    return withCookies(
-      NextResponse.redirect(new URL(getDefaultDashboardRoute(role!), origin)),
-    );
+    return redirectTo(getDefaultDashboardRoute(role!));
   }
 
-  return withCookies(NextResponse.next());
+  return response;
 }
 
 export const config = {
