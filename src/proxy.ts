@@ -28,7 +28,7 @@ export async function proxy(req: NextRequest) {
     NextResponse.redirect(new URL(path, origin));
 
   // 2) If access is invalid but refresh exists -> refresh once (avoid doing this on auth pages)
-  if (!user && !isAuthPage && routeOwner !== null) {
+  if (!user && !isAuthPage) {
     const refreshed = await tryRefreshToken(req);
 
     if (refreshed?.accessToken) {
@@ -36,6 +36,10 @@ export async function proxy(req: NextRequest) {
 
       // Set the new tokens in the response cookies
       setAuthCookies(response, accessToken, refreshToken);
+
+      // Update request headers so Server Components can see the new token in this request
+      req.cookies.set('accessToken', accessToken);
+      if (refreshToken) req.cookies.set('refreshToken', refreshToken);
 
       // Decode token to get user info (role, etc.)
       user = decodeToken(accessToken);
@@ -45,8 +49,6 @@ export async function proxy(req: NextRequest) {
   const role = user?.role as UserRole | undefined;
 
   // 3) Handle Root Route
-  // Allow everyone to see the home page (/).
-  // Previously this redirected to login if not logged in, or to dashboard if logged in.
   if (pathname === '/') {
     return response;
   }
@@ -56,7 +58,6 @@ export async function proxy(req: NextRequest) {
 
   // 5) Logged-in users should not see auth pages (login/register/etc.)
   if (user && isAuthPage) {
-    // Redirect to home page as requested by user
     return redirectTo('/');
   }
 
