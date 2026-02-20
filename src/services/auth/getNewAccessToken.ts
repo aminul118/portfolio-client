@@ -1,3 +1,6 @@
+'use server';
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getCookie, verifyAccessToken } from '@/lib/jwt';
 import serverFetch from '@/lib/server-fetch';
 import { ApiResponse } from '@/types';
@@ -13,66 +16,62 @@ export interface IAccessToken {
   refreshToken: string;
 }
 
+let refreshPromise: Promise<any> | null = null;
+
 const getNewAccessToken = async () => {
-  try {
-    const accessToken = await getCookie('accessToken');
-    const refreshToken = await getCookie('refreshToken');
+  if (refreshPromise) return refreshPromise;
 
-    //Case 1: Both tokens are missing - user is logged out
-    if (!accessToken && !refreshToken) {
-      return {
-        tokenRefreshed: false,
-      };
-    }
+  refreshPromise = (async () => {
+    try {
+      const accessToken = await getCookie('accessToken');
+      const refreshToken = await getCookie('refreshToken');
 
-    // Case 2 : Access Token exist- and need to verify
-    if (accessToken) {
-      const verifiedToken = await verifyAccessToken(accessToken);
+      if (!accessToken && !refreshToken) return { tokenRefreshed: false };
+      if (!refreshToken) return { tokenRefreshed: false };
 
-      if (verifiedToken) {
-        return {
-          tokenRefreshed: false,
-        };
+      if (accessToken) {
+        const ok = await verifyAccessToken(accessToken);
+        if (ok) return { tokenRefreshed: false };
       }
-    }
 
-    //Case 3 : refresh Token is missing- user is logged out
-    if (!refreshToken) {
+      const cookieHeader = [
+        refreshToken ? `refreshToken=${refreshToken}` : '',
+        accessToken ? `accessToken=${accessToken}` : '',
+      ]
+        .filter(Boolean)
+        .join('; ');
+
+      const res = await serverFetch.post<ApiResponse<IAccessToken>>(
+        '/auth/refresh-token',
+        { headers: { Cookie: cookieHeader } },
+      );
+
+      console.log('RES=>', res);
+
+      await setAccessToken(res.data.accessToken);
+
+      // only update refresh if your backend rotates it
+      if (res.data.refreshToken) {
+        await setRefreshToken(res.data.refreshToken);
+      }
+
+      return { tokenRefreshed: true, success: true };
+    } catch (error: any) {
+      // if refresh fails, clear tokens (optional)
+      await removeAccessToken();
+      await removeRefreshToken();
+
       return {
         tokenRefreshed: false,
+        success: false,
+        message: error?.message || 'Refresh failed',
       };
+    } finally {
+      refreshPromise = null;
     }
+  })();
 
-    // API Call - serverFetch will skip getNewAccessToken for /auth/refresh-token endpoint
-    const res = await serverFetch.post<ApiResponse<IAccessToken>>(
-      '/auth/refresh-token',
-      {
-        headers: {
-          Cookie: `refreshToken=${refreshToken}`,
-        },
-      },
-    );
-
-    console.log('access token refreshed!!');
-
-    await removeAccessToken();
-    await setAccessToken(res.data.accessToken);
-
-    await removeRefreshToken();
-    await setRefreshToken(res.data.refreshToken);
-
-    return {
-      tokenRefreshed: true,
-      success: true,
-      message: 'Token refreshed successfully',
-    };
-  } catch (error: unknown) {
-    return {
-      tokenRefreshed: false,
-      success: false,
-      message: error instanceof Error ? error.message : 'Something went wrong',
-    };
-  }
+  return refreshPromise;
 };
 
 export { getNewAccessToken };

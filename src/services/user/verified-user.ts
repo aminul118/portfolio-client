@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { verifyAccessToken } from '@/lib/jwt';
 import type { NextRequest } from 'next/server';
 
 interface DecodedToken {
@@ -26,16 +25,42 @@ const getVerifiedUser = async (
 
     if (!accessToken) return null;
 
-    const verifiedUser = await verifyAccessToken(accessToken);
-    if (!verifiedUser) return null;
+    let payload: any = null;
 
-    // Optionally: validate shape more strictly
-    const { userId, email, role, iat, exp } = verifiedUser as any;
+    if (req) {
+      // Edge runtime safe decoding
+      try {
+        const base64Url = accessToken.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(
+          atob(base64)
+            .split('')
+            .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+            .join(''),
+        );
+        payload = JSON.parse(jsonPayload);
+
+        // Check expiration
+        if (payload.exp && Date.now() >= payload.exp * 1000) {
+          return null;
+        }
+      } catch (e) {
+        console.error('getVerifiedUser Edge decode error:', e);
+        return null;
+      }
+    } else {
+      // Server-side (Node.js) formal verification
+      const { verifyAccessToken } = await import('@/lib/jwt');
+      payload = await verifyAccessToken(accessToken);
+    }
+
+    if (!payload) return null;
+
+    const { userId, email, role, iat, exp } = payload;
     if (!userId || !email) return null;
 
     return { userId, email, role, iat, exp } as DecodedToken;
   } catch (err) {
-    // Helpful for debugging — remove or tone down in prod
     console.error('getVerifiedUser error:', (err as Error).message ?? err);
     return null;
   }

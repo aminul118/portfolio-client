@@ -1,14 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 
-import envVars from '@/config/env.config';
-import { revalidate } from '@/lib/revalidate';
 import serverFetch from '@/lib/server-fetch';
 import { ApiResponse } from '@/types';
 import { ILogin } from '@/types/api.types';
 import { setAccessToken, setRefreshToken } from './cookie-token';
 
-const loginAction = async (payload: Record<string, string>) => {
+export const loginAction = async (payload: Record<string, string>) => {
   try {
     const res = await serverFetch.post<ApiResponse<ILogin>>('/auth/login', {
       headers: {
@@ -17,8 +14,8 @@ const loginAction = async (payload: Record<string, string>) => {
       body: JSON.stringify(payload),
     });
 
-    if (!res?.data) {
-      return { success: false, error: 'Invalid server response' };
+    if (!res?.success) {
+      return { success: false, message: res.message || 'Something went wrong' };
     }
 
     const { accessToken, refreshToken, user } = res.data;
@@ -26,27 +23,16 @@ const loginAction = async (payload: Record<string, string>) => {
     await setAccessToken(accessToken);
     await setRefreshToken(refreshToken);
 
-    revalidate('ME');
-
     return {
       success: true,
+      message: 'Login Successfully',
       user,
-      message: 'Login successful',
     };
-  } catch (error: any) {
-    if (error?.digest?.startsWith('NEXT_REDIRECT')) {
-      throw error;
-    }
-
+  } catch (err: any) {
     return {
       success: false,
+      message: 'Login failed',
       user: null,
-      message:
-        envVars.nodeEnv === 'development'
-          ? error.message
-          : 'Login Failed. You might have entered incorrect email or password.',
     };
   }
 };
-
-export { loginAction };
