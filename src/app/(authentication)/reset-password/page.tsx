@@ -16,12 +16,12 @@ export default ResetPasswordPage;
 
 // >> SEO Start
 export const metadata: Metadata = generateMetaTags({
-  title: 'Reset Password | Smart Healthcare and Research Limited',
+  title: 'Reset Password | Md Aminul Islam',
   description:
-    'Reset your Smart Healthcare and Research Limited account password securely to regain access to your personalized healthcare and research dashboard.',
+    'Reset your password for the Md Aminul Islam portfolio admin dashboard to regain access to content management tools.',
   keywords:
-    'reset password, password recovery, Smart Healthcare and Research Limited, SHRL, account access, secure login, healthcare platform, medical research account',
-  image: '/seo/shrl-hero-ss.png',
+    'reset password, password recovery, Aminul Islam, portfolio admin, secure login, content management',
+  image: '/seo/aminul-hero-ss.png',
   websitePath: '/reset-password',
 });
 // >> SEO End

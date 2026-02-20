@@ -12,11 +12,13 @@ const ForgotPasswordPage = () => {
 
 export default ForgotPasswordPage;
 
-// >> SEO Start
+// SEO Metatags
 export const metadata: Metadata = generateMetaTags({
-  title: 'Forgot Password | SHRL',
-  description: 'Description for Forgot Password Page',
-  keywords: 'keyword',
+  title: 'Forgot Password | Md Aminul Islam',
+  description:
+    'Recover your account password for the Md Aminul Islam portfolio admin dashboard.',
+  keywords:
+    'forgot password, password recovery, Aminul Islam, portfolio admin, secure login',
+  image: '/seo/aminul-hero-ss.png',
   websitePath: '/forgot-password',
 });
-// >> SEO End

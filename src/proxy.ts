@@ -10,6 +10,9 @@ import {
 } from './services/user/user-access';
 import getVerifiedUser from './services/user/verified-user';
 
+/**
+ * Next.js Middleware to handle authentication, token refresh, and role-based access control.
+ */
 export async function proxy(req: NextRequest) {
   const { pathname, origin } = req.nextUrl;
 
@@ -42,17 +45,19 @@ export async function proxy(req: NextRequest) {
   const role = user?.role as UserRole | undefined;
 
   // 3) Handle Root Route
+  // Allow everyone to see the home page (/).
+  // Previously this redirected to login if not logged in, or to dashboard if logged in.
   if (pathname === '/') {
-    if (!user) return redirectTo('/login');
-    return redirectTo(getDefaultDashboardRoute(role!));
+    return response;
   }
 
   // 4) Public Auth Pages (guest allowed)
   if (!user && isAuthPage) return response;
 
-  // 5) Logged-in users should not see auth pages
+  // 5) Logged-in users should not see auth pages (login/register/etc.)
   if (user && isAuthPage) {
-    return redirectTo(getDefaultDashboardRoute(role!));
+    // Redirect to home page as requested by user
+    return redirectTo('/');
   }
 
   // 6) Protect protected routes for guests

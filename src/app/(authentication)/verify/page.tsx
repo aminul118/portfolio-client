@@ -15,14 +15,13 @@ const VerifyOTPPage = () => {
 
 export default VerifyOTPPage;
 
-// >> SEO Start
+// SEO Metatg
 export const metadata: Metadata = generateMetaTags({
-  title: 'Verify OTP | Smart Healthcare and Research Limited',
+  title: 'Verify OTP | Md Aminul Islam',
   description:
-    'Verify your one-time password (OTP) to complete your Smart Healthcare and Research Limited account authentication securely.',
+    'Verify your one-time password (OTP) to securely access the Md Aminul Islam portfolio admin panel.',
   keywords:
-    'verify otp, one time password, Smart Healthcare and Research Limited, SHRL, account verification, secure login, authentication, healthcare platform',
-  image: '/seo/shrl-hero-ss.png',
+    'verify otp, one time password, Aminul Islam, account verification, secure login, authentication, portfolio admin',
+  image: '/seo/aminul-hero-ss.png',
   websitePath: '/verify-otp',
 });
-// >> SEO End

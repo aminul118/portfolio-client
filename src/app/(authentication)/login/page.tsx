@@ -47,12 +47,12 @@ export default LoginPage;
 
 // >> SEO Start
 export const metadata: Metadata = generateMetaTags({
-  title: 'Login | Smart Healthcare and Research Limited',
+  title: 'Login | Md Aminul Islam',
   description:
-    'Login to your Smart Healthcare and Research Limited account to access secure medical data, research tools, and personalized healthcare services.',
+    'Login to the Md Aminul Islam portfolio admin dashboard to manage projects, blogs, and other content.',
   keywords:
-    'login, sign in, Smart Healthcare and Research Limited, SHRL, healthcare platform, medical research, secure access, patient portal, health data login',
-  image: '/seo/shrl-hero-ss.png',
+    'login, sign in, Aminul Islam, portfolio admin, project management, blog management, secure access',
+  image: '/seo/aminul-hero-ss.png',
   websitePath: '/login',
 });
 // >> SEO End
