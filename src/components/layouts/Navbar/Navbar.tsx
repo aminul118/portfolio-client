@@ -16,6 +16,7 @@ import { usePathname } from 'next/navigation';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { navItems, NavMenu } from './nav-menu';
 import UserAvatar from './NavUser';
+import PortalButton from './PortalButton';
 
 interface MobileProps {
   navItems: NavMenu[];
@@ -99,17 +100,7 @@ const Navbar = ({ user }: { user: IUser }) => {
 
         {/* Right Side - User/Portal */}
         <div className="hidden items-center gap-4 lg:flex">
-          {user ? (
-            <UserAvatar user={user} />
-          ) : (
-            <Button
-              asChild
-              size="sm"
-              className="relative overflow-hidden rounded-full bg-linear-to-r from-blue-600 to-cyan-500 px-6 font-semibold text-white shadow-lg shadow-blue-500/25 transition-all hover:scale-105 hover:shadow-blue-500/40"
-            >
-              <Link href="/login">Portal</Link>
-            </Button>
-          )}
+          {user ? <UserAvatar user={user} /> : <PortalButton />}
         </div>
 
         {/* Mobile Hamburger */}
@@ -168,10 +159,17 @@ const Mobile = ({ navItems, setMenuOpen }: MobileProps) => {
           <Button
             asChild
             size="sm"
-            className="w-full max-w-xs rounded-full bg-linear-to-r from-blue-600 to-cyan-500 font-semibold text-white shadow-lg"
+            className="group relative w-full max-w-xs overflow-hidden rounded-full bg-slate-900 font-bold text-white shadow-lg"
           >
             <Link href="/login" onClick={() => setMenuOpen(false)}>
-              Portal / Login
+              {/* Rotating Animated Border */}
+              <div className="absolute inset-0 rounded-full border border-white/10 p-px">
+                <div className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#3b82f6_0%,#06b6d4_50%,#3b82f6_100%)]" />
+              </div>
+              <div className="absolute inset-px rounded-full bg-slate-900" />
+              <span className="relative z-10 bg-linear-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                Portal / Login
+              </span>
             </Link>
           </Button>
         </div>
