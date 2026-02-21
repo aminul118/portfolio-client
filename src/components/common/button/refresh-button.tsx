@@ -6,7 +6,7 @@ import { RefreshCcw } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 interface RefreshButtonProps {
-  size?: 'sm' | 'default' | 'lg';
+  size?: 'sm' | 'default' | 'lg' | 'icon';
   variant?: 'default' | 'outline' | 'ghost';
   showLabel?: boolean;
 }

@@ -1,5 +1,6 @@
 import NotFound from '@/components/common/error/NotFound';
 import Grid from '@/components/common/Grid';
+import TableFilters from '@/components/common/table/TableFilters';
 import ClientWrapper from '@/components/common/wrapper/ClientWrapper';
 import BlogCard from '@/components/modules/Public/blogs/BlogCard';
 import Container from '@/components/ui/Container';
@@ -16,9 +17,10 @@ const BlogsPage = async ({ searchParams }: SearchParams) => {
   return (
     <>
       <ClientWrapper meta={meta}>
-        <Container className="pt-28 pb-12">
+        <Container className="pt-20">
+          <TableFilters />
           {blogs?.length > 0 ? (
-            <Grid>
+            <Grid className="mt-6">
               {blogs.map((blog) => {
                 return <BlogCard key={blog._id} {...blog} />;
               })}

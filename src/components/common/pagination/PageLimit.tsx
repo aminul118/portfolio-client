@@ -44,7 +44,12 @@ const PageLimit = ({
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div
+      className={cn(
+        'flex flex-col gap-2 md:flex-row md:items-center',
+        className,
+      )}
+    >
       <Label className="whitespace-nowrap">{label}</Label>
 
       <Select
@@ -52,7 +57,7 @@ const PageLimit = ({
         value={limit}
         disabled={isPending}
       >
-        <SelectTrigger className={cn('w-20', className)}>
+        <SelectTrigger className="w-full md:w-20">
           <SelectValue />
         </SelectTrigger>
 

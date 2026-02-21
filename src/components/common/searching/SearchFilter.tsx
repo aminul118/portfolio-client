@@ -3,6 +3,7 @@
 import { Input } from '@/components/ui/input';
 import { useTransition } from '@/context/useTransition';
 import useDebounce from '@/hooks/useDebounce';
+import { cn } from '@/lib/utils';
 import { CircleXIcon, Search } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useId, useRef, useState } from 'react';
@@ -10,11 +11,13 @@ import { useEffect, useId, useRef, useState } from 'react';
 interface Props {
   placeholder?: string;
   paramName?: string;
+  className?: string;
 }
 
 const SearchFilter = ({
   placeholder = 'Search...',
   paramName = 'search',
+  className,
 }: Props) => {
   const id = useId();
   const router = useRouter();
@@ -64,7 +67,7 @@ const SearchFilter = ({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder={placeholder}
-          className="w-sm pe-9 pl-10"
+          className={cn('h-9 w-sm pe-9 pl-10', className)}
         />
 
         {value && (

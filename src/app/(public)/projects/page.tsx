@@ -1,8 +1,8 @@
 import Grid from '@/components/common/Grid';
+import TableFilters from '@/components/common/table/TableFilters';
 import ClientWrapper from '@/components/common/wrapper/ClientWrapper';
 import ProjectCard from '@/components/modules/Public/Projects/ProjectCard';
 import Container from '@/components/ui/Container';
-import SectionHeading from '@/components/ui/SectionHeading';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { getProjects } from '@/services/project/projects';
 import { SearchParams } from '@/types';
@@ -15,12 +15,10 @@ const ProjectPage = async ({ searchParams }: SearchParams) => {
   return (
     <>
       <ClientWrapper meta={meta}>
-        <Container className="py-8">
-          <SectionHeading
-            heading="Projects"
-            description="A showcase of my work blending creativity and functionality, featuring interactive designs, seamless development, and innovative solutions."
-          />
-          <Grid>
+        <Container className="pt-20">
+          <TableFilters />
+
+          <Grid className="mt-6">
             {data?.map((project) => (
               <ProjectCard key={project._id} project={project} />
             ))}

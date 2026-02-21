@@ -59,7 +59,12 @@ const Sorting = ({
   };
 
   return (
-    <div className={cn('flex items-center gap-2', className)}>
+    <div
+      className={cn(
+        'flex flex-col gap-2 md:flex-row md:items-center',
+        className,
+      )}
+    >
       {!labelInSelect && <Label className="whitespace-nowrap">{label}</Label>}
 
       <Select
