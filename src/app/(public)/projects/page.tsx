@@ -2,7 +2,7 @@ import Grid from '@/components/common/Grid';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientWrapper from '@/components/common/wrapper/ClientWrapper';
 import ProjectCard from '@/components/modules/Public/Projects/ProjectCard';
-import Container from '@/components/ui/Container';
+import SectionBanner from '@/components/ui/SectionBanner';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { getProjects } from '@/services/project/projects';
 import { SearchParams } from '@/types';
@@ -14,8 +14,13 @@ const ProjectPage = async ({ searchParams }: SearchParams) => {
 
   return (
     <>
+      <SectionBanner
+        heading="My Projects"
+        description="A showcase of my recent work, featuring full-stack applications, interactive web tools, and innovative coding solutions."
+        className="pt-16"
+      />
       <ClientWrapper meta={meta}>
-        <Container className="pt-20">
+        <section className="container mx-auto px-2 py-8 pt-4">
           <TableFilters />
 
           <Grid className="mt-6">
@@ -23,7 +28,7 @@ const ProjectPage = async ({ searchParams }: SearchParams) => {
               <ProjectCard key={project._id} project={project} />
             ))}
           </Grid>
-        </Container>
+        </section>
       </ClientWrapper>
     </>
   );

@@ -14,7 +14,7 @@ const Container = ({
   ...props
 }: TContainer) => {
   return (
-    <section {...props} className={cn('px-2 py-6 lg:py-8', background)}>
+    <section {...props} className={cn('px-4 py-12 lg:py-20', background)}>
       <div className={cn('container mx-auto', className)}> {children}</div>
     </section>
   );

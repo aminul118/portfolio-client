@@ -28,7 +28,7 @@ const ClientWrapper = ({
           <div className={cn(isPending && 'opacity-20')}>{children}</div>
 
           {isPending && (
-            <div className="absolute inset-0 z-20 flex items-center justify-center">
+            <div className="absolute inset-0 z-50 flex items-center justify-center">
               {loader}
             </div>
           )}

@@ -46,7 +46,7 @@ const ClientTableWrapper = ({
 
           {/* Centered Loader OVER content */}
           {isPending && (
-            <div className="absolute inset-0 z-20 flex items-center justify-center">
+            <div className="absolute inset-0 z-50 flex items-center justify-center">
               {loader}
             </div>
           )}

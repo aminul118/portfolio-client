@@ -3,7 +3,7 @@ import Grid from '@/components/common/Grid';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientWrapper from '@/components/common/wrapper/ClientWrapper';
 import BlogCard from '@/components/modules/Public/blogs/BlogCard';
-import Container from '@/components/ui/Container';
+import SectionBanner from '@/components/ui/SectionBanner';
 import cleanSearchParams from '@/lib/cleanSearchParams';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { getBlogs } from '@/services/blogs/blogs';
@@ -16,8 +16,13 @@ const BlogsPage = async ({ searchParams }: SearchParams) => {
 
   return (
     <>
+      <SectionBanner
+        heading="Blogs & Insights"
+        description="Exploring the world of web development, sharing experiences, and documenting the journey of building modern applications."
+        className="pt-16"
+      />
       <ClientWrapper meta={meta}>
-        <Container className="pt-20">
+        <section className="container mx-auto px-2 py-8 pt-4">
           <TableFilters />
           {blogs?.length > 0 ? (
             <Grid className="mt-6">
@@ -31,7 +36,7 @@ const BlogsPage = async ({ searchParams }: SearchParams) => {
               description="When Aminul Islam adds blogs, you will find it here."
             />
           )}
-        </Container>
+        </section>
       </ClientWrapper>
     </>
   );

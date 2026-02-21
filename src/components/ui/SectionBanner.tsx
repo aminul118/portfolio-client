@@ -5,12 +5,12 @@ type SectionBannerProps = {
   backgroundImagePath?: string;
 };
 
-const SectionBanner: React.FC<SectionBannerProps> = ({
+const SectionBanner = ({
   heading,
   description,
   className,
   backgroundImagePath,
-}) => {
+}: SectionBannerProps) => {
   return (
     <div
       className={`${className} relative flex h-64 w-full items-center justify-center bg-cover bg-center`}
@@ -25,7 +25,7 @@ const SectionBanner: React.FC<SectionBannerProps> = ({
       )}
       <div className="relative z-10 max-w-2xl px-4 text-center">
         <h2 className="mb-4 text-2xl font-bold lg:text-4xl">{heading}</h2>
-        {description && <p className="text-lg">{description}</p>}
+        {description && <p className="text-sm md:text-lg">{description}</p>}
       </div>
     </div>
   );
