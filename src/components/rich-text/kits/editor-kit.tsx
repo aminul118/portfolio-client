@@ -1,9 +1,5 @@
 'use client';
 
-import { type Value, TrailingBlockPlugin } from 'platejs';
-import { type TPlateEditor, useEditorRef } from 'platejs/react';
-
-import { AIKit } from '@/components/rich-text/kits/ai-kit';
 import { AlignKit } from '@/components/rich-text/kits/align-kit';
 import { AutoformatKit } from '@/components/rich-text/kits/autoformat-kit';
 import { BasicBlocksKit } from '@/components/rich-text/kits/basic-blocks-kit';
@@ -13,7 +9,6 @@ import { BlockPlaceholderKit } from '@/components/rich-text/kits/block-placehold
 import { CalloutKit } from '@/components/rich-text/kits/callout-kit';
 import { CodeBlockKit } from '@/components/rich-text/kits/code-block-kit';
 import { ColumnKit } from '@/components/rich-text/kits/column-kit';
-import { CopilotKit } from '@/components/rich-text/kits/copilot-kit';
 import { CursorOverlayKit } from '@/components/rich-text/kits/cursor-overlay-kit';
 import { DateKit } from '@/components/rich-text/kits/date-kit';
 import { DndKit } from '@/components/rich-text/kits/dnd-kit';
@@ -34,11 +29,10 @@ import { SlashKit } from '@/components/rich-text/kits/slash-kit';
 import { TableKit } from '@/components/rich-text/kits/table-kit';
 import { TocKit } from '@/components/rich-text/kits/toc-kit';
 import { ToggleKit } from '@/components/rich-text/kits/toggle-kit';
+import { type Value, TrailingBlockPlugin } from 'platejs';
+import { type TPlateEditor, useEditorRef } from 'platejs/react';
 
 export const EditorKit = [
-  ...CopilotKit,
-  ...AIKit,
-
   // Elements
   ...BasicBlocksKit,
   ...CodeBlockKit,

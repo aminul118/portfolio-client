@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 
-import { AIChatPlugin } from '@platejs/ai/react';
 import {
   BLOCK_CONTEXT_MENU_ID,
   BlockMenuPlugin,
@@ -23,7 +22,7 @@ import {
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
 
-type Value = 'askAI' | null;
+type Value = null;
 
 export function BlockContextMenu({ children }: { children: React.ReactNode }) {
   const { api, editor } = useEditorPlugin(BlockMenuPlugin);
@@ -102,20 +101,13 @@ export function BlockContextMenu({ children }: { children: React.ReactNode }) {
             editor.getApi(BlockSelectionPlugin).blockSelection.focus();
 
             if (value === 'askAI') {
-              editor.getApi(AIChatPlugin).aiChat.show();
+              // editor.getApi(AIChatPlugin).aiChat.show();
             }
 
             setValue(null);
           }}
         >
           <ContextMenuGroup>
-            <ContextMenuItem
-              onClick={() => {
-                setValue('askAI');
-              }}
-            >
-              Ask AI
-            </ContextMenuItem>
             <ContextMenuItem
               onClick={() => {
                 editor

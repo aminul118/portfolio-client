@@ -5,7 +5,6 @@ import { Plate, usePlateEditor } from 'platejs/react';
 
 import { EditorKit } from '@/components/rich-text/kits/editor-kit';
 import { Editor, EditorContainer } from '@/components/rich-text/ui/editor';
-import { SettingsDialog } from './settings-dialog';
 
 export function PlateEditor() {
   const editor = usePlateEditor({
@@ -18,8 +17,6 @@ export function PlateEditor() {
       <EditorContainer>
         <Editor variant="demo" />
       </EditorContainer>
-
-      <SettingsDialog />
     </Plate>
   );
 }

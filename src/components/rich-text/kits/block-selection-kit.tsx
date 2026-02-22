@@ -1,8 +1,7 @@
 'use client';
 
-import { AIChatPlugin } from '@platejs/ai/react';
 import { BlockSelectionPlugin } from '@platejs/selection/react';
-import { getPluginTypes, isHotkey, KEYS } from 'platejs';
+import { getPluginTypes, KEYS } from 'platejs';
 
 import { BlockSelection } from '@/components/rich-text/ui/block-selection';
 
@@ -15,9 +14,9 @@ export const BlockSelectionKit = [
           element.type,
         ),
       onKeyDownSelecting: (editor, e) => {
-        if (isHotkey('mod+j')(e)) {
-          editor.getApi(AIChatPlugin).aiChat.show();
-        }
+        // if (isHotkey('mod+j')(e)) {
+        //   editor.getApi(AIChatPlugin).aiChat.show();
+        // }
       },
     },
     render: {
