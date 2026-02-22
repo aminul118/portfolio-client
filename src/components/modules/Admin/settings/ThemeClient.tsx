@@ -48,7 +48,7 @@ const ThemeClient = () => {
   ];
 
   return (
-    <div className="w-full max-w-4xl">
+    <section>
       <Card>
         <CardHeader>
           <div className="flex items-center gap-3">
@@ -114,7 +114,7 @@ const ThemeClient = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </section>
   );
 };
 

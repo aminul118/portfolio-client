@@ -85,8 +85,14 @@ const FooterUser = ({ user }: { user: IUser }) => {
             <DropdownMenuSeparator className="mt-3" />
 
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Settings /> <Link href="/admin/settings">Settings</Link>
+              <DropdownMenuItem asChild>
+                <Link
+                  href="/admin/settings/profile"
+                  className="flex cursor-pointer items-center gap-2 px-2 py-1.5"
+                >
+                  <Settings className="h-4 w-4" />
+                  <span>Settings</span>
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

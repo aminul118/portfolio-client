@@ -1,2 +1,0 @@
-src/components/rich-text/lib/use-chat.ts:import { aiChatPlugin } from '@/components/rich-text/kits/ai-kit';
-c:/Projects/aminul-portfolio/aminul-client/src/components/rich-text/lib/use-chat.ts:import { aiChatPlugin } from '@/components/rich-text/kits/ai-kit';

@@ -20,7 +20,6 @@ import {
 import { Input } from '@/components/ui/input';
 import useActionHandler from '@/hooks/useActionHandler';
 import { changePassword } from '@/services/auth/change-password';
-
 import { changePasswordSchema, ChangePasswordValues } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, KeyRound } from 'lucide-react';
@@ -61,7 +60,7 @@ const ChangePasswordClient = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl">
+    <section className="w-full">
       <Card>
         <CardHeader>
           <div className="flex items-center gap-3">
@@ -199,7 +198,7 @@ const ChangePasswordClient = () => {
           </Form>
         </CardContent>
       </Card>
-    </div>
+    </section>
   );
 };
 
