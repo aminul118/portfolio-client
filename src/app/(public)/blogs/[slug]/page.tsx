@@ -147,7 +147,7 @@ export async function generateMetadata({ params }: Params) {
   return generateMetaTags({
     title: `${title} | Aminul Islam Blog`,
     description,
-    keywords: `${title}, Aminul Islam, Web Development, Tech Blog, Next.js`,
+    keywords: `${title}, Aminul Islam, Web Development, Tech Blog, Next.js, Frontend, Backend, ${metaConfig.authors_name}`,
     image: thumbnail || metaConfig.baseImage,
     websitePath: `/blogs/${slug}`,
   });

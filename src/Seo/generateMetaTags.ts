@@ -30,6 +30,11 @@ const generateMetaTags = ({
     description,
     keywords,
     category,
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon.ico',
+      apple: '/logo.png',
+    },
     openGraph: {
       type: 'website',
       url: `${baseUrl}/${cleanPath}`,
@@ -39,6 +44,11 @@ const generateMetaTags = ({
       images: [{ url: image, alt: title }],
     },
     robots: { index: true, follow: true },
+    themeColor: [
+      { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+      { media: '(prefers-color-scheme: dark)', color: '#021D2E' },
+    ],
+    colorScheme: 'dark light',
     twitter: {
       card: 'summary_large_image',
       site: twitter_site,

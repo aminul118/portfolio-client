@@ -5,6 +5,8 @@ import HtmlContent from '@/components/rich-text/core/html-content';
 import { Button } from '@/components/ui/button';
 import Container from '@/components/ui/Container';
 import metaConfig from '@/config/meta.config';
+import { generateJsonLd } from '@/seo/generateJsonLd';
+import generateMetaTags from '@/seo/generateMetaTags';
 import { getSingleProject } from '@/services/project/projects';
 import { Params } from '@/types';
 import { Metadata } from 'next';
@@ -21,8 +23,15 @@ const ProjectDetailsPage = async ({ params }: Params) => {
     notFound();
   }
 
+  const jsonLd = getProjectJsonLd(project);
+
   return (
     <Container className="mt-16 lg:mt-22">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd}
+        key="project-jsonld"
+      />
       <div className="grid gap-10 lg:grid-cols-3">
         <div className="flex flex-col gap-3 overflow-hidden lg:col-span-2">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -104,21 +113,25 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     project.content?.replace(/<[^>]*>/g, '').slice(0, 160) ||
     `Details about ${project.title}`;
 
-  return {
-    title: project.title,
+  return generateMetaTags({
+    title: `${project.title} | Aminul Islam Project`,
     description: cleanDescription,
-    openGraph: {
-      title: project.title,
-      description: cleanDescription,
-      url: `${metaConfig.baseUrl}/projects/${project.slug}`,
-      images: [
-        {
-          url: project.thumbnail,
-          width: 1200,
-          height: 630,
-          alt: project.title,
-        },
-      ],
-    },
-  };
+    keywords: `${project.title}, Aminul Islam, Web Development, Portfolio, ${project.technology?.join(', ')}`,
+    image: project.thumbnail || metaConfig.baseImage,
+    websitePath: `/projects/${slug}`,
+  });
 }
+
+// JSON-LD data for CreativeWork
+const getProjectJsonLd = (project: any) => {
+  return generateJsonLd('CreativeWork', {
+    name: project.title,
+    description: project.content?.replace(/<[^>]*>/g, '').slice(0, 160),
+    image: project.thumbnail,
+    url: `${metaConfig.baseUrl}/projects/${project.slug}`,
+    author: {
+      '@type': 'Person',
+      name: metaConfig.authors_name,
+    },
+  });
+};

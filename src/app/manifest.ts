@@ -10,9 +10,9 @@ export default function manifest(): MetadataRoute.Manifest {
     display: 'standalone',
     background_color: '#021D2E',
     theme_color: '#021D2E',
-    categories: ['construction', 'engineering', 'services'],
+    categories: ['resume', 'portfolio', 'developer', 'software engineering'],
     lang: 'en',
-    orientation: 'portrait',
+    orientation: 'any',
     scope: '/',
     id: '/?source=pwa',
     prefer_related_applications: false,
@@ -20,22 +20,27 @@ export default function manifest(): MetadataRoute.Manifest {
     protocol_handlers: [
       {
         protocol: 'mailto',
-        url: '/email?to=%s',
+        url: '/contact?email=%s',
       },
       {
         protocol: 'tel',
-        url: '/call?number=%s',
+        url: '/contact?phone=%s',
       },
     ],
     icons: [
       {
-        src: '/favicon.ico',
+        src: '/logo.png',
         sizes: 'any',
-        type: 'image/x-icon',
+        type: 'image/png',
       },
       {
-        src: '/icon.png',
+        src: '/logo.png',
         sizes: '512x512',
+        type: 'image/png',
+      },
+      {
+        src: '/logo.png',
+        sizes: '192x192',
         type: 'image/png',
       },
     ],

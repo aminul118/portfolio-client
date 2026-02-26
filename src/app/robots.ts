@@ -5,14 +5,9 @@ const robots = (): MetadataRoute.Robots => {
   return {
     rules: [
       {
-        userAgent: 'Googlebot',
+        userAgent: '*',
         allow: ['/'],
-        disallow: ['/user', '/admin'],
-      },
-      {
-        userAgent: ['Applebot', 'Bingbot'],
-        allow: ['/'],
-        disallow: ['/admin'],
+        disallow: ['/admin', '/dashboard', '/user', '/api'],
       },
     ],
     sitemap: [`${metaConfig.baseUrl}/sitemap.xml`],
