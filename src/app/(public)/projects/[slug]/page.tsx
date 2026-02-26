@@ -7,9 +7,10 @@ import Container from '@/components/ui/Container';
 import metaConfig from '@/config/meta.config';
 import { generateJsonLd } from '@/seo/generateJsonLd';
 import generateMetaTags from '@/seo/generateMetaTags';
+import generateViewport from '@/seo/generateViewport';
 import { getSingleProject } from '@/services/project/projects';
 import { Params } from '@/types';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -121,6 +122,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     websitePath: `/projects/${slug}`,
   });
 }
+
+export const viewport: Viewport = generateViewport();
 
 // JSON-LD data for CreativeWork
 const getProjectJsonLd = (project: any) => {

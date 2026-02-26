@@ -5,8 +5,10 @@ import Container from '@/components/ui/Container';
 import metaConfig from '@/config/meta.config';
 import { generateJsonLd } from '@/seo/generateJsonLd';
 import generateMetaTags from '@/seo/generateMetaTags';
+import generateViewport from '@/seo/generateViewport';
 import { getSingleBlog } from '@/services/blogs/blogs';
 import { Params } from '@/types';
+import { Viewport } from 'next';
 import { notFound } from 'next/navigation';
 
 const BlogDetailsPage = async ({ params }: Params) => {
@@ -152,3 +154,5 @@ export async function generateMetadata({ params }: Params) {
     websitePath: `/blogs/${slug}`,
   });
 }
+
+export const viewport: Viewport = generateViewport();

@@ -4,11 +4,12 @@ import envVars from '@/config/env.config';
 import fonts from '@/config/fonts.config';
 import ThemeProvider from '@/providers/ThemeProvider';
 import generateMetaTags from '@/seo/generateMetaTags';
+import generateViewport from '@/seo/generateViewport';
 import '@/styles/custom.css';
 import '@/styles/globals.css';
 import { Children } from '@/types';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import { Toaster } from 'sonner';
 
 const MainLayout = ({ children }: Children) => {
@@ -44,3 +45,5 @@ export const metadata: Metadata = generateMetaTags({
   keywords:
     'Md. Aminul Islam, Full Stack Developer, MERN Stack Developer, Next.js Expert, React Developer, TypeScript, SEO Specialist, Software Engineer, Web Development, API Development, TabEdge, Dhaka, Bangladesh, Aminul118',
 });
+
+export const viewport: Viewport = generateViewport();
