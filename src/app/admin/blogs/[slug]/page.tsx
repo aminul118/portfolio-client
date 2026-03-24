@@ -2,7 +2,7 @@ import NotFound from '@/components/common/error/NotFound';
 import DateFormat from '@/components/common/formater/date-format';
 import HtmlContent from '@/components/rich-text/core/html-content';
 import { Button } from '@/components/ui/button';
-import { getSingleBlog } from '@/services/blogs/blogs';
+import { getSingleBlog } from '@/services/Blogs/blogs';
 import { Params } from '@/types';
 import { Pencil } from 'lucide-react';
 import Image from 'next/image';

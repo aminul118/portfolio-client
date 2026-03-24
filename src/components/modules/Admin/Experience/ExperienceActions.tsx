@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { deleteSingleExperience } from '@/services/experience/experience';
+import { deleteSingleExperience } from '@/services/Experience/experience';
 import { IExperience } from '@/types/api.types';
 import { Edit, EllipsisIcon, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';

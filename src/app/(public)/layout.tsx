@@ -1,6 +1,6 @@
 import Footer from '@/components/layouts/Footer/Footer';
 import Navbar from '@/components/layouts/Navbar/Navbar';
-import { getMe } from '@/services/user/users';
+import { getMe } from '@/services/User/users';
 import { Children } from '@/types';
 
 const RootLayout = async ({ children }: Children) => {

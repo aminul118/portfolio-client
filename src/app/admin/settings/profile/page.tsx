@@ -1,5 +1,5 @@
-import ProfileClient from '@/components/modules/Admin/settings/profile/ProfileClient';
-import { getMe } from '@/services/user/users';
+import ProfileClient from '@/components/modules/Admin/Settings/profile/ProfileClient';
+import { getMe } from '@/services/User/users';
 import { Metadata } from 'next';
 
 export default async function ProfilePage() {

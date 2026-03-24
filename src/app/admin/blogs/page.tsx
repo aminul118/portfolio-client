@@ -1,9 +1,9 @@
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
-import BlogsTable from '@/components/modules/Admin/blogs/BlogsTable';
+import BlogsTable from '@/components/modules/Admin/Blogs/BlogsTable';
 import { Button } from '@/components/ui/button';
 import cleanSearchParams from '@/lib/cleanSearchParams';
-import { getBlogs } from '@/services/blogs/blogs';
+import { getBlogs } from '@/services/Blogs/blogs';
 import { SearchParams } from '@/types';
 import { Plus } from 'lucide-react';
 import { Metadata } from 'next';

@@ -19,7 +19,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
-const DashboardBreadcrumb = () => {
+const DashboardBreadcrumb= () => {
   const path = usePathname();
   const paths = path.split('/').filter(Boolean);
 

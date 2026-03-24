@@ -1,6 +1,6 @@
 import NotFound from '@/components/common/error/NotFound';
 import ProjectDetails from '@/components/modules/Admin/Projects/ProjectDetails';
-import { getSingleProject } from '@/services/project/projects';
+import { getSingleProject } from '@/services/Project/projects';
 import { Params } from '@/types';
 
 const ProjectDetailsPage = async ({ params }: Params) => {

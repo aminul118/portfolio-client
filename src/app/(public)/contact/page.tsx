@@ -1,5 +1,5 @@
-import Contact from '@/components/modules/Public/contact/Contact';
-import generateMetaTags from '@/seo/generateMetaTags';
+import Contact from '@/components/modules/Public/Contact/Contact';
+import generateMetaTags from '@/Seo/generateMetaTags';
 import { Metadata } from 'next';
 
 const ContactPage = () => {

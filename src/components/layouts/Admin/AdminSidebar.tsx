@@ -6,11 +6,11 @@ import {
   SidebarHeader,
   SidebarRail,
 } from '@/components/ui/sidebar';
-import { getMe } from '@/services/user/users';
+import { getMe } from '@/services/User/users';
 import Link from 'next/link';
 import Logo from '../../../assets/Logo';
 import Menu from './Menu';
-import FooterUser from './footer-user';
+import FooterUser from './FooterUser';
 
 const AdminSidebar = async () => {
   const { data } = await getMe();

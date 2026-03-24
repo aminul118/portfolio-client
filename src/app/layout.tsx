@@ -3,16 +3,20 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import envVars from '@/config/env.config';
 import fonts from '@/config/fonts.config';
 import ThemeProvider from '@/providers/ThemeProvider';
-import generateMetaTags from '@/seo/generateMetaTags';
-import generateViewport from '@/seo/generateViewport';
+import generateMetaTags from '@/Seo/generateMetaTags';
+import generateViewport from '@/Seo/generateViewport';
 import '@/styles/custom.css';
 import '@/styles/globals.css';
 import { Children } from '@/types';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { Metadata, Viewport } from 'next';
 import { Toaster } from 'sonner';
+import { getMe } from '@/services/User/getMe';
+import { AuthProvider } from '@/providers/AuthProvider';
 
-const MainLayout = ({ children }: Children) => {
+const MainLayout = async ({ children }: Children) => {
+  const user = await getMe();
+
   return (
     <>
       <html lang="en" suppressHydrationWarning>
@@ -25,7 +29,9 @@ const MainLayout = ({ children }: Children) => {
             enableSystem
             disableTransitionOnChange
           >
-            <TooltipProvider>{children}</TooltipProvider>
+            <AuthProvider initialUser={user}>
+              <TooltipProvider>{children}</TooltipProvider>
+            </AuthProvider>
             <Toaster position="top-right" richColors theme="dark" />
           </ThemeProvider>
         </body>
@@ -34,6 +40,7 @@ const MainLayout = ({ children }: Children) => {
     </>
   );
 };
+
 
 export default MainLayout;
 

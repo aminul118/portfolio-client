@@ -1,6 +1,6 @@
 import Container from '@/components/ui/Container';
 import SectionHeading from '@/components/ui/SectionHeading';
-import { getProjects } from '@/services/project/projects';
+import { getProjects } from '@/services/Project/projects';
 import { Suspense } from 'react';
 import FeaturedCard from './FeaturedCard';
 import FeaturedProjectSkeleton from './FeaturedProjectSkeleton';

@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import useActionHandler from '@/hooks/useActionHandler';
-import { sendInvoice } from '@/services/invoice/invoice';
+import { sendInvoice } from '@/services/Invoice/invoice';
 import { IInvoice, IModal } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Send, X } from 'lucide-react';

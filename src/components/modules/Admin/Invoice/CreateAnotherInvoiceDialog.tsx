@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import useActionHandler from '@/hooks/useActionHandler';
-import { createInvoice } from '@/services/invoice/invoice';
+import { createInvoice } from '@/services/Invoice/invoice';
 import { IInvoice, IModal } from '@/types';
 import { InvoiceFormValues, invoiceSchema } from '@/zod/invoice';
 import { zodResolver } from '@hookform/resolvers/zod';

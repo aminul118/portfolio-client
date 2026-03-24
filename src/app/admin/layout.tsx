@@ -1,6 +1,6 @@
 import { AdminSidebarSkeleton } from '@/components/layouts/Admin/AdminSidebarSkeleton';
-import DashboardBreadcrumb from '@/components/layouts/Admin/DashboardBreadcrumb ';
-import AdminSidebar from '@/components/layouts/Admin/admin-sidebar';
+import DashboardBreadcrumb from '@/components/layouts/Admin/DashboardBreadcrumb';
+import AdminSidebar from '@/components/layouts/Admin/AdminSidebar';
 import { Separator } from '@/components/ui/separator';
 import {
   SidebarInset,
@@ -26,7 +26,7 @@ const AdminLayout = ({ children }: Children) => {
               orientation="vertical"
               className="mr-2 data-[orientation=vertical]:h-4"
             />
-            <DashboardBreadcrumb />
+            <DashboardBreadcrumb/>
           </div>
         </header>
         <>{children}</>

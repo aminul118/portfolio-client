@@ -1,6 +1,6 @@
 import OtherSkills from '@/components/modules/Public/Skills/OtherSkills';
 import Skills from '@/components/modules/Public/Skills/Skills';
-import generateMetaTags from '@/seo/generateMetaTags';
+import generateMetaTags from '@/Seo/generateMetaTags';
 import { Metadata } from 'next';
 
 const SkillsPage = () => {

@@ -21,7 +21,7 @@ const commonProtectedRoutes: RouteConfig = {
 
 // SUPER_ADMIN only routes
 const superAdminProtectedRoutes: RouteConfig = {
-  patterns: [/^\/doctor(\/|$)/, /^\/assistants(\/|$)/, /^\/appointments(\/|$)/],
+  patterns: [],
   exact: [],
 };
 
@@ -70,6 +70,7 @@ const getDefaultDashboardRoute = (role: UserRole): string => {
 const isValidRedirectForRole = (path: string, role: UserRole): boolean => {
   const owner = getRouteOwner(path);
   if (owner === null || owner === 'COMMON') return true;
+  if (role === 'SUPER_ADMIN') return true;
   return owner === role;
 };
 

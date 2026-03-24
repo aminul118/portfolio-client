@@ -20,12 +20,12 @@ import {
   InputOTPSlot,
 } from '@/components/ui/input-otp';
 import useSearchParamsValues from '@/hooks/useSearchParamsValues';
-import { sendOTP } from '@/services/auth/otp/sendOTP';
-import { verifyOTP } from '@/services/auth/otp/verifyOTP';
+import { sendOTP } from '@/services/Auth/otp/sendOTP';
+import { verifyOTP } from '@/services/Auth/otp/verifyOTP';
 import {
   getDefaultDashboardRoute,
   UserRole,
-} from '@/services/user/user-access';
+} from '@/services/User/user-access';
 import { otpValidation } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';

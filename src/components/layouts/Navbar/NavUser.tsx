@@ -1,6 +1,6 @@
 'use client';
 
-import LogOutDropDown from '@/components/modules/Authentication/log-out-dropdown';
+import LogOutDropDown from '@/components/modules/Authentication/LogOutDropdown';
 import {
   Avatar,
   AvatarBadge,
@@ -15,7 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { getDefaultDashboardRoute } from '@/services/user/user-access';
+import { getDefaultDashboardRoute } from '@/services/User/user-access';
 import { IUser } from '@/types';
 import { LayoutGrid } from 'lucide-react';
 import Link from 'next/link';

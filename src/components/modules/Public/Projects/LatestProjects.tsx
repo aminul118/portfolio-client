@@ -1,5 +1,5 @@
 import DateFormat from '@/components/common/formater/date-format';
-import { getProjects } from '@/services/project/projects';
+import { getProjects } from '@/services/Project/projects';
 
 const LatestProjects = async ({ currentSlug }: { currentSlug: string }) => {
   const { data: projects } = await getProjects({

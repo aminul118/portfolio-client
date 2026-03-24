@@ -1,4 +1,4 @@
-import ChangePasswordClient from '@/components/modules/Admin/settings/ChangePasswordClient';
+import ChangePasswordClient from '@/components/modules/Admin/Settings/ChangePasswordClient';
 import { Metadata } from 'next';
 
 export default function PasswordPage() {

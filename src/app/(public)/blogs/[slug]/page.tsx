@@ -1,12 +1,12 @@
 import DateFormat from '@/components/common/formater/date-format';
-import LatestBlogs from '@/components/modules/Public/blogs/LetestBlogs';
+import LatestBlogs from '@/components/modules/Public/Blogs/LetestBlogs';
 import HtmlContent from '@/components/rich-text/core/html-content';
 import Container from '@/components/ui/Container';
 import metaConfig from '@/config/meta.config';
-import { generateJsonLd } from '@/seo/generateJsonLd';
-import generateMetaTags from '@/seo/generateMetaTags';
-import generateViewport from '@/seo/generateViewport';
-import { getSingleBlog } from '@/services/blogs/blogs';
+import { generateJsonLd } from '@/Seo/generateJsonLd';
+import generateMetaTags from '@/Seo/generateMetaTags';
+import generateViewport from '@/Seo/generateViewport';
+import { getSingleBlog } from '@/services/Blogs/blogs';
 import { Params } from '@/types';
 import { Viewport } from 'next';
 import { notFound } from 'next/navigation';

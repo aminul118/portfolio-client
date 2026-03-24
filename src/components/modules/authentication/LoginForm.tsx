@@ -1,5 +1,6 @@
 'use client';
 
+import { useAuth } from '@/providers/AuthProvider';
 import SubmitButton from '@/components/common/button/submit-button';
 import {
   Form,
@@ -12,11 +13,11 @@ import {
 import { Input } from '@/components/ui/input';
 import Password from '@/components/ui/password';
 import useSearchParamsValues from '@/hooks/useSearchParamsValues';
-import { loginAction } from '@/services/auth/login';
+import { loginAction } from '@/services/Auth/login';
 import {
   getDefaultDashboardRoute,
   UserRole,
-} from '@/services/user/user-access';
+} from '@/services/User/user-access';
 import { loginFormValidation } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
@@ -48,6 +49,7 @@ const LoginForm = () => {
     },
   });
 
+  const { setUser } = useAuth();
   const onSubmit = async (values: FormValues) => {
     setAlert(null); // reset previous alert
 
@@ -56,6 +58,7 @@ const LoginForm = () => {
 
       if (res.success) {
         toast.success(res.message);
+        setUser((res.user as any) ?? null); // update global auth state
         router.push(
           redirect || getDefaultDashboardRoute(res.user?.role as UserRole),
         );

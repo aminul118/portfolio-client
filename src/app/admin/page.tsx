@@ -1,7 +1,7 @@
 import Stats from '@/components/modules/Admin/Stats/Stats';
 import GradientTitle from '@/components/ui/gradientTitle';
-import { getAdminStats } from '@/services/stats/stats';
-import { getMe } from '@/services/user/users';
+import { getAdminStats } from '@/services/Stats/stats';
+import { getMe } from '@/services/User/users';
 import { Metadata } from 'next';
 
 const AdminHomePage = async () => {

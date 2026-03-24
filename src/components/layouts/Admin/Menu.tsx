@@ -1,6 +1,6 @@
 'use client';
 
-import { adminSidebarMenu } from '@/components/layouts/Admin/admin-menu';
+import { adminSidebarMenu } from '@/components/layouts/Admin/AdminMenu';
 import {
   Collapsible,
   CollapsibleContent,

@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import useActionHandler from '@/hooks/useActionHandler';
-import { changePassword } from '@/services/auth/change-password';
+import { changePassword } from '@/services/Auth/change-password';
 import { changePasswordSchema, ChangePasswordValues } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, KeyRound } from 'lucide-react';

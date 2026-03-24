@@ -1,12 +1,12 @@
 import About from '@/components/modules/Public/About/About';
-import Contact from '@/components/modules/Public/contact/Contact';
+import Contact from '@/components/modules/Public/Contact/Contact';
 import Education from '@/components/modules/Public/Home/Education';
 import Experience from '@/components/modules/Public/Home/Experience';
 import FeaturedProjects from '@/components/modules/Public/Home/FeaturedProjects';
 import HeroBanner from '@/components/modules/Public/Home/HeroBanner';
 import OtherSkills from '@/components/modules/Public/Skills/OtherSkills';
 import Skills from '@/components/modules/Public/Skills/Skills';
-import generateMetaTags from '@/seo/generateMetaTags';
+import generateMetaTags from '@/Seo/generateMetaTags';
 import { Metadata } from 'next';
 
 const HomePage = async () => {

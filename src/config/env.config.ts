@@ -19,6 +19,9 @@ const envVars = {
     accessTokenMaxAge,
     refreshTokenMaxAge,
   },
+  apiUrl:
+    process.env.NEXT_PUBLIC_API_URL ||
+    (baseUrl.endsWith('/api/v1') ? baseUrl : `${baseUrl}/api/v1`),
   analytics: {
     googleAnalytics,
     googleTagManagerId,

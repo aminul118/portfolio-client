@@ -1,5 +1,5 @@
 import DateFormat from '@/components/common/formater/date-format';
-import { getBlogs } from '@/services/blogs/blogs';
+import { getBlogs } from '@/services/Blogs/blogs';
 
 const LatestBlogs = async ({ currentSlug }: { currentSlug: string }) => {
   const { data: blogs } = await getBlogs({

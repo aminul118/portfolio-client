@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { deleteSingleBlog } from '@/services/blogs/blogs';
+import { deleteSingleBlog } from '@/services/Blogs/blogs';
 import { IBlog } from '@/types/api.types';
 import { EllipsisIcon, EyeIcon, PencilIcon, Trash2Icon } from 'lucide-react';
 import Link from 'next/link';
