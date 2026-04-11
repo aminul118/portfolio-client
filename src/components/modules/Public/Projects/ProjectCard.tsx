@@ -40,6 +40,7 @@ const ProjectCard = ({ project }: { project: IProject }) => {
           <Tooltip content="View Details" side="bottom">
             <Link
               href={`/projects/${project.slug}`}
+              aria-label={`View details for ${project.title}`}
               className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-all duration-200 hover:scale-110 hover:border-blue-400 hover:bg-blue-500/30 hover:text-blue-300"
             >
               <FiArrowUpRight className="text-xl" />
@@ -51,6 +52,7 @@ const ProjectCard = ({ project }: { project: IProject }) => {
               href={project.liveLink}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Visit live website of ${project.title}`}
               className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-all duration-200 hover:scale-110 hover:border-emerald-400 hover:bg-emerald-500/30 hover:text-emerald-300"
             >
               <FaExternalLinkAlt className="text-sm" />

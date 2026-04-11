@@ -52,7 +52,7 @@ const ContactInfo = () => {
                 <item.icon className={`h-6 w-6 ${item.color}`} />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-medium text-white/40">
+                <span className="text-sm font-medium text-slate-400">
                   {item.title}
                 </span>
                 {item.href ? (

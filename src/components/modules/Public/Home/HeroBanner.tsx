@@ -101,6 +101,7 @@ const HeroBanner = () => {
             height={420}
             alt="aminul islam web developer image"
             priority
+            fetchPriority="high"
             className="absolute bottom-0 left-1/2 -translate-x-1/2 object-contain drop-shadow-2xl lg:right-0 lg:left-auto lg:translate-x-0"
           />
         </div>

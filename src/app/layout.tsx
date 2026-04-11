@@ -20,6 +20,9 @@ const MainLayout = async ({ children }: Children) => {
   return (
     <>
       <html lang="en" suppressHydrationWarning>
+        <head>
+          <link rel="preconnect" href="https://www.googletagmanager.com" />
+        </head>
         <GoogleAnalytics gaId={envVars.analytics.googleAnalytics} />
         <body className={fonts.spaceGrotesk.className} suppressHydrationWarning>
           <TopLoadingBar />

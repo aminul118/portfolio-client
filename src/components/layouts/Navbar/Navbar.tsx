@@ -81,7 +81,7 @@ const Navbar = ({ user }: { user: IUser }) => {
                 onClick={() => setActive(href)}
                 className={cn(
                   'relative rounded-full px-5 py-2 text-sm font-medium transition-colors duration-200',
-                  isActive ? 'text-white' : 'text-slate-400 hover:text-white',
+                  isActive ? 'text-white' : 'text-slate-200 hover:text-white',
                 )}
               >
                 {isActive && (
@@ -111,6 +111,7 @@ const Navbar = ({ user }: { user: IUser }) => {
             size={24}
             color="#fff" // White color for better visibility on dark bg
             rounded
+            label="Toggle Menu"
           />
         </div>
       </nav>

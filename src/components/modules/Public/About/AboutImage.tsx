@@ -10,8 +10,9 @@ const AboutImage = () => {
           <Image
             src={images.aminul2}
             alt="Profile Picture"
-            width={400}
-            height={400}
+            width={200}
+            height={200}
+            sizes="(max-width: 768px) 192px, 192px"
             className="scale-150 rounded-[20%] object-cover"
             priority={true}
           />

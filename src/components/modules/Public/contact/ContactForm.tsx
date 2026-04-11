@@ -57,7 +57,7 @@ const ContactForm = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-white/60">Name</FormLabel>
+                <FormLabel className="text-slate-300">Name</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="John Doe"
@@ -80,7 +80,7 @@ const ContactForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-white/60">Email</FormLabel>
+                <FormLabel className="text-slate-300">Email</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
@@ -105,7 +105,7 @@ const ContactForm = () => {
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white/60">Subject</FormLabel>
+              <FormLabel className="text-slate-300">Subject</FormLabel>
               <FormControl>
                 <Input
                   placeholder="Discuss about project"
@@ -127,7 +127,7 @@ const ContactForm = () => {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white/60">Message</FormLabel>
+              <FormLabel className="text-slate-300">Message</FormLabel>
               <FormControl>
                 <Textarea
                   className="h-36 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus-visible:border-blue-500/50 focus-visible:ring-blue-500/20"

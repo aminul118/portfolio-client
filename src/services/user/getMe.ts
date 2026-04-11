@@ -10,7 +10,7 @@ export const getMe = async () => {
   try {
     const res = await fetch(`${envVars.apiUrl}/user/me`, {
       headers: {
-        Authorization: accessToken,
+        Authorization: `Bearer ${accessToken}`,
       },
       next: { tags: ['user'] },
     });
