@@ -2,11 +2,11 @@ import NotFound from '@/components/common/error/NotFound';
 import Grid from '@/components/common/Grid';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientWrapper from '@/components/common/wrapper/ClientWrapper';
-import BlogCard from '@/components/modules/Public/Blogs/BlogCard';
+import BlogCard from '@/components/modules/Public/blogs/BlogCard';
 import SectionBanner from '@/components/ui/SectionBanner';
 import cleanSearchParams from '@/lib/cleanSearchParams';
-import generateMetaTags from '@/Seo/generateMetaTags';
-import { getBlogs } from '@/services/Blogs/blogs';
+import generateMetaTags from '@/seo/generateMetaTags';
+import { getBlogs } from '@/services/blogs/blogs';
 import { SearchParams } from '@/types';
 import { Metadata } from 'next';
 

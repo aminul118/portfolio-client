@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import MultipleImageDrop from '@/components/ui/multiple-image-drop';
 import SingleImageUploader from '@/components/ui/single-image-uploader';
 import useActionHandler from '@/hooks/useActionHandler';
-import { createBlog, updateBlog } from '@/services/Blogs/blogs';
+import { createBlog, updateBlog } from '@/services/blogs/blogs';
 import { IBlog } from '@/types';
 import { addBlogSchema, updateBlogSchema } from '@/zod/blog';
 import { zodResolver } from '@hookform/resolvers/zod';

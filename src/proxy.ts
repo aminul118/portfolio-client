@@ -1,14 +1,14 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { tryRefreshToken } from './services/Auth/refreshToken';
-import { decodeToken, setAuthCookies } from './services/User/proxy-utils';
+import { tryRefreshToken } from './services/auth/refreshToken';
+import { decodeToken, setAuthCookies } from './services/user/proxy-utils';
 import {
   getDefaultDashboardRoute,
   getRouteOwner,
   isAuthRoute,
   isValidRedirectForRole,
   UserRole,
-} from './services/User/user-access';
-import getVerifiedUser from './services/User/verified-user';
+} from './services/user/user-access';
+import getVerifiedUser from './services/user/verified-user';
 
 /**
  * Next.js Middleware to handle authentication, token refresh, and role-based access control.

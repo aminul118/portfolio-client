@@ -1,5 +1,5 @@
 import ResetPassword from '@/components/modules/Authentication/ResetPassword';
-import generateMetaTags from '@/Seo/generateMetaTags';
+import generateMetaTags from '@/seo/generateMetaTags';
 import { SearchParams } from '@/types';
 import { Metadata } from 'next';
 

@@ -1,7 +1,7 @@
 import ExperienceTimeline from '@/components/modules/Public/Experience/ExperienceTimeline';
 import SectionHeading from '@/components/ui/SectionHeading';
-import generateMetaTags from '@/Seo/generateMetaTags';
-import { getExperience } from '@/services/Experience/experience';
+import generateMetaTags from '@/seo/generateMetaTags';
+import { getExperience } from '@/services/experience/experience';
 import { Metadata } from 'next';
 
 const ExperiencePage = async () => {

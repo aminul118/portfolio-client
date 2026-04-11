@@ -1,10 +1,11 @@
-import { MdAnalytics, MdOutlineSearch } from 'react-icons/md';
 import {
-  SiAdobeillustrator,
-  SiAdobephotoshop,
-  SiAdobepremierepro,
-  SiGoogletagmanager,
-} from 'react-icons/si';
+  MdAnalytics,
+  MdBrush,
+  MdImage,
+  MdMovie,
+  MdOutlineSearch,
+} from 'react-icons/md';
+import { SiGoogletagmanager } from 'react-icons/si';
 
 const othersSkillsData = [
   {
@@ -29,18 +30,18 @@ const othersSkillsData = [
   },
 
   {
-    icon: <SiAdobephotoshop className="text-blue-600" />,
+    icon: <MdImage className="text-blue-600" />,
     name: 'Photoshop',
     gradient: 'from-blue-600 via-indigo-600 to-purple-500',
   },
   {
-    icon: <SiAdobeillustrator className="text-orange-600" />,
+    icon: <MdBrush className="text-orange-600" />,
     name: 'Illustrator',
     gradient: 'from-yellow-600 via-orange-600 to-red-500',
   },
 
   {
-    icon: <SiAdobepremierepro className="text-purple-700" />,
+    icon: <MdMovie className="text-purple-700" />,
     name: 'Premiere Pro',
     gradient: 'from-purple-700 via-indigo-700 to-blue-600',
   },

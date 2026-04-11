@@ -21,7 +21,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import useActionHandler from '@/hooks/useActionHandler';
-import { updateExperience } from '@/services/Experience/experience';
+import { updateExperience } from '@/services/experience/experience';
 import { IModal } from '@/types';
 import { IExperience } from '@/types/api.types';
 import { experienceValidationSchema } from '@/zod/experience';

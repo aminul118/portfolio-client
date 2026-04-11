@@ -1,4 +1,4 @@
-import ThemeClient from '@/components/modules/Admin/Settings/ThemeClient';
+import ThemeClient from '@/components/modules/Admin/settings/ThemeClient';
 import { Metadata } from 'next';
 
 const AppearanceSettingsPage = () => {

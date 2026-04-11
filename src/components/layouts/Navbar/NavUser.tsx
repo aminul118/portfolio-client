@@ -15,7 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { getDefaultDashboardRoute } from '@/services/User/user-access';
+import { getDefaultDashboardRoute } from '@/services/user/user-access';
 import { IUser } from '@/types';
 import { LayoutGrid } from 'lucide-react';
 import Link from 'next/link';

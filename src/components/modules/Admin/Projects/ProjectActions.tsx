@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { deleteSingleProject } from '@/services/Project/projects';
+import { deleteSingleProject } from '@/services/project/projects';
 import { IProject } from '@/types';
 import {
   EllipsisIcon,

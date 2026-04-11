@@ -24,7 +24,7 @@ import {
 import { Input } from '@/components/ui/input';
 import Password from '@/components/ui/password';
 import useActionHandler from '@/hooks/useActionHandler';
-import { registerUserFromAdmin } from '@/services/User/register';
+import { registerUserFromAdmin } from '@/services/user/register';
 import { registrationFormValidation } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { UserPlus, X } from 'lucide-react';

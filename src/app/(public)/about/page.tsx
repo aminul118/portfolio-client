@@ -1,7 +1,7 @@
 import AboutImage from '@/components/modules/Public/About/AboutImage';
 import Container from '@/components/ui/Container';
 import { aboutMe, hobbies } from '@/constants/aboutMe';
-import generateMetaTags from '@/Seo/generateMetaTags';
+import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 
 const AboutPage = () => {

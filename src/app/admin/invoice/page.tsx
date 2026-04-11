@@ -3,7 +3,7 @@ import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
 import CreateInvoiceDialog from '@/components/modules/Admin/Invoice/CreateInvoiceDialog';
 import InvoiceTable from '@/components/modules/Admin/Invoice/InvoiceTable';
 import cleanSearchParams from '@/lib/cleanSearchParams';
-import { getInvoices } from '@/services/Invoice/invoice';
+import { getInvoices } from '@/services/invoice/invoice';
 import { SearchParams } from '@/types';
 import { Metadata } from 'next';
 

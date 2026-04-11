@@ -1,6 +1,6 @@
-import Profile from '@/components/modules/Public/Profile/Profile';
-import generateMetaTags from '@/Seo/generateMetaTags';
-import { getMe } from '@/services/User/users';
+import Profile from '@/components/modules/Public/profile/Profile';
+import generateMetaTags from '@/seo/generateMetaTags';
+import { getMe } from '@/services/user/users';
 
 const MyProfilePage = async () => {
   const { data } = await getMe();

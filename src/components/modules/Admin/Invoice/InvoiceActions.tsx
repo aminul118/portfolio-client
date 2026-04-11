@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { deleteSingleInvoice } from '@/services/Invoice/invoice';
+import { deleteSingleInvoice } from '@/services/invoice/invoice';
 import { IInvoice } from '@/types';
 import { EllipsisIcon, Eye, Plus, Send, Trash2Icon } from 'lucide-react';
 import Link from 'next/link';

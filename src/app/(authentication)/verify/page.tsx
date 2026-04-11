@@ -1,5 +1,5 @@
 import VerifyOTPForm from '@/components/modules/Authentication/VerifyOTPForm';
-import generateMetaTags from '@/Seo/generateMetaTags';
+import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 

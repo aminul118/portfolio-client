@@ -3,7 +3,7 @@ import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
 import AddExperienceModal from '@/components/modules/Admin/Experience/AddExperienceModal';
 import ExperienceTable from '@/components/modules/Admin/Experience/ExperienceTable';
 import cleanSearchParams from '@/lib/cleanSearchParams';
-import { getExperience } from '@/services/Experience/experience';
+import { getExperience } from '@/services/experience/experience';
 import { SearchParams } from '@/types';
 import { Metadata } from 'next';
 

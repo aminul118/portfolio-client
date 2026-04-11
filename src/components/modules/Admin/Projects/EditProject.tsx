@@ -15,7 +15,7 @@ import ImageDrop from '@/components/ui/image-drop';
 import { Input } from '@/components/ui/input';
 import MultipleImageDrop from '@/components/ui/multiple-image-drop';
 import useActionHandler from '@/hooks/useActionHandler';
-import { updateProject } from '@/services/Project/projects';
+import { updateProject } from '@/services/project/projects';
 import { IProject } from '@/types';
 import { projectValidationSchema } from '@/zod/project';
 import { zodResolver } from '@hookform/resolvers/zod';

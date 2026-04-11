@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import useActionHandler from '@/hooks/useActionHandler';
-import { updateUser, updateUserWithFormData } from '@/services/User/users';
+import { updateUser, updateUserWithFormData } from '@/services/user/users';
 import { IUser } from '@/types/api.types';
 import { userUpdateSchema, UserUpdateValues } from '@/zod/auth';
 import { zodResolver } from '@hookform/resolvers/zod';

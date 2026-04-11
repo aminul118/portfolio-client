@@ -1,8 +1,8 @@
 import metaConfig from '@/config/meta.config';
-import generateSitemapEntries from '@/Seo/generateSitemapEntries';
-import { staticRoutes } from '@/Seo/staticRoutes';
-import { getBlogs } from '@/services/Blogs/blogs';
-import { getProjects } from '@/services/Project/projects';
+import generateSitemapEntries from '@/seo/generateSitemapEntries';
+import { staticRoutes } from '@/seo/staticRoutes';
+import { getBlogs } from '@/services/blogs/blogs';
+import { getProjects } from '@/services/project/projects';
 import { MetadataRoute } from 'next';
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {

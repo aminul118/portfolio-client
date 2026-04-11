@@ -2,7 +2,7 @@ import Logo from '@/assets/Logo';
 import LoginForm from '@/components/modules/Authentication/LoginForm';
 import { Card, CardContent } from '@/components/ui/card';
 import images from '@/config/images';
-import generateMetaTags from '@/Seo/generateMetaTags';
+import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';

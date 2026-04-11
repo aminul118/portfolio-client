@@ -111,11 +111,9 @@ export const TableElement = withHOC(
         'isSelectionAreaVisible',
       );
       const hasControls = !readOnly && !isSelectionAreaVisible;
-      const {
-        isSelectingCell,
-        marginLeft,
-        props: tableProps,
-      } = useTableElement();
+      const { marginLeft, props: tableProps } = useTableElement();
+      const selectedCells = usePluginOption(TablePlugin, 'selectedCells');
+      const isSelectingCell = !!selectedCells?.length;
 
       const width = useResizableValue('width');
 

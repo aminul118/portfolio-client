@@ -29,7 +29,7 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import useActionHandler from '@/hooks/useActionHandler';
-import { updateInvoice } from '@/services/Invoice/invoice';
+import { updateInvoice } from '@/services/invoice/invoice';
 import { IInvoice, IModal } from '@/types';
 import { InvoiceFormValues, invoiceSchema } from '@/zod/invoice';
 import { zodResolver } from '@hookform/resolvers/zod';

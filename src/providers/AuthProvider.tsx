@@ -1,9 +1,15 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { UserRole } from '@/services/User/user-access';
 import envVars from '@/config/env.config';
-import { logOut } from '@/services/Auth/logout';
+import { logOut } from '@/services/auth/logout';
+import { UserRole } from '@/services/user/user-access';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 interface User {
   _id: string;
@@ -24,12 +30,12 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ 
-    children, 
-    initialUser = null 
-}: { 
-    children: ReactNode, 
-    initialUser?: User | null 
+export const AuthProvider = ({
+  children,
+  initialUser = null,
+}: {
+  children: ReactNode;
+  initialUser?: User | null;
 }) => {
   const [user, setUser] = useState<User | null>(initialUser);
   const [loading, setLoading] = useState(!initialUser);
@@ -39,7 +45,7 @@ export const AuthProvider = ({
       setLoading(true);
       const res = await fetch(`${envVars.apiUrl}/user/me`, {
         credentials: 'include',
-      }); 
+      });
       if (res.ok) {
         const data = await res.json();
         setUser(data.data);
@@ -56,9 +62,9 @@ export const AuthProvider = ({
 
   useEffect(() => {
     if (!initialUser) {
-        fetchUser();
+      fetchUser();
     } else {
-        setLoading(false);
+      setLoading(false);
     }
   }, [initialUser]);
 
@@ -77,7 +83,9 @@ export const AuthProvider = ({
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, setUser, logout, refreshUser }}>
+    <AuthContext.Provider
+      value={{ user, loading, setUser, logout, refreshUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

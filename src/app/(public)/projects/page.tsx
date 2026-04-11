@@ -3,8 +3,8 @@ import TableFilters from '@/components/common/table/TableFilters';
 import ClientWrapper from '@/components/common/wrapper/ClientWrapper';
 import ProjectCard from '@/components/modules/Public/Projects/ProjectCard';
 import SectionBanner from '@/components/ui/SectionBanner';
-import generateMetaTags from '@/Seo/generateMetaTags';
-import { getProjects } from '@/services/Project/projects';
+import generateMetaTags from '@/seo/generateMetaTags';
+import { getProjects } from '@/services/project/projects';
 import { SearchParams } from '@/types';
 import { Metadata } from 'next';
 
