@@ -3,7 +3,6 @@
 import { revalidate } from '@/lib/revalidate';
 import serverFetch from '@/lib/server-fetch';
 import { ApiResponse, IProject } from '@/types';
-import { revalidateTag } from 'next/cache';
 
 const createProject = async (formData: FormData) => {
   const body = new FormData();
@@ -59,7 +58,10 @@ const updateProject = async (formData: FormData, id: string) => {
 
 const getSingleProject = async (id: string) => {
   return await serverFetch.get<ApiResponse<IProject>>(`/projects/${id}`, {
-    cache: 'no-store',
+    skipAuth: true,
+    next: {
+      tags: ['projects'],
+    },
   });
 };
 
@@ -67,7 +69,7 @@ const deleteSingleProject = async (id: string) => {
   const res = await serverFetch.delete<ApiResponse<IProject>>(
     `/projects/${id}`,
   );
-  revalidateTag('projects', 'max');
+  revalidate('projects');
   return res;
 };
 
@@ -75,6 +77,7 @@ const getProjects = async (query?: Record<string, any>) => {
   return await serverFetch.get<ApiResponse<IProject[]>>('/projects', {
     query,
     cache: 'force-cache',
+    skipAuth: true,
     next: {
       tags: ['projects'],
     },

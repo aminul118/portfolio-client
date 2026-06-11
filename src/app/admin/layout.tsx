@@ -1,6 +1,5 @@
-import { AdminSidebarSkeleton } from '@/components/layouts/Admin/AdminSidebarSkeleton';
-import DashboardBreadcrumb from '@/components/layouts/Admin/DashboardBreadcrumb';
 import AdminSidebar from '@/components/layouts/Admin/AdminSidebar';
+import DashboardBreadcrumb from '@/components/layouts/Admin/DashboardBreadcrumb';
 import { Separator } from '@/components/ui/separator';
 import {
   SidebarInset,
@@ -9,15 +8,15 @@ import {
 } from '@/components/ui/sidebar';
 import { Children } from '@/types';
 import { Metadata } from 'next';
-import { Suspense } from 'react';
+
+export const dynamic = 'force-dynamic';
 
 const AdminLayout = ({ children }: Children) => {
   return (
     <SidebarProvider>
       {/* Sidebar */}
-      <Suspense fallback={<AdminSidebarSkeleton />}>
-        <AdminSidebar />
-      </Suspense>
+      <AdminSidebar />
+
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
@@ -26,7 +25,7 @@ const AdminLayout = ({ children }: Children) => {
               orientation="vertical"
               className="mr-2 data-[orientation=vertical]:h-4"
             />
-            <DashboardBreadcrumb/>
+            <DashboardBreadcrumb />
           </div>
         </header>
         <>{children}</>

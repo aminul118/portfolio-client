@@ -52,6 +52,7 @@ const getBlogs = async (query: Record<string, string>) => {
   return await serverFetch.get<ApiResponse<IBlog[]>>('/blogs', {
     query,
     cache: 'force-cache',
+    skipAuth: true,
     next: {
       tags: ['blog'],
     },
@@ -59,7 +60,9 @@ const getBlogs = async (query: Record<string, string>) => {
 };
 
 const getSingleBlog = async (slug: string) => {
-  return await serverFetch.get<ApiResponse<IBlog>>(`/blogs/${slug}`);
+  return await serverFetch.get<ApiResponse<IBlog>>(`/blogs/${slug}`, {
+    skipAuth: true,
+  });
 };
 
 const deleteSingleBlog = async (id: string) => {

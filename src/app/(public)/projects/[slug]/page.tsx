@@ -8,7 +8,7 @@ import metaConfig from '@/config/meta.config';
 import { generateJsonLd } from '@/seo/generateJsonLd';
 import generateMetaTags from '@/seo/generateMetaTags';
 import generateViewport from '@/seo/generateViewport';
-import { getSingleProject } from '@/services/project/projects';
+import { getProjects, getSingleProject } from '@/services/project/projects';
 import { Params } from '@/types';
 import { Metadata, Viewport } from 'next';
 import Image from 'next/image';
@@ -138,3 +138,20 @@ const getProjectJsonLd = (project: any) => {
     },
   });
 };
+
+export async function generateStaticParams() {
+  try {
+    const { data: projects } = await getProjects({});
+
+    if (!projects) return [];
+
+    return projects.map((project) => ({
+      slug: project.slug,
+    }));
+  } catch (error) {
+    console.warn(
+      'Could not fetch projects for SSG during build. Backend might be down.',
+    );
+    return [];
+  }
+}

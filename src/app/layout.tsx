@@ -6,7 +6,6 @@ import { AuthProvider } from '@/providers/AuthProvider';
 import ThemeProvider from '@/providers/ThemeProvider';
 import generateMetaTags from '@/seo/generateMetaTags';
 import generateViewport from '@/seo/generateViewport';
-import { getMe } from '@/services/user/getMe';
 import '@/styles/custom.css';
 import '@/styles/globals.css';
 import { Children } from '@/types';
@@ -15,8 +14,6 @@ import { Metadata, Viewport } from 'next';
 import { Toaster } from 'sonner';
 
 const MainLayout = async ({ children }: Children) => {
-  const user = await getMe();
-
   return (
     <>
       <html lang="en" suppressHydrationWarning>
@@ -32,7 +29,7 @@ const MainLayout = async ({ children }: Children) => {
             enableSystem
             disableTransitionOnChange
           >
-            <AuthProvider initialUser={user}>
+            <AuthProvider initialUser={null}>
               <TooltipProvider>{children}</TooltipProvider>
             </AuthProvider>
             <Toaster position="top-right" richColors theme="dark" />

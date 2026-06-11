@@ -6,7 +6,7 @@ import metaConfig from '@/config/meta.config';
 import { generateJsonLd } from '@/seo/generateJsonLd';
 import generateMetaTags from '@/seo/generateMetaTags';
 import generateViewport from '@/seo/generateViewport';
-import { getSingleBlog } from '@/services/blogs/blogs';
+import { getBlogs, getSingleBlog } from '@/services/blogs/blogs';
 import { Params } from '@/types';
 import { Viewport } from 'next';
 import { notFound } from 'next/navigation';
@@ -156,3 +156,20 @@ export async function generateMetadata({ params }: Params) {
 }
 
 export const viewport: Viewport = generateViewport();
+
+export async function generateStaticParams() {
+  try {
+    const { data: blogs } = await getBlogs({});
+
+    if (!blogs) return [];
+
+    return blogs.map((blog) => ({
+      slug: blog.slug,
+    }));
+  } catch (error) {
+    console.warn(
+      'Could not fetch blogs for SSG during build. Backend might be down.',
+    );
+    return [];
+  }
+}

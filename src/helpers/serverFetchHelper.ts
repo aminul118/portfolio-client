@@ -5,6 +5,7 @@ import { getCookie } from '@/lib/jwt';
 
 export type FetchOptions = RequestInit & {
   query?: Record<string, string>;
+  skipAuth?: boolean;
 };
 
 const serverFetchHelper = async <T>(
@@ -15,7 +16,10 @@ const serverFetchHelper = async <T>(
   const url = generateQueryUrl(endpoint, query);
 
   const makeRequest = async () => {
-    const accessToken = await getCookie('accessToken');
+    let accessToken = null;
+    if (!options.skipAuth) {
+      accessToken = await getCookie('accessToken');
+    }
 
     return fetch(url, {
       headers: {
@@ -27,9 +31,21 @@ const serverFetchHelper = async <T>(
   };
 
   // 1) Make request
-  const res = await makeRequest();
-
-  return (await res.json()) as T;
+  try {
+    const res = await makeRequest();
+    return (await res.json()) as T;
+  } catch (error: any) {
+    if (
+      error.message?.includes('fetch failed') ||
+      error.cause?.code === 'ECONNREFUSED'
+    ) {
+      console.warn(
+        `[Build Warning] Backend offline, mock empty for ${endpoint}`,
+      );
+      return { data: [], meta: null } as unknown as T;
+    }
+    throw error;
+  }
 };
 
 export default serverFetchHelper;

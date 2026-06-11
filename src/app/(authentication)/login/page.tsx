@@ -6,6 +6,7 @@ import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 const LoginPage = () => {
   return (
@@ -23,7 +24,9 @@ const LoginPage = () => {
                 </p>
               </div>
               {/* Form Section */}
-              <LoginForm />
+              <Suspense fallback={null}>
+                <LoginForm />
+              </Suspense>
             </div>
 
             {/* Image Section */}

@@ -41,6 +41,7 @@ const getExperience = async (query?: Record<string, string>) => {
   return await serverFetch.get<ApiResponse<IExperience[]>>('/experience', {
     query,
     cache: 'force-cache',
+    skipAuth: true,
     next: {
       tags: ['experience'],
     },

@@ -6,8 +6,13 @@ import { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { cookies } from 'next/headers';
 
 const getCookie = async (key: string) => {
-  const cookieStore = await cookies();
-  return cookieStore.get(key)?.value || null;
+  try {
+    const cookieStore = await cookies();
+    return cookieStore.get(key)?.value || null;
+  } catch (error) {
+    // Next.js throws an error if cookies() is called outside a request scope (like during build)
+    return null;
+  }
 };
 
 const verifyAccessToken = async (token: string): Promise<JwtPayload | null> => {

@@ -6,10 +6,21 @@ import { getProjects } from '@/services/project/projects';
 import { MetadataRoute } from 'next';
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
-  const [blogsResponse, projectsResponse] = await Promise.all([
-    getBlogs({ limit: '1000' }),
-    getProjects({ limit: '1000' }),
-  ]);
+  let blogsResponse = null;
+  let projectsResponse = null;
+
+  try {
+    const responses = await Promise.all([
+      getBlogs({ limit: '1000' }),
+      getProjects({ limit: '1000' }),
+    ]);
+    blogsResponse = responses[0];
+    projectsResponse = responses[1];
+  } catch (error) {
+    console.warn(
+      'Could not fetch data for sitemap during build. Backend might be down.',
+    );
+  }
 
   const blogEntries: MetadataRoute.Sitemap =
     blogsResponse?.data?.map((blog) => ({
