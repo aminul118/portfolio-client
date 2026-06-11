@@ -1,6 +1,6 @@
+import LatestProjects from '@/app/(public)/projects/_components/LatestProjects';
+import PhotoGallery from '@/app/(public)/projects/_components/PhotoGallery';
 import BackButton from '@/components/common/button/back-button';
-import LatestProjects from '@/components/modules/Public/Projects/LatestProjects';
-import PhotoGallery from '@/components/modules/Public/Projects/PhotoGallery';
 import HtmlContent from '@/components/rich-text/core/html-content';
 import { Button } from '@/components/ui/button';
 import Container from '@/components/ui/Container';

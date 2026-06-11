@@ -1,5 +1,5 @@
+import LatestBlogs from '@/app/(public)/blogs/_components/LetestBlogs';
 import DateFormat from '@/components/common/formater/date-format';
-import LatestBlogs from '@/components/modules/Public/blogs/LetestBlogs';
 import HtmlContent from '@/components/rich-text/core/html-content';
 import Container from '@/components/ui/Container';
 import metaConfig from '@/config/meta.config';

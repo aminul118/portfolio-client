@@ -1,4 +1,4 @@
-import AboutImage from '@/components/modules/Public/About/AboutImage';
+import AboutImage from '@/app/(public)/about/_componnets/AboutImage';
 import Container from '@/components/ui/Container';
 import { aboutMe, hobbies } from '@/constants/aboutMe';
 import generateMetaTags from '@/seo/generateMetaTags';

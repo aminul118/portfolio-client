@@ -1,5 +1,5 @@
+import ProjectDetails from '@/app/admin/_components/Projects/ProjectDetails';
 import NotFound from '@/components/common/error/NotFound';
-import ProjectDetails from '@/components/modules/Admin/Projects/ProjectDetails';
 import { getSingleProject } from '@/services/project/projects';
 import { Params } from '@/types';
 

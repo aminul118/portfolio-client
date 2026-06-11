@@ -1,5 +1,5 @@
-import OtherSkills from '@/components/modules/Public/Skills/OtherSkills';
-import Skills from '@/components/modules/Public/Skills/Skills';
+import OtherSkills from '@/app/(public)/skills/_components/OtherSkills';
+import Skills from '@/app/(public)/skills/_components/Skills';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { Metadata } from 'next';
 

@@ -1,7 +1,7 @@
+import ProjectCard from '@/app/(public)/projects/_components/ProjectCard';
 import Grid from '@/components/common/Grid';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientWrapper from '@/components/common/wrapper/ClientWrapper';
-import ProjectCard from '@/components/modules/Public/Projects/ProjectCard';
 import SectionBanner from '@/components/ui/SectionBanner';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { getProjects } from '@/services/project/projects';

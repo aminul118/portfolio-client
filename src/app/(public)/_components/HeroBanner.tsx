@@ -1,5 +1,5 @@
-import DownloadResume from '@/components/modules/Public/Home/DownloadResume';
-import SocialLinks from '@/components/modules/Public/Home/SocialLinks';
+import DownloadResume from '@/app/(public)/_components/DownloadResume';
+import SocialLinks from '@/app/(public)/_components/SocialLinks';
 import WriterEffect from '@/components/ui/writer-effect';
 import images from '@/constants/images';
 import Image from 'next/image';

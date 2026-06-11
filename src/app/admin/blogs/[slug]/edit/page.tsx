@@ -1,5 +1,5 @@
+import BlogForm from '@/app/admin/_components/Blogs/BlogForm';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
-import BlogForm from '@/components/modules/Admin/blogs/BlogForm';
 import { getSingleBlog } from '@/services/blogs/blogs';
 import { Params } from '@/types';
 

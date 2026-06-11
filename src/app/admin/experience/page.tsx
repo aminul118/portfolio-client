@@ -1,7 +1,7 @@
+import AddExperienceModal from '@/app/admin/_components/Experience/AddExperienceModal';
+import ExperienceTable from '@/app/admin/_components/Experience/ExperienceTable';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
-import AddExperienceModal from '@/components/modules/Admin/Experience/AddExperienceModal';
-import ExperienceTable from '@/components/modules/Admin/Experience/ExperienceTable';
 import cleanSearchParams from '@/lib/cleanSearchParams';
 import { getExperience } from '@/services/experience/experience';
 import { SearchParams } from '@/types';

@@ -1,6 +1,6 @@
+import ProjectTable from '@/app/admin/_components/Projects/ProjectTable';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
-import ProjectTable from '@/components/modules/Admin/Projects/ProjectTable';
 import { Button } from '@/components/ui/button';
 import cleanSearchParams from '@/lib/cleanSearchParams';
 import { getProjects } from '@/services/project/projects';

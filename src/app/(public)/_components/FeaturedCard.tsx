@@ -1,11 +1,11 @@
 'use client';
 
+import ProjectCard from '@/app/(public)/projects/_components/ProjectCard';
 import { IProject } from '@/types';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Autoplay, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import ProjectCard from '../Projects/ProjectCard';
 
 const FeaturedCard = ({ projects }: { projects: IProject[] }) => {
   return (

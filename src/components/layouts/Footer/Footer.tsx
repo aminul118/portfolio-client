@@ -1,5 +1,5 @@
+import SocialLinks from '@/app/(public)/_components/SocialLinks';
 import AminulLogo from '@/components/common/AminulLogo';
-import SocialLinks from '@/components/modules/Public/Home/SocialLinks';
 import Link from 'next/link';
 import { FiMapPin, FiPhone } from 'react-icons/fi';
 import { HiOutlineMail } from 'react-icons/hi';

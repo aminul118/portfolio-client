@@ -1,6 +1,6 @@
+import BlogsTable from '@/app/admin/_components/Blogs/BlogsTable';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
-import BlogsTable from '@/components/modules/Admin/blogs/BlogsTable';
 import { Button } from '@/components/ui/button';
 import cleanSearchParams from '@/lib/cleanSearchParams';
 import { getBlogs } from '@/services/blogs/blogs';

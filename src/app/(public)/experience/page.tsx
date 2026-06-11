@@ -1,4 +1,4 @@
-import ExperienceTimeline from '@/components/modules/Public/Experience/ExperienceTimeline';
+import ExperienceTimeline from '@/app/(public)/_components/Experience/ExperienceTimeline';
 import SectionHeading from '@/components/ui/SectionHeading';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { getExperience } from '@/services/experience/experience';

@@ -1,5 +1,5 @@
+import LoginForm from '@/app/(authentication)/_components/LoginForm';
 import Logo from '@/assets/Logo';
-import LoginForm from '@/components/modules/Authentication/LoginForm';
 import { Card, CardContent } from '@/components/ui/card';
 import images from '@/config/images';
 import generateMetaTags from '@/seo/generateMetaTags';

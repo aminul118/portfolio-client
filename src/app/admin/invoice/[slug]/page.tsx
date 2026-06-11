@@ -1,5 +1,5 @@
+import InvoiceDetails from '@/app/admin/_components/Invoice/InvoiceDetails';
 import NotFound from '@/components/common/error/NotFound';
-import InvoiceDetails from '@/components/modules/Admin/Invoice/InvoiceDetails';
 import { getSingleInvoice } from '@/services/invoice/invoice';
 import { Params } from '@/types';
 
