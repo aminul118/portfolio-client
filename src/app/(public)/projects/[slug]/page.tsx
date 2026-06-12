@@ -5,6 +5,7 @@ import HtmlContent from '@/components/rich-text/core/html-content';
 import { Button } from '@/components/ui/button';
 import Container from '@/components/ui/Container';
 import metaConfig from '@/config/meta.config';
+import { getCleanDescription } from '@/lib/utils';
 import { generateJsonLd } from '@/seo/generateJsonLd';
 import generateMetaTags from '@/seo/generateMetaTags';
 import generateViewport from '@/seo/generateViewport';
@@ -111,13 +112,16 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   }
 
   const cleanDescription =
-    project.content?.replace(/<[^>]*>/g, '').slice(0, 160) ||
+    project?.seo?.description ||
+    getCleanDescription(project?.content) ||
     `Details about ${project.title}`;
 
   return generateMetaTags({
-    title: `${project.title} | Aminul Islam Project`,
+    title: project?.seo?.title || `${project.title} | Aminul Islam Project`,
     description: cleanDescription,
-    keywords: `${project.title}, Aminul Islam, Web Development, Portfolio, ${project.technology?.join(', ')}`,
+    keywords:
+      project?.seo?.keywords ||
+      `${project.title}, Aminul Islam, Web Development, Portfolio, ${project.technology?.join(', ')}`,
     image: project.thumbnail || metaConfig.baseImage,
     websitePath: `/projects/${slug}`,
   });
@@ -128,8 +132,9 @@ export const viewport: Viewport = generateViewport();
 // JSON-LD data for CreativeWork
 const getProjectJsonLd = (project: any) => {
   return generateJsonLd('CreativeWork', {
-    name: project.title,
-    description: project.content?.replace(/<[^>]*>/g, '').slice(0, 160),
+    name: project?.seo?.title || project.title,
+    description:
+      project?.seo?.description || getCleanDescription(project?.content),
     image: project.thumbnail,
     url: `${metaConfig.baseUrl}/projects/${project.slug}`,
     author: {

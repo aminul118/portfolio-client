@@ -3,6 +3,7 @@ import DateFormat from '@/components/common/formater/date-format';
 import HtmlContent from '@/components/rich-text/core/html-content';
 import Container from '@/components/ui/Container';
 import metaConfig from '@/config/meta.config';
+import { getCleanDescription } from '@/lib/utils';
 import { generateJsonLd } from '@/seo/generateJsonLd';
 import generateMetaTags from '@/seo/generateMetaTags';
 import generateViewport from '@/seo/generateViewport';
@@ -20,31 +21,9 @@ const BlogDetailsPage = async ({ params }: Params) => {
   }
   const { content, createdAt, title, updatedAt, thumbnail } = blog;
 
-  const cleanDescription = (text: string) => {
-    if (!text) return '';
-    if (text.trim().startsWith('[')) {
-      try {
-        const parsed = JSON.parse(text);
-        const extractText = (nodes: any[]): string => {
-          return nodes
-            .map((node) => {
-              if (node.text) return node.text;
-              if (node.children) return extractText(node.children);
-              return '';
-            })
-            .join(' ');
-        };
-        return extractText(parsed);
-      } catch {
-        return text.replace(/<[^>]*>/g, '');
-      }
-    }
-    return text.replace(/<[^>]*>/g, '');
-  };
-
   // JSON-LD data for BlogPosting
   const jsonLd = generateJsonLd('BlogPosting', {
-    headline: title,
+    headline: blog?.seo?.title || title,
     image: thumbnail || metaConfig.baseImage,
     datePublished: createdAt,
     dateModified: updatedAt,
@@ -53,7 +32,7 @@ const BlogDetailsPage = async ({ params }: Params) => {
       name: metaConfig.authors_name,
       url: metaConfig.authorPortfolio,
     },
-    description: cleanDescription(content).slice(0, 160),
+    description: blog?.seo?.description || getCleanDescription(content),
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${metaConfig.baseUrl}/blogs/${slug}`,
@@ -122,34 +101,14 @@ export async function generateMetadata({ params }: Params) {
   }
   const { content, title, thumbnail } = blog;
 
-  const getCleanText = (content: string) => {
-    if (!content) return '';
-    if (content.trim().startsWith('[')) {
-      try {
-        const parsed = JSON.parse(content);
-        const extractText = (nodes: any[]): string => {
-          return nodes
-            .map((node) => {
-              if (node.text) return node.text;
-              if (node.children) return extractText(node.children);
-              return '';
-            })
-            .join(' ');
-        };
-        return extractText(parsed);
-      } catch {
-        return content.replace(/<[^>]*>/g, '');
-      }
-    }
-    return content.replace(/<[^>]*>/g, '');
-  };
-
-  const description = getCleanText(content).slice(0, 160);
+  const description = blog?.seo?.description || getCleanDescription(content);
 
   return generateMetaTags({
-    title: `${title} | Aminul Islam Blog`,
+    title: blog?.seo?.title || `${title} | Aminul Islam Blog`,
     description,
-    keywords: `${title}, Aminul Islam, Web Development, Tech Blog, Next.js, Frontend, Backend, ${metaConfig.authors_name}`,
+    keywords:
+      blog?.seo?.keywords ||
+      `${title}, Aminul Islam, Web Development, Tech Blog, Next.js, Frontend, Backend, ${metaConfig.authors_name}`,
     image: thumbnail || metaConfig.baseImage,
     websitePath: `/blogs/${slug}`,
   });
