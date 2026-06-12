@@ -4,7 +4,7 @@ import { Column } from '@/components/common/table/TableManageMent';
 import { IProject } from '@/types';
 import { Check } from 'lucide-react';
 import Image from 'next/image';
-import ProjectActions from '../Projects/ProjectActions';
+import ProjectActions from './ProjectActions';
 
 const ProjectTableColumn: Column<IProject>[] = [
   {

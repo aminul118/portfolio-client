@@ -1,4 +1,4 @@
-import Profile from '@/app/(public)/_components/Profile/Profile';
+import Profile from '@/app/(public)/my-profile/_components/Profile';
 import generateMetaTags from '@/seo/generateMetaTags';
 import { getMe } from '@/services/user/users';
 

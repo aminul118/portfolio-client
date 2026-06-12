@@ -1,5 +1,5 @@
-import NewUserModal from '@/app/admin/_components/Users/NewUserModal';
-import UsersTable from '@/app/admin/_components/Users/UsersTable';
+import NewUserModal from '@/app/admin/users/_components/NewUserModal';
+import UsersTable from '@/app/admin/users/_components/UsersTable';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
 import cleanSearchParams from '@/lib/cleanSearchParams';

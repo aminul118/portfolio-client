@@ -1,5 +1,5 @@
-import CreateInvoiceDialog from '@/app/admin/_components/Invoice/CreateInvoiceDialog';
-import InvoiceTable from '@/app/admin/_components/Invoice/InvoiceTable';
+import CreateInvoiceDialog from '@/app/admin/invoice/_components/CreateInvoiceDialog';
+import InvoiceTable from '@/app/admin/invoice/_components/InvoiceTable';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
 import cleanSearchParams from '@/lib/cleanSearchParams';

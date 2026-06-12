@@ -1,4 +1,4 @@
-import InvoiceDetails from '@/app/admin/_components/Invoice/InvoiceDetails';
+import InvoiceDetails from '@/app/admin/invoice/_components/InvoiceDetails';
 import NotFound from '@/components/common/error/NotFound';
 import { getSingleInvoice } from '@/services/invoice/invoice';
 import { Params } from '@/types';

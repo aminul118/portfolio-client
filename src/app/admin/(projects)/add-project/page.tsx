@@ -1,4 +1,4 @@
-import AddProjects from '@/app/admin/_components/Projects/AddProject';
+import AddProjects from '@/app/admin/(projects)/_components/AddProject';
 import { Metadata } from 'next';
 
 const AddProjectPage = () => {

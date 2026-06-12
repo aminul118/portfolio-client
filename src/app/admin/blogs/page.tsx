@@ -1,4 +1,4 @@
-import BlogsTable from '@/app/admin/_components/Blogs/BlogsTable';
+import BlogsTable from '@/app/admin/blogs/_components/BlogsTable';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
 import { Button } from '@/components/ui/button';

@@ -1,4 +1,4 @@
-import ProjectTable from '@/app/admin/_components/Projects/ProjectTable';
+import ProjectTable from '@/app/admin/(projects)/_components/ProjectTable';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
 import { Button } from '@/components/ui/button';

@@ -1,5 +1,5 @@
-import AddExperienceModal from '@/app/admin/_components/Experience/AddExperienceModal';
-import ExperienceTable from '@/app/admin/_components/Experience/ExperienceTable';
+import AddExperienceModal from '@/app/admin/experience/_components/AddExperienceModal';
+import ExperienceTable from '@/app/admin/experience/_components/ExperienceTable';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
 import cleanSearchParams from '@/lib/cleanSearchParams';

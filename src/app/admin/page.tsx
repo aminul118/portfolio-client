@@ -1,4 +1,4 @@
-import Stats from '@/app/admin/_components/Stats/Stats';
+import Stats from '@/app/admin/_components/Stats';
 import GradientTitle from '@/components/ui/gradientTitle';
 import { getAdminStats } from '@/services/stats/stats';
 import { getMe } from '@/services/user/users';
