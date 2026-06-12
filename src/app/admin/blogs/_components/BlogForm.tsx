@@ -1,6 +1,7 @@
 'use client';
 
 import SubmitButton from '@/components/common/button/submit-button';
+import SeoFormFields from '@/components/common/form/SeoFormFields';
 import PlateRichEditor from '@/components/rich-text/core/rich-editor';
 import {
   Form,
@@ -44,6 +45,11 @@ const BlogForm = ({ blog }: Props) => {
       content: blog?.content || '',
       thumbnail: blog?.thumbnail || undefined,
       photos: blog?.photos || [],
+      seo: {
+        title: blog?.seo?.title || '',
+        description: blog?.seo?.description || '',
+        keywords: blog?.seo?.keywords || '',
+      },
     },
   });
 
@@ -54,6 +60,7 @@ const BlogForm = ({ blog }: Props) => {
         content: blog.content,
         thumbnail: blog.thumbnail,
         photos: blog.photos,
+        seo: blog.seo || { title: '', description: '', keywords: '' },
       });
     }
   }, [blog, form]);
@@ -213,6 +220,8 @@ const BlogForm = ({ blog }: Props) => {
             </FormItem>
           )}
         />
+
+        <SeoFormFields control={form.control} />
 
         {/* Submit */}
         <div className="flex justify-end pt-4">

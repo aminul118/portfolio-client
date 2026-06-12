@@ -1,4 +1,4 @@
-import CreateInvoiceDialog from '@/app/admin/invoice/_components/CreateInvoiceDialog';
+import InvoiceModal from '@/app/admin/invoice/_components/InvoiceModal';
 import InvoiceTable from '@/app/admin/invoice/_components/InvoiceTable';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
@@ -25,7 +25,7 @@ export default InvoicePage;
 const Action = () => {
   return (
     <>
-      <CreateInvoiceDialog />
+      <InvoiceModal />
     </>
   );
 };

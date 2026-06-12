@@ -8,8 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { IInvoice } from '@/types';
 import { Pencil } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import UpdateInvoiceDialog from './UpdateInvoiceDialog';
-
+import InvoiceModal from './InvoiceModal';
 type Props = { invoice: IInvoice };
 
 const Row = ({ label, value }: { label: string; value?: any }) => (
@@ -125,7 +124,8 @@ const InvoiceDetails = ({ invoice }: Props) => {
       ) : null}
 
       {/* Edit dialog */}
-      <UpdateInvoiceDialog
+      <InvoiceModal
+        mode="update"
         open={editOpen}
         setOpen={setEditOpen}
         invoice={invoice}

@@ -10,7 +10,7 @@ import { Pencil, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import EditProject from './EditProject';
+import ProjectForm from './ProjectForm';
 
 interface Props {
   project: IProject;
@@ -137,7 +137,7 @@ const ProjectViewWithEdit = ({ project }: Props) => {
 
       {/* EDIT MODE */}
       {isEditing && (
-        <EditProject
+        <ProjectForm
           project={project}
           onCancel={() => setIsEditing(false)}
           onUpdated={() => setIsEditing(false)}

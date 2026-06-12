@@ -14,6 +14,11 @@ const projectValidationSchema = z.object({
   thumbnail: z.any().nullish(),
   photos: z.array(z.any()).nullish(),
   isFeatured: z.boolean().optional(),
+  seo: z.object({
+    title: z.string().min(1, 'SEO Title is required.'),
+    description: z.string().min(1, 'SEO Description is required.'),
+    keywords: z.string().min(1, 'SEO Keywords are required.'),
+  }),
 });
 
 export { projectValidationSchema };

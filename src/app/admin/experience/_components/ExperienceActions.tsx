@@ -12,7 +12,7 @@ import { deleteSingleExperience } from '@/services/experience/experience';
 import { IExperience } from '@/types/api.types';
 import { Edit, EllipsisIcon, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
-import EditExperienceModal from './EditExperienceModal';
+import ExperienceModal from './ExperienceModal';
 
 const ExperienceActions = ({ experience }: { experience: IExperience }) => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -54,7 +54,7 @@ const ExperienceActions = ({ experience }: { experience: IExperience }) => {
       </DropdownMenu>
 
       {/* Modals */}
-      <EditExperienceModal
+      <ExperienceModal
         experience={experience}
         open={editModalOpen}
         setOpen={setEditModalOpen}

@@ -14,7 +14,7 @@ import { IInvoice } from '@/types';
 import { EllipsisIcon, Eye, Plus, Send, Trash2Icon } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
-import CreateAnotherInvoiceDialog from './CreateAnotherInvoiceDialog';
+import InvoiceModal from './InvoiceModal';
 import SendInvoiceDialog from './SendInvoiceDialog';
 
 interface Props {
@@ -108,7 +108,8 @@ const BannerActions = ({ invoice }: Props) => {
         />
       )}
 
-      <CreateAnotherInvoiceDialog
+      <InvoiceModal
+        mode="duplicate"
         open={createOpen}
         setOpen={setCreateOpen}
         invoice={invoice}

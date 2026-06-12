@@ -48,6 +48,11 @@ export interface IBlog {
   content: string;
   thumbnail: string;
   photos?: string[];
+  seo?: {
+    title: string;
+    description: string;
+    keywords: string;
+  };
 }
 
 export interface IProject {
@@ -63,6 +68,11 @@ export interface IProject {
   createdAt: Date;
   updatedAt: Date;
   isFeatured: boolean;
+  seo?: {
+    title: string;
+    description: string;
+    keywords: string;
+  };
 }
 
 export interface IExperience {

@@ -1,4 +1,4 @@
-import AddExperienceModal from '@/app/admin/experience/_components/AddExperienceModal';
+import ExperienceModal from '@/app/admin/experience/_components/ExperienceModal';
 import ExperienceTable from '@/app/admin/experience/_components/ExperienceTable';
 import TableFilters from '@/components/common/table/TableFilters';
 import ClientTableWrapper from '@/components/common/wrapper/ClientTableWrapper';
@@ -16,7 +16,7 @@ const ExperiencePage = async ({ searchParams }: SearchParams) => {
       <ClientTableWrapper
         tableTitle="Projects"
         meta={meta}
-        action={<AddExperienceModal />}
+        action={<ExperienceModal />}
       >
         <TableFilters />
         <ExperienceTable experiences={data} />

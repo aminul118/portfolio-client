@@ -9,7 +9,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -21,24 +23,41 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import useActionHandler from '@/hooks/useActionHandler';
-import { updateExperience } from '@/services/experience/experience';
-import { IModal } from '@/types';
+import {
+  addExperience,
+  updateExperience,
+} from '@/services/experience/experience';
 import { IExperience } from '@/types/api.types';
 import { experienceValidationSchema } from '@/zod/experience';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SquarePen, X } from 'lucide-react';
-import { useEffect } from 'react';
+import { Plus, SquarePen, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 type FormValues = z.infer<typeof experienceValidationSchema>;
 
-interface Props extends IModal {
-  experience: IExperience;
+interface Props {
+  experience?: IExperience;
+  open?: boolean;
+  setOpen?: (open: boolean) => void;
 }
 
-const EditExperienceModal = ({ open, setOpen, experience }: Props) => {
+const ExperienceModal = ({
+  experience,
+  open: externalOpen,
+  setOpen: externalSetOpen,
+}: Props) => {
   const { executePost } = useActionHandler();
+  const [internalOpen, setInternalOpen] = useState(false);
+
+  // Use external state if provided, otherwise fallback to internal state.
+  const isControlled =
+    externalOpen !== undefined && externalSetOpen !== undefined;
+  const open = isControlled ? externalOpen : internalOpen;
+  const setOpen = isControlled ? externalSetOpen : setInternalOpen;
+
+  const isEdit = !!experience;
 
   const form = useForm<FormValues>({
     resolver: zodResolver(experienceValidationSchema),
@@ -50,43 +69,77 @@ const EditExperienceModal = ({ open, setOpen, experience }: Props) => {
     },
   });
 
-  //  Reset form on data change
-
+  // Reset form on data change or modal open
   useEffect(() => {
-    if (experience) {
-      form.reset({
-        position: experience.position,
-        companyName: experience.companyName,
-        timeline: experience.timeline,
-        description: experience.description,
+    if (open) {
+      if (experience) {
+        form.reset({
+          position: experience.position,
+          companyName: experience.companyName,
+          timeline: experience.timeline,
+          description: experience.description,
+        });
+      } else {
+        form.reset({
+          position: '',
+          companyName: '',
+          timeline: '',
+          description: '',
+        });
+      }
+    }
+  }, [experience, open, form]);
+
+  const onSubmit = async (values: FormValues) => {
+    if (isEdit && experience) {
+      await executePost({
+        action: () => updateExperience(values, experience._id),
+        success: {
+          loadingText: 'Experience updating...',
+          message: 'Experience updated successfully',
+          onSuccess: () => {
+            form.reset();
+            setOpen(false);
+          },
+        },
+        errorMessage: 'Failed to update experience.',
+      });
+    } else {
+      await executePost({
+        action: () => addExperience(values),
+        success: {
+          onSuccess: () => {
+            form.reset();
+            setOpen(false);
+          },
+          loadingText: 'Experience adding...',
+          message: 'Experience added successfully',
+        },
+        errorMessage: 'Failed to add experience.',
       });
     }
-  }, [experience, form]);
-
-  // Submit handler
-  const onSubmit = async (values: FormValues) => {
-    await executePost({
-      action: () => updateExperience(values, experience._id),
-      success: {
-        loadingText: 'Experience updating...',
-        message: 'Experience updated successfully',
-        onSuccess: () => {
-          form.reset();
-          setOpen(false);
-        },
-      },
-      errorMessage: 'Failed to update experience.',
-    });
   };
 
-  // Component JSX
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogContent className="lg:max-w-xl">
+      {/* Only render the trigger button if it's not controlled (i.e. Add Mode default trigger) */}
+      {!isControlled && (
+        <AlertDialogTrigger asChild>
+          <Button>
+            <Plus /> Add Experience
+          </Button>
+        </AlertDialogTrigger>
+      )}
+
+      <AlertDialogContent className={isEdit ? 'lg:max-w-xl' : 'lg:max-w-2xl'}>
         <AlertDialogHeader>
-          <AlertDialogTitle>Edit Experience</AlertDialogTitle>
+          <AlertDialogTitle>
+            {isEdit ? 'Edit Experience' : 'Add Experience'}
+          </AlertDialogTitle>
           <AlertDialogDescription>
-            Update your work experience details below.
+            {isEdit
+              ? 'Update your work experience details below.'
+              : 'Please fill in your work experience details below.'}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -170,9 +223,11 @@ const EditExperienceModal = ({ open, setOpen, experience }: Props) => {
               <SubmitButton
                 loading={form.formState.isSubmitting}
                 loadingEffect
-                loadingText="Updating Experience "
-                text="Update Experience"
-                icon={<SquarePen />}
+                loadingText={
+                  isEdit ? 'Updating Experience...' : 'Adding Experience...'
+                }
+                text={isEdit ? 'Update Experience' : 'Add Experience'}
+                icon={isEdit ? <SquarePen /> : <Plus />}
               />
             </AlertDialogFooter>
           </form>
@@ -182,4 +237,4 @@ const EditExperienceModal = ({ open, setOpen, experience }: Props) => {
   );
 };
 
-export default EditExperienceModal;
+export default ExperienceModal;

@@ -9,6 +9,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -29,22 +30,38 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import useActionHandler from '@/hooks/useActionHandler';
-import { updateInvoice } from '@/services/invoice/invoice';
-import { IInvoice, IModal } from '@/types';
+import { createInvoice, updateInvoice } from '@/services/invoice/invoice';
+import { IInvoice } from '@/types';
 import { InvoiceFormValues, invoiceSchema } from '@/zod/invoice';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Plus, Save, Trash, X } from 'lucide-react';
-import { useEffect, useMemo } from 'react';
+import { Copy, Plus, Save, Trash, X } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
 import { Resolver, useFieldArray, useForm } from 'react-hook-form';
-
-interface Props extends IModal {
-  invoice: IInvoice;
-}
 
 const STATUSES = ['PENDING', 'UNPAID', 'PAID'] as const;
 
-export default function UpdateInvoiceDialog({ open, setOpen, invoice }: Props) {
+export type InvoiceMode = 'create' | 'update' | 'duplicate';
+
+interface Props {
+  invoice?: IInvoice;
+  mode?: InvoiceMode;
+  open?: boolean;
+  setOpen?: (open: boolean) => void;
+}
+
+export default function InvoiceModal({
+  invoice,
+  mode = 'create',
+  open: externalOpen,
+  setOpen: externalSetOpen,
+}: Props) {
+  const [internalOpen, setInternalOpen] = useState(false);
   const { executePost } = useActionHandler();
+
+  const isControlled =
+    externalOpen !== undefined && externalSetOpen !== undefined;
+  const open = isControlled ? externalOpen : internalOpen;
+  const setOpen = isControlled ? externalSetOpen : setInternalOpen;
 
   const form = useForm<InvoiceFormValues>({
     resolver: zodResolver(invoiceSchema) as Resolver<InvoiceFormValues>,
@@ -69,33 +86,66 @@ export default function UpdateInvoiceDialog({ open, setOpen, invoice }: Props) {
   useEffect(() => {
     if (!open) return;
 
-    const mappedItems = invoice.items?.length
-      ? invoice.items.map((it) => ({
-          itemName: it.itemName || '',
-          quantity: it.quantity || '1',
-          price: Number(it.price) || 0,
-          total: Number(it.total) || 0,
-        }))
-      : [{ itemName: '', quantity: '1', price: 0, total: 0 }];
+    if (mode === 'create') {
+      form.reset({
+        payableTo: { name: '', address: '', phone: '' },
+        items: [{ itemName: '', quantity: '1', price: 0, total: 0 }],
+        subTotal: 0,
+        discount: 0,
+        tax: 0,
+        grandTotal: 0,
+        note: '',
+        paymentInfo: false,
+        status: 'PENDING',
+      });
+      replace([{ itemName: '', quantity: '1', price: 0, total: 0 }]);
+    } else if (invoice) {
+      if (mode === 'update') {
+        const mappedItems = invoice.items?.length
+          ? invoice.items.map((it) => ({
+              itemName: it.itemName || '',
+              quantity: it.quantity || '1',
+              price: Number(it.price) || 0,
+              total: Number(it.total) || 0,
+            }))
+          : [{ itemName: '', quantity: '1', price: 0, total: 0 }];
 
-    form.reset({
-      payableTo: {
-        name: invoice.payableTo?.name || '',
-        address: invoice.payableTo?.address || '',
-        phone: invoice.payableTo?.phone || '',
-      },
-      items: mappedItems,
-      subTotal: Number(invoice.subTotal) || 0,
-      discount: Number(invoice.discount) || 0,
-      tax: Number(invoice.tax) || 0,
-      grandTotal: Number(invoice.grandTotal) || 0,
-      note: invoice.note || '',
-      paymentInfo: Boolean(invoice?.paymentInfo) || false,
-      status: invoice.status || 'PENDING',
-    });
-
-    replace(mappedItems);
-  }, [open, invoice, form, replace]);
+        form.reset({
+          payableTo: {
+            name: invoice.payableTo?.name || '',
+            address: invoice.payableTo?.address || '',
+            phone: invoice.payableTo?.phone || '',
+          },
+          items: mappedItems,
+          subTotal: Number(invoice.subTotal) || 0,
+          discount: Number(invoice.discount) || 0,
+          tax: Number(invoice.tax) || 0,
+          grandTotal: Number(invoice.grandTotal) || 0,
+          note: invoice.note || '',
+          paymentInfo: Boolean(invoice?.paymentInfo) || false,
+          status: invoice.status || 'PENDING',
+        });
+        replace(mappedItems);
+      } else if (mode === 'duplicate') {
+        form.reset({
+          payableTo: {
+            name: invoice.payableTo?.name || '',
+            address: invoice.payableTo?.address || '',
+            phone: invoice.payableTo?.phone || '',
+          },
+          items: [{ itemName: '', quantity: '1', price: 0, total: 0 }],
+          subTotal: 0,
+          discount: 0,
+          tax: 0,
+          grandTotal: 0,
+          note: '',
+          paymentInfo: false,
+          status: 'PENDING',
+        });
+        replace([{ itemName: '', quantity: '1', price: 0, total: 0 }]);
+      }
+    }
+  }, [open, invoice, mode, form, replace]);
 
   // ===== totals (live) =====
   const items = form.watch('items');
@@ -115,7 +165,6 @@ export default function UpdateInvoiceDialog({ open, setOpen, invoice }: Props) {
     form.setValue('grandTotal', grandTotal);
   }, [subTotal, grandTotal, form]);
 
-  //  if status becomes PAID, disable paymentInfo (backend also clears)
   useEffect(() => {
     if (status === 'PAID') {
       form.setValue('paymentInfo', false);
@@ -123,26 +172,66 @@ export default function UpdateInvoiceDialog({ open, setOpen, invoice }: Props) {
   }, [status, form]);
 
   const onSubmit = async (data: InvoiceFormValues) => {
-    // optional: ensure payload matches backend expectations
-    await executePost({
-      action: () => updateInvoice(data, invoice._id),
-      success: {
-        onSuccess: () => setOpen(false),
-        loadingText: 'Updating invoice...',
-        message: 'Invoice updated successfully',
-      },
-      errorMessage: 'Failed to update invoice.',
-    });
+    if (mode === 'update' && invoice) {
+      await executePost({
+        action: () => updateInvoice(data, invoice._id),
+        success: {
+          onSuccess: () => setOpen(false),
+          loadingText: 'Updating invoice...',
+          message: 'Invoice updated successfully',
+        },
+        errorMessage: 'Failed to update invoice.',
+      });
+    } else {
+      await executePost({
+        action: () => createInvoice(data),
+        success: {
+          onSuccess: () => {
+            setOpen(false);
+            form.reset();
+          },
+          loadingText: 'Invoice creating...',
+          message: 'Invoice created successfully',
+        },
+        errorMessage: 'Failed to create invoice.',
+      });
+    }
   };
+
+  const isUpdate = mode === 'update';
+  const isDuplicate = mode === 'duplicate';
+
+  let title = 'Create Invoice';
+  let desc =
+    'This will create a new invoice. Make sure all details are correct.';
+  let btnIcon = <Plus className="mr-2 h-4 w-4" />;
+  let btnText = 'Create Invoice';
+
+  if (isUpdate) {
+    title = 'Update Invoice';
+    desc = 'Update invoice details and save changes.';
+    btnIcon = <Save className="mr-2 h-4 w-4" />;
+    btnText = 'Save Changes';
+  } else if (isDuplicate) {
+    title = 'Duplicate Invoice';
+    desc = 'Create a new invoice based on this customer.';
+    btnIcon = <Copy className="mr-2 h-4 w-4" />;
+  }
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
+      {!isControlled && mode === 'create' && (
+        <AlertDialogTrigger asChild>
+          <Button type="button" disabled={form.formState.isSubmitting}>
+            <Plus /> Create Invoice
+          </Button>
+        </AlertDialogTrigger>
+      )}
+
       <AlertDialogContent className="lg:max-w-4xl">
         <AlertDialogHeader>
-          <AlertDialogTitle>Update Invoice</AlertDialogTitle>
-          <AlertDialogDescription>
-            Update invoice details and save changes.
-          </AlertDialogDescription>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{desc}</AlertDialogDescription>
         </AlertDialogHeader>
 
         <Form {...form}>
@@ -207,7 +296,7 @@ export default function UpdateInvoiceDialog({ open, setOpen, invoice }: Props) {
                     append({ itemName: '', quantity: '1', price: 0, total: 0 })
                   }
                 >
-                  <Plus /> Add Item
+                  <Plus className="mr-2 h-4 w-4" /> Add Item
                 </Button>
               </div>
 
@@ -362,35 +451,37 @@ export default function UpdateInvoiceDialog({ open, setOpen, invoice }: Props) {
               )}
             />
 
-            {/*  STATUS SELECT */}
-            <div className="grid gap-4 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Payment Status</FormLabel>
-                    <FormControl>
-                      <Select
-                        value={field.value}
-                        onValueChange={field.onChange}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select status" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {STATUSES.map((st) => (
-                            <SelectItem key={st} value={st}>
-                              {st}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-            </div>
+            {/*  STATUS SELECT (Only for Update) */}
+            {isUpdate && (
+              <div className="grid gap-4 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="status"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Payment Status</FormLabel>
+                      <FormControl>
+                        <Select
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select status" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {STATUSES.map((st) => (
+                              <SelectItem key={st} value={st}>
+                                {st}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )}
 
             {/* PAYMENT INFO */}
             <FormField
@@ -430,10 +521,10 @@ export default function UpdateInvoiceDialog({ open, setOpen, invoice }: Props) {
 
               <SubmitButton
                 loading={form.formState.isSubmitting}
-                text="Save Changes"
-                icon={<Save className="mr-2 h-4 w-4" />}
+                text={btnText}
+                icon={btnIcon}
                 loadingEffect
-                loadingText="Saving..."
+                loadingText={isUpdate ? 'Saving...' : 'Creating...'}
               />
             </AlertDialogFooter>
           </form>
