@@ -1,5 +1,5 @@
-import Footer from '@/components/layouts/Footer/Footer';
-import Navbar from '@/components/layouts/Navbar/Navbar';
+import Footer from '@/app/(public)/_components/Footer/Footer';
+import Navbar from '@/app/(public)/_components/Navbar/Navbar';
 import { getMe } from '@/services/user/users';
 import { Children } from '@/types';
 

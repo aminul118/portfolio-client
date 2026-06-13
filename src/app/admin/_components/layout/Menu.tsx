@@ -1,6 +1,5 @@
 'use client';
 
-import { adminSidebarMenu } from '@/components/layouts/Admin/AdminMenu';
 import {
   Collapsible,
   CollapsibleContent,
@@ -19,6 +18,7 @@ import {
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { adminSidebarMenu } from './AdminMenu';
 
 const Menu = () => {
   const pathname = usePathname();

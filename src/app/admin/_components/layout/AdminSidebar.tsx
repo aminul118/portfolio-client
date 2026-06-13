@@ -1,3 +1,4 @@
+import Logo from '@/assets/Logo';
 import { Separator } from '@/components/ui/separator';
 import {
   Sidebar,
@@ -8,7 +9,6 @@ import {
 } from '@/components/ui/sidebar';
 import { getMe } from '@/services/user/users';
 import Link from 'next/link';
-import Logo from '../../../assets/Logo';
 import FooterUser from './FooterUser';
 import Menu from './Menu';
 
